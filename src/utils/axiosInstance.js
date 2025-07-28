@@ -2,6 +2,8 @@
 import axios from "axios";
 import { decryptToken, encryptToken } from "./tokenCrypto";
 import { getAccessTokenExpiration } from "./jwt";
+import CryptoJS from "crypto-js";
+
 
 let redirectToLogin = () => {
   console.warn("Redirect function not set in axiosInstance. Please set it.");
@@ -61,17 +63,6 @@ const refreshAccessToken = async () => {
       );
       throw new Error("Gagal mendekripsi refresh token.");
     }
-
-        // --- LOG UNTUK REFRESH TOKEN NORMAL (SETELAH DEKRIPSI, SEBELUM DIKIRIM KE BACKEND) ---
-    // console.log("--- Refresh Token Logging ---");
-    // console.log("Refresh Token (Decrypted, before sending):", refreshToken);
-    // try {
-    //   const decodedRefreshToken = decodeJwt(refreshToken);
-    //   console.log("Decoded Refresh Token (Payload):", decodedRefreshToken);
-    // } catch (e) {
-    //   console.warn("Could not decode Refresh Token for logging:", e);
-    // }
-    // console.log("----------------------------");
 
     const response = await refreshAxiosInstance.get(
       "/refresh-token",
@@ -143,20 +134,38 @@ axiosInstance.interceptors.request.use(
 
     config.headers["Authorization"] = `Bearer ${accessToken}`;
 
+    const clientSecret = import.meta.env.VITE_SECRET_KEY || "your-default-secret"; 
+
+    const httpMethod = config.method?.toUpperCase() || "GET";
+    const endpointPath = new URL(config.baseURL + config.url).pathname;
+
+    // Handle body
+    let requestBody = "";
+    if (config.data) {
+      if (typeof config.data === "object") {
+        requestBody = JSON.stringify(config.data);
+      } else {
+        requestBody = config.data;
+      }
+    }
+
+    const minifiedBody = requestBody.replace(/\s+/g, "").toLowerCase();
+    const bodyHash = CryptoJS.SHA256(minifiedBody).toString(CryptoJS.enc.Hex);
+
+    const currentTimestamp = new Date();
+    currentTimestamp.setHours(currentTimestamp.getHours() + 7);
+    const formattedTime = currentTimestamp.toISOString().slice(0, 19) + "+07:00";
+
+    const stringToSign = `${httpMethod}:${endpointPath}:${accessToken}:${bodyHash}:${formattedTime}`;
+    const signature = CryptoJS.HmacSHA512(stringToSign, clientSecret).toString(CryptoJS.enc.Hex);
+
+    // Set headers
+    config.headers["X-TIMESTAMP"] = formattedTime;
+    config.headers["X-SIGNATURE"] = signature;
+
     const expirationTime = getAccessTokenExpiration();
     const currentTime = Date.now();
     const REFRESH_THRESHOLD_IN_MS = 10 * 60 * 1000;
-  //  const REFRESH_THRESHOLD_IN_MS = 110000; // debug 1 menit
-
-    // console.log("Access Token Check:");
-    // console.log("Expiration Time (ms):", expirationTime);
-    // console.log("Current Time (ms):", currentTime);
-    // console.log("Time left (ms):", expirationTime - currentTime);
-    // console.log("Refresh threshold (ms):", REFRESH_THRESHOLD_IN_MS);
-    // console.log(
-    //   "Is within refresh threshold?",
-    //   expirationTime && expirationTime - currentTime < REFRESH_THRESHOLD_IN_MS
-    // );
 
     if (
       expirationTime &&
