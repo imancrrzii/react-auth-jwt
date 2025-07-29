@@ -29,3 +29,16 @@ body {
 .animate-bounceDownGlow {
   animation: bounceDown 1s ease-in-out infinite, glow 1s ease-in-out infinite;
 }
+
+.Toastify__toast-body {
+  font-size: 14px;
+}
+
+.Toastify__toast-body > div:last-child {
+  font-size: 14px;
+}
+
+.Toastify__toast {
+  font-size: 14px; 
+  padding: 8px; 
+}
