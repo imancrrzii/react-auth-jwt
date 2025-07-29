@@ -4,6 +4,10 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+.manrope {
+  font-family: "Manrope", sans-serif;
+}
+
 @keyframes bounceDown {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(15%); }
@@ -22,7 +26,6 @@ body {
   animation: glow 2s ease-in-out infinite;
 }
 
-/* Kalau mau gabung 2 animasi sekaligus */
 .animate-bounceDownGlow {
   animation: bounceDown 1s ease-in-out infinite, glow 1s ease-in-out infinite;
 }

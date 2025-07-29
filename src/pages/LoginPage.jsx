@@ -1,15 +1,32 @@
 // src/pages/LoginPage.jsx
-import React from "react";
+import { useEffect } from "react";
 import LoginForm from "../components/login/LoginForm";
 import login1 from "../assets/images/login-1.png";
 import login2 from "../assets/images/login-2.png";
 import login3 from "../assets/images/login-3.png";
 import login4 from "../assets/images/login-4.png";
-import { useLocation } from "react-router-dom"; 
+import { useLocation } from "react-router-dom";
 import OTPVerificationForm from "./OTPVerificationForm";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
-  const location = useLocation(); 
+  const location = useLocation();
+  useEffect(() => {
+    const logoutMessage = sessionStorage.getItem("logout_message"); 
+    if (logoutMessage) {
+      toast.error(logoutMessage, {
+        position: "top-center", 
+        autoClose: 5000, 
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored", 
+      });
+      sessionStorage.removeItem("logout_message");
+    }
+  }, []); 
 
   return (
     <div className="pt-8 container mx-auto">
