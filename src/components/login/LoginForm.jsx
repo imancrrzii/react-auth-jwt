@@ -6,7 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import useUserStore from "../../store/useUserStore";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginForm = () => {
   const {
@@ -30,21 +31,30 @@ const LoginForm = () => {
         password: data.password,
       });
 
-      setUser(response.data.data);
+      const { respCode, respMessage, data: userData } = response.data;
+
+      if (respCode === "0604") {
+        toast.warn(
+          respMessage || "Sesi login masih aktif. Silakan coba lagi nanti."
+        );
+        return; 
+      }
+
+      setUser(userData);
       localStorage.setItem("password_temp", data.password);
       navigate("/verify-otp");
     } catch (err) {
       console.error("Login Gagal:", err);
       if (err.response) {
-        setError(
+        toast.error(
           err.response.data.message || "ID Pengguna atau Kata Sandi salah."
         );
       } else if (err.request) {
-        setError(
+        toast.error(
           "Tidak ada respons dari server. Periksa koneksi internet Anda."
         );
       } else {
-        setError("Terjadi kesalahan. Silakan coba lagi.");
+        toast.error("Terjadi kesalahan. Silakan coba lagi.");
       }
     } finally {
       setIsLoading(false);
