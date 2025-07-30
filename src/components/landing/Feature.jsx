@@ -14,12 +14,12 @@ const Feature = () => {
             <h3 className="text-3xl lg:text-4xl font-bold tracking-wide">
               Fitur <span className="text-sky-500">Unggulan</span>{" "}
             </h3>
-            <p className="text-xl font-medium">
+            <p className="font-medium text-md lg:text-xl text-center md:text-start">
               Temukan fitur unggulan kami yang akan mempermudah bisnis Anda.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 px-4 gap-8 pb-16 pt-2 justify-center items-center ">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 px-4 gap-8 pb-8 pt-2 items-start">
             <div className="flex flex-col gap-4 justify-center items-center">
               <img src={fitur1} alt="" className="w-16 lg:w-20" />
               <h6 className="font-bold text-md">Informasi Rekening</h6>
@@ -51,10 +51,10 @@ const Feature = () => {
                 Transaksi lebih aman dan mudah dengan pembayaran Virtual Account
               </p>
             </div>
-            <div className="flex flex-col gap-4 justify-center items-center">
+            <div className="flex flex-col gap-4 justify-center items-center col-span-2 sm:col-span-1 lg:col-span-1 sm:justify-self-center">
               <img src={fitur5} alt="" className="w-16 lg:w-20" />
               <h6 className="font-bold text-md">Laporan</h6>
-              <p className="text-center">
+              <p className="text-center w-1/2 lg:w-full">
                 Akses dan kelola laporan transaksi pembayaran QRIS ataupun
                 Virtual Account.
               </p>
