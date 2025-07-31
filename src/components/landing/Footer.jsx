@@ -12,7 +12,7 @@ const Footer = () => {
         className="w-full h-auto object-cover block"
       />
       <div className="bg-[#0ea3e8] w-full pt-8 pb-12 px-8 md:px-16">
-        <div className="flex flex-col items-start md:flex-row justify-between gap-8">
+        <div className="flex flex-col items-start lg:items-center md:flex-row justify-between gap-8">
           <div className="flex flex-col gap-6">
             <img src={sifinaPutih} alt="" className="w-48" />
             <h3 className="text-2xl md:text-4xl font-medium lg:max-w-[400px] tracking-wide leading-12 text-white">
