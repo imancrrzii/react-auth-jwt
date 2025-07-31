@@ -34,7 +34,7 @@ const AccordionFAQ = () => {
   const rightColumn = faqData.slice(3, 6);
 
   return (
-    <div className="bg-white py-4 lg:py-12 px-4 lg:px-20">
+    <div className="bg-white py-4 lg:pt-12 lg:pb-24 px-4 lg:px-20">
       <div className="flex flex-col justify-center items-center text-center pb-12 lg:pb-20">
         <h3 className="text-2xl lg:text-4xl font-bold tracking-wide">
           Frequently Asked Questions{" "}

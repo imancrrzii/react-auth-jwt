@@ -11,7 +11,7 @@ const SifinaPortal = () => {
         <img
           src={gelembung}
           alt=""
-          className="absolute -top-72 z-10 w-full max-md:hidden"
+          className="absolute -top-72 w-full max-md:hidden"
         />
         <div className="flex flex-col lg:flex-row w-full">
           <div className="self-start px-8 lg:pr-16 lg:pl-24 lg:w-5/8 ">

@@ -5,6 +5,7 @@ import Feature from "../components/landing/Feature";
 import SifinaDashboard from "../components/landing/SifinaDashboard";
 import SifinaPortal from "../components/landing/SifinaPortal";
 import AccordionFAQ from "../components/landing/AccordionFAQ.";
+import Footer from "../components/landing/Footer";
 
 const LandingPage = () => {
   return (
@@ -15,6 +16,7 @@ const LandingPage = () => {
       <SifinaDashboard />
       <SifinaPortal />
       <AccordionFAQ/>
+      <Footer/>
     </div>
   );
 };
