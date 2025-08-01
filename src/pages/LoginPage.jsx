@@ -80,7 +80,6 @@ const LoginPage = () => {
           </div>
         </div>
         <div className="pt-2 pr-0 lg:pt-16 lg:pr-8 flex-shrink-0">
-          {/* Conditional rendering based on the path */}
           {location.pathname === "/verify-otp" ? (
             <OTPVerificationForm />
           ) : (

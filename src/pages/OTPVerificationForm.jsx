@@ -24,7 +24,7 @@ const OTPVerificationForm = () => {
   const [countdown, setCountdown] = useState(0);
   const intervalRef = useRef(null);
 
-  const COUNTDOWN_DURATION = 10;
+  const COUNTDOWN_DURATION = 300;
 
   useEffect(() => {
     const savedStartTime = localStorage.getItem(`otp_start_time_${no_hp}`);
@@ -251,7 +251,7 @@ const OTPVerificationForm = () => {
   };
 
   return (
-    <div className="border rounded-2xl border-gray-300 w-[413px] py-8 pl-8 pr-8 max-lg:w-full max-sm:p-5 max-sm:mb-20">
+    <div className="border rounded-2xl border-gray-300 w-[413px] p-4 max-lg:w-full mb-4 lg:mb-8">
       <div className="flex flex-col gap-8 mb-6">
         {/* Back button */}
         <Link
@@ -283,7 +283,7 @@ const OTPVerificationForm = () => {
         </div>
       )}
 
-      <div className="flex justify-center items-center gap-4 mb-20">
+      <div className="flex justify-center items-center gap-4 mb-16">
         {otp.map((data, index) => (
           <Input
             key={index}
@@ -300,7 +300,7 @@ const OTPVerificationForm = () => {
         ))}
       </div>
 
-      <div className="flex flex-col gap-3 justify-center items-center text-center my-12">
+      <div className="flex flex-col gap-3 justify-center items-center text-center my-8">
         <p className="text-sm text-gray-400">
           Tidak menerima kode OTP? Anda dapat melakukan{" "}
           <span>

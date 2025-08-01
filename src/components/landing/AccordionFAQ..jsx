@@ -41,7 +41,7 @@ const AccordionFAQ = () => {
           <span className="text-sky-500">(FAQs)</span>
         </h3>
       </div>
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row gap-0 lg:gap-8">
         {/* Kiri */}
         <div className="flex-1">
           {leftColumn.map((item, index) => (

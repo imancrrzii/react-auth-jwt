@@ -62,7 +62,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="border rounded-2xl border-gray-300 w-[413px] py-12 pl-10 pr-8 max-lg:w-full max-sm:p-5 max-sm:mb-20">
+    <div className="border rounded-2xl border-gray-300 lg:w-[413px] py-12 px-8 max-lg:w-full max-sm:p-5 max-sm:mb-20">
       <div className="flex flex-col gap-8 mb-6">
         <img src={logo} alt="" className="w-40 md:w-50" />
         <h1 className="text-xl font-bold">Silahkan Login ke Aplikasi</h1>

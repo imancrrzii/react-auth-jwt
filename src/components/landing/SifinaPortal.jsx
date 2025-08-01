@@ -50,7 +50,7 @@ const SifinaPortal = () => {
                 </div>
               </div>
               <Link
-                to={"/login"}
+                to={"/login-portal"}
                 className="   
             px-4 py-3 
             rounded-lg 

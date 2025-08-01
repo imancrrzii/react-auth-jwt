@@ -85,7 +85,7 @@ const Dashboard = () => {
       <div className="bg-white w-full shadow-sm p-5 rounded-4xl text-white">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           <div className="flex flex-col gap-8">
-            <div className="bg-gradient-to-r from-[#69a1fa] to-[#a08bf7] p-5 shadow w-full rounded-4xl">
+            <div className="bg-gradient-to-r from-[#69a1fa] to-[#a08bf7] p-5 shadow w-full sm:w-[300px] rounded-4xl">
               <div className="flex flex-col gap-4">
                 <h3 className="text-md font-bold mb-1 text-white uppercase tracking-wide">
                   {user?.nama || "Pengguna"}
@@ -120,7 +120,7 @@ const Dashboard = () => {
               </h6>
             </div>
             <div className="mb-6">
-              <div className="relative">
+              <div className="relative w-full sm:w-[300px]">
                 <select
                   value={selectedRekening}
                   onChange={(e) => setSelectedRekening(e.target.value)}

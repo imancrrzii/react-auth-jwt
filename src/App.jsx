@@ -10,6 +10,7 @@ import useUserStore from "./store/useUserStore.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoginPortalPage from "./pages/LoginPortalPage.jsx";
 
 const App = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/login-portal" element={<LoginPortalPage />} />
         <Route path="/verify-otp" element={<LoginPage />} />
         <Route element={<MainLayout />}>
           <Route

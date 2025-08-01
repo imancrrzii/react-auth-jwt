@@ -54,7 +54,7 @@ const Feature = () => {
             <div className="flex flex-col gap-4 justify-center items-center col-span-2 sm:col-span-1 lg:col-span-1 sm:justify-self-center">
               <img src={fitur5} alt="" className="w-16 lg:w-20" />
               <h6 className="font-bold text-md">Laporan</h6>
-              <p className="text-center w-1/2 lg:w-full">
+              <p className="text-center w-1/2 md:w-full">
                 Akses dan kelola laporan transaksi pembayaran QRIS ataupun
                 Virtual Account.
               </p>
