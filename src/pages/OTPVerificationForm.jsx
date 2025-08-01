@@ -6,7 +6,7 @@ import image from "../assets/images/notif.svg";
 import { HiArrowLeft } from "react-icons/hi";
 import useUserStore from "../store/useUserStore";
 import { encryptToken } from "../utils/tokenCrypto";
-import axiosInstance from "../utils/axiosInstance";
+import { decryptData } from "../utils/tokenCrypto";
 
 const OTPVerificationForm = () => {
   const user = useUserStore((state) => state.user);
@@ -220,9 +220,9 @@ const OTPVerificationForm = () => {
   };
 
   const handleResendOtp = async () => {
-    const password = localStorage.getItem("password_temp");
+    const password = decryptData(localStorage.getItem("password_temp"));
 
-    const userStorage = localStorage.getItem("user-storage");
+    const userStorage = localStorage.getItem("persist:root");
     const no_hp = userStorage
       ? JSON.parse(userStorage)?.state?.user?.no_hp
       : null;

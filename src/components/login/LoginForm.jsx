@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import useUserStore from "../../store/useUserStore";
 import { toast } from "react-toastify";
+import { encryptData } from "../../utils/tokenCrypto";
 import "react-toastify/dist/ReactToastify.css";
 
 const LoginForm = () => {
@@ -37,11 +38,11 @@ const LoginForm = () => {
         toast.warn(
           respMessage || "Sesi login masih aktif. Silakan coba lagi nanti."
         );
-        return; 
+        return;
       }
 
       setUser(userData);
-      localStorage.setItem("password_temp", data.password);
+      localStorage.setItem("password_temp", encryptData(data.password));
       navigate("/verify-otp");
     } catch (err) {
       console.error("Login Gagal:", err);

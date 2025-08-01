@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }) => {
     if (!accessToken) {
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
-      localStorage.removeItem('user-storage');
+      localStorage.removeItem('persist:root');
       clearUserStore();
       navigate('/login');
       return;
@@ -25,7 +25,7 @@ const ProtectedRoute = ({ children }) => {
       console.warn("Invalid access token in localStorage. Redirecting to login.");
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
-      localStorage.removeItem('user-storage');
+      localStorage.removeItem('persist:root');
       clearUserStore(); 
       navigate('/login');
       return; 
@@ -33,13 +33,13 @@ const ProtectedRoute = ({ children }) => {
 
     const user = useUserStore.getState().user;
     if (!user) {
-        const storedUser = localStorage.getItem('user-storage');
+        const storedUser = localStorage.getItem('persist:root');
         if (storedUser) {
             try {
                 useUserStore.getState().setUser(JSON.parse(storedUser));
             } catch (e) {
                 console.error("Failed to parse user data from localStorage:", e);
-                localStorage.removeItem('user-storage');
+                localStorage.removeItem('persist:root');
                 clearUserStore();
                 navigate('/login');
             }
@@ -50,7 +50,7 @@ const ProtectedRoute = ({ children }) => {
             console.warn("User data not found. Redirecting to login.");
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
-            localStorage.removeItem('user-storage');
+            localStorage.removeItem('persist:root');
             clearUserStore();
             navigate('/login');
             return;

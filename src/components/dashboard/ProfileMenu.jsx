@@ -33,7 +33,7 @@ export default function ProfileMenu() {
           clearUser();
           localStorage.removeItem("access_token");
           localStorage.removeItem("refresh_token");
-          localStorage.removeItem("user-storage");
+          localStorage.removeItem("persist:root");
           navigate("/login");
         } else {
           console.error("Logout failed:", response.status, response.data);
@@ -50,7 +50,7 @@ export default function ProfileMenu() {
           clearUser();
           localStorage.removeItem("access_token");
           localStorage.removeItem("refresh_token");
-          localStorage.removeItem("user-storage");
+          localStorage.removeItem("persist:root");
           navigate("/login");
         }
       }

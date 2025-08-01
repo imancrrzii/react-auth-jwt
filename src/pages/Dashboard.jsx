@@ -47,7 +47,7 @@ const Dashboard = () => {
           clearUser();
           localStorage.removeItem("access_token");
           localStorage.removeItem("refresh_token");
-          localStorage.removeItem("user-storage");
+          localStorage.removeItem("persist:root");
           navigate("/login");
         }
       } finally {
