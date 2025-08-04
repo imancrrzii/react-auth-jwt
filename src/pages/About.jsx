@@ -5,6 +5,7 @@ import Description from "../about/Description";
 import { IoChevronUp } from "react-icons/io5";
 import Content from "../about/Content";
 import Feature from "../about/Feature";
+import Platform from "../about/Platform";
 
 const About = () => {
   const [showButton, setShowButton] = useState(false);
@@ -35,6 +36,7 @@ const About = () => {
       <Description />
       <Content />
       <Feature />
+      <Platform />
       <Footer />
 
       {showButton && (

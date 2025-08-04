@@ -9,11 +9,11 @@ import { RiWalletFill } from "react-icons/ri";
 
 const Feature = () => {
   return (
-    <div className="bg-gray-50 py-12">
+    <div className="bg-gray-50 py-16">
       <h3 className="font-bold text-2xl lg:text-4xl text-center mb-12">
         Fitur yang Kami Sediakan
       </h3>
-      <div className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-16 mb-0 lg:mb-12 px-4 lg:px-0">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-8 lg:gap-16 mb-0 lg:mb-12 px-4 lg:px-0">
         <div className="flex flex-col gap-4 bg-white border-1 border-gray-100 px-6 py-10 w-full lg:w-[280px] rounded-4xl shadow-sm items-start">
           <FaWallet className="w-7 h-7 text-sky-500" />
           <h3 className="text-sm font-bold">Informasi Saldo Rekening</h3>
@@ -58,7 +58,7 @@ const Feature = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-16 mt-8 lg:mt-0 px-4 lg:px-0">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-8 lg:gap-16 mt-8 lg:mt-0 px-4 lg:px-0">
         <div className="flex flex-col gap-4 bg-white border-1 border-gray-100 px-6 py-10 w-full lg:w-[275px] rounded-4xl shadow-sm">
           <FaMoneyBill className="w-7 h-7 text-sky-500" />
           <h3 className="text-sm font-bold">Proses Pembayaran</h3>
