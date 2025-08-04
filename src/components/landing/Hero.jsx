@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import landingReal from "../../assets/images/landing-image-1.png";
 import landingCenter1 from "../../assets/images/landing-image-3.svg";
 import landingCenter2 from "../../assets/images/landing-image-2.svg";
@@ -12,15 +13,22 @@ const Hero = () => {
     <div className="min-h-full">
       <div className="relative bg-white flex flex-col items-center pt-15 md:pt-10 pb-0 lg:pb-32 overflow-hidden">
         {/* Ornamen kiri kanan */}
-        <img
+        <motion.img
           src={LandingKiri}
           alt=""
-          className="absolute -left-10 top-1/2 transform -translate-y-1/2 lg:-left-6 lg:top-40"
+          className="absolute -left-10 top-1/2 transform -translate-y-1/2 lg:left-5 lg:top-40"
+          initial={{ x: 100, opacity: 1 }}
+          animate={{ x: -50 }}
+          transition={{ duration: 1, ease: "easeOut" }}
         />
-        <img
+
+        <motion.img
           src={LandingKanan}
           alt=""
           className="absolute right-0 top-0 w-72 md:w-100"
+          initial={{ x: "-100%", opacity: 0 }}
+          animate={{ x: "0%", opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         />
 
         {/* Konten utama */}
@@ -52,18 +60,33 @@ const Hero = () => {
 
         <div className="flex flex-col md:flex-row justify-between w-full container mx-auto z-10 mt-8 lg:mt-0">
           <div className="px-12 self-start md:self-auto w-3/4 md:w-auto">
-            <img src={landingCenter1} alt="" />
+            <motion.img
+              src={landingCenter1}
+              alt=""
+              initial={{ x: "-100%", opacity: 0 }}
+              animate={{ x: "0%", opacity: 1 }}
+              transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+            />
           </div>
           <div className="pt-4 lg:pt-16 self-end md:self-auto w-3/5 md:w-auto">
-            <img src={landingCenter2} alt="" />
+            <motion.img
+              src={landingCenter2}
+              alt=""
+              initial={{ x: "100%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+            />
           </div>
         </div>
 
         {/* Gambar landingReal yang menembus */}
-        <img
+        <motion.img
           src={landingReal}
           alt=""
           className="absolute bottom-0 md:bottom-0 left-0 w-full z-20"
+          initial={{ y: "100%", opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
         />
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import fitur1 from "../../assets/images/fitur-1.svg";
 import fitur2 from "../../assets/images/fitur-2.svg";
 import fitur3 from "../../assets/images/fitur-3.svg";
@@ -14,51 +15,83 @@ const Feature = () => {
             <h3 className="text-3xl lg:text-4xl font-bold tracking-wide">
               Fitur <span className="text-sky-500">Unggulan</span>{" "}
             </h3>
-            <p className="font-medium text-md lg:text-xl text-center md:text-start">
+            <p className="font-medium text-md lg:text-xl text-center md:text-start px-4 p-0">
               Temukan fitur unggulan kami yang akan mempermudah bisnis Anda.
             </p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 px-4 gap-8 pb-8 pt-2 items-start">
-            <div className="flex flex-col gap-4 justify-center items-center">
+            <motion.div
+              className="flex flex-col gap-4 justify-center items-center"
+              initial={{ x: "-100%", opacity: 0 }}
+              whileInView={{ x: "0%", opacity: 1 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              viewport={{ once: false }}
+            >
               <img src={fitur1} alt="" className="w-16 lg:w-20" />
-              <h6 className="font-bold text-md">Informasi Rekening</h6>
+              <h6 className="font-bold text-md text-center">
+                Informasi Rekening
+              </h6>
               <p className="text-center">
                 Pantau saldo multi rekening kelolaan Anda secara terpusat dalam
                 satu akun.
               </p>
-            </div>
-            <div className="flex flex-col gap-4 justify-center items-center">
+            </motion.div>
+            <motion.div
+              className="flex flex-col gap-4 justify-center items-center"
+              initial={{ x: "-100%", opacity: 0 }}
+              whileInView={{ x: "0%", opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: false }}
+            >
               <img src={fitur2} alt="" className="w-16 lg:w-20" />
               <h6 className="font-bold text-md">Mutasi Rekening</h6>
               <p className="text-center">
                 Akses dan Cetak laporan riwayat transaksi dari berbagai rekening
                 terdaftar
               </p>
-            </div>
-            <div className="flex flex-col gap-4 justify-center items-center">
+            </motion.div>
+            <motion.div
+              className="flex flex-col gap-4 justify-center items-center"
+              initial={{ x: "-100%", opacity: 0 }}
+              whileInView={{ x: "0%", opacity: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              viewport={{ once: false }}
+            >
               <img src={fitur3} alt="" className="w-16 lg:w-20" />
               <h6 className="font-bold text-md">QRIS Dinamis</h6>
               <p className="text-center">
                 Terima pembayaran lebih praktis dengan QRIS, tinggal scan dan
                 langsng bayar.
               </p>
-            </div>
-            <div className="flex flex-col gap-4 justify-center items-center">
+            </motion.div>
+            <motion.div
+              className="flex flex-col gap-4 justify-center items-center"
+              initial={{ x: "-100%", opacity: 0 }}
+              whileInView={{ x: "0%", opacity: 1 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              viewport={{ once: false }}
+            >
               <img src={fitur4} alt="" className="w-16 lg:w-20" />
               <h6 className="font-bold text-md">Virtual Account</h6>
               <p className="text-center">
                 Transaksi lebih aman dan mudah dengan pembayaran Virtual Account
               </p>
-            </div>
-            <div className="flex flex-col gap-4 justify-center items-center col-span-2 sm:col-span-1 lg:col-span-1 sm:justify-self-center">
+            </motion.div>
+            <motion.div
+              className="flex flex-col gap-4 justify-center items-center col-span-2 sm:col-span-1 lg:col-span-1 sm:justify-self-center"
+              initial={{ x: "-100%", opacity: 0 }}
+              whileInView={{ x: "0%", opacity: 1 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              viewport={{ once: false }}
+            >
               <img src={fitur5} alt="" className="w-16 lg:w-20" />
               <h6 className="font-bold text-md">Laporan</h6>
               <p className="text-center w-1/2 md:w-full">
                 Akses dan kelola laporan transaksi pembayaran QRIS ataupun
                 Virtual Account.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

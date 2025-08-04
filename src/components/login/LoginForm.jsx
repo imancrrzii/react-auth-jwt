@@ -46,10 +46,24 @@ const LoginForm = () => {
       navigate("/verify-otp");
     } catch (err) {
       console.error("Login Gagal:", err);
+
       if (err.response) {
-        toast.error(
-          err.response.data.message || "ID Pengguna atau Kata Sandi salah."
-        );
+        const { respCode, respMessage } = err.response.data;
+
+        // 🟡 Mapping error ke field tertentu
+        if (respCode === "0800") {
+          setError("no_hp", {
+            type: "manual",
+            message: respMessage || "Nomor HP tidak valid",
+          });
+        } else if (respCode === "0801") {
+          setError("password", {
+            type: "manual",
+            message: respMessage || "Password tidak valid",
+          });
+        } else {
+          toast.error(respMessage || "Terjadi kesalahan saat login.");
+        }
       } else if (err.request) {
         toast.error(
           "Tidak ada respons dari server. Periksa koneksi internet Anda."
@@ -85,22 +99,31 @@ const LoginForm = () => {
           labelText="ID Pengguna"
           id="no_hp"
           {...register("no_hp", { required: "ID Pengguna wajib diisi" })}
-          variant="border-gray-300 focus:border-blue-300 focus:ring-sky-500 focus:ring-1 focus:outline-none placeholder:text-xs bg-white shadow-sm sm:text-sm py-3 w-full px-4 mt-2 mb-4 text-sm rounded-lg border"
+          variant={`${
+            errors.no_hp
+              ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+              : "border-gray-300 focus:border-blue-300 focus:ring-sky-500"
+          } focus:ring-1 focus:outline-none placeholder:text-xs bg-white shadow-sm sm:text-sm py-3 w-full px-4 mt-2 text-sm rounded-lg border`}
           variantLabel={"text-sm font-semibold"}
           placeholder={"Masukkan ID Pengguna"}
         />
         {errors.no_hp && (
-          <p className="text-red-500 text-xs mt-1">{errors.no_hp.message}</p>
+          <p className="text-red-500 text-xs mt-2">{errors.no_hp.message}</p>
         )}
 
-        <Input
+        <div className="mt-4">
+                  <Input
           type="password"
           id="password"
           labelText="Kata Sandi"
           {...register("password", { required: "Kata Sandi wajib diisi" })}
           variantLabel="text-sm font-semibold"
           placeholder="Masukkan Kata Sandi"
-          variant="border-gray-300 focus:border-blue-300 focus:ring-sky-500 focus:ring-1 focus:outline-none placeholder:text-xs bg-white shadow-sm sm:text-sm py-3 w-full px-4 mt-2 text-sm rounded-lg border"
+          variant={`${
+            errors.password
+              ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+              : "border-gray-300 focus:border-blue-300 focus:ring-sky-500"
+          } focus:ring-1 focus:outline-none placeholder:text-xs bg-white shadow-sm sm:text-sm py-3 w-full px-4 mt-2 text-sm rounded-lg border`}
           iconRight={
             <svg
               className="h-5 w-5 text-gray-400"
@@ -123,8 +146,9 @@ const LoginForm = () => {
           }
         />
         {errors.password && (
-          <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
+          <p className="text-red-500 text-xs mt-2">{errors.password.message}</p>
         )}
+        </div>
 
         <div className="flex justify-end mb-8 mt-2">
           <Link to={"/"} className="text-sm text-sky-500 hover:text-sky-600">

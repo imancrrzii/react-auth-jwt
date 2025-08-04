@@ -46,7 +46,7 @@ const LoginPage = () => {
             </h1>
 
             <div className="max-w-[700px] mt-3">
-              <h3 className="text-lg font-medium text-black">
+              <h3 className="text-sm lg:text-lg font-medium text-black">
                 Kami hadir menyediakan informasi keuangan nasabah Bank Sumsel
                 Babel dengan data yang terintegrasi secara real-time dan
                 terlindung.
