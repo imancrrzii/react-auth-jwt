@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
-import Navbar from '../components/landing/Navbar';
-import Footer from '../components/landing/Footer';
-import Description from '../about/Description';
+import { useEffect, useState } from "react";
+import Navbar from "../components/landing/Navbar";
+import Footer from "../components/landing/Footer";
+import Description from "../about/Description";
 import { IoChevronUp } from "react-icons/io5";
-import Content from '../about/Content';
-
+import Content from "../about/Content";
+import Feature from "../about/Feature";
 
 const About = () => {
   const [showButton, setShowButton] = useState(false);
@@ -32,8 +32,9 @@ const About = () => {
   return (
     <div className="min-h-screen max-w-[1440px] m-auto relative manrope">
       <Navbar />
-      <Description/>
-      <Content/>
+      <Description />
+      <Content />
+      <Feature />
       <Footer />
 
       {showButton && (
@@ -45,7 +46,7 @@ const About = () => {
         </button>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default About
+export default About;
