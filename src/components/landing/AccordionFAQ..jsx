@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { faqData } from "../../utils/data";
 import { FiChevronRight, FiChevronDown } from "react-icons/fi";
-
+import { motion, AnimatePresence } from "framer-motion";
 const AccordionItem = ({ question, answer }) => {
   const [open, setOpen] = useState(false);
 
@@ -12,22 +12,40 @@ const AccordionItem = ({ question, answer }) => {
         onClick={() => setOpen(!open)}
       >
         <div className="flex justify-between items-center">
-          <h4 className="font-bold text-left text-gray-800 text-md">{question}</h4>
-          <span className="text-black">
-            {open ? <FiChevronDown size={20} /> : <FiChevronRight size={20} />}
-          </span>
+          <h4 className="font-bold text-left text-gray-800 text-md">
+            {question}
+          </h4>
+
+          <motion.span
+            animate={{ rotate: open ? 90 : 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="text-black flex items-center"
+          >
+            <FiChevronRight size={20} />
+          </motion.span>
         </div>
       </div>
 
-      {open && (
-        <div className="bg-sky-50 transition-all duration-300 rounded-xl shadow-xs p-6 mt-1 border border-sky-50">
-          <p className="text-gray-700 text-md font-medium leading-relaxed">{answer}</p>
-        </div>
-      )}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="content"
+            initial={{ opacity: 0, scaleY: 0 }}
+            animate={{ opacity: 1, scaleY: 1 }}
+            exit={{ opacity: 0, scaleY: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            style={{ originY: 0 }}
+            className="bg-sky-50 rounded-xl shadow-xs p-6 mt-1 border border-sky-50 overflow-hidden"
+          >
+            <p className="text-gray-700 text-md font-medium leading-relaxed">
+              {answer}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
-
 
 const AccordionFAQ = () => {
   const leftColumn = faqData.slice(0, 3);

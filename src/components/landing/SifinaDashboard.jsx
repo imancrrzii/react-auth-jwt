@@ -7,7 +7,7 @@ const SifinaDashboard = () => {
     <div className="bg-white py-12 lg:py-16">
       <div className="flex justify-between flex-col sm:flex-row p-0 lg:px-16 relative">
         <div className="flex justify-start pl-8 lg:pl-0 w-full md:w-2/5 lg:w-1/2">
-          <img src={sifina1} alt="" className="w-64 md:w-96 lg:w-144" />
+          <img src={sifina1} alt="" className="w-64 md:w-120 lg:w-144" />
         </div>
         <div className="flex flex-col gap-6 p-8 lg:pr-16 lg:pl-0 lg:py-16 w-full md:w-3/5 lg:w-1/2 ">
           <h3 className="text-3xl lg:text-4xl font-bold tracking-wide ">

@@ -4,17 +4,18 @@ import logo2 from "../../assets/images/logo-landing-2.png";
 import { navItems } from "../../utils/data";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdMenu, MdClose } from "react-icons/md";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [openMenuId, setOpenMenuId] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleMouseEnter = (menuId) => {
-    if (window.innerWidth >= 768) setOpenMenuId(menuId); // Desktop only
+    if (window.innerWidth >= 768) setOpenMenuId(menuId);
   };
 
   const handleMouseLeave = () => {
-    if (window.innerWidth >= 768) setOpenMenuId(null); // Desktop only
+    if (window.innerWidth >= 768) setOpenMenuId(null);
   };
 
   const handleMenuClick = (menuId) => {
@@ -23,7 +24,7 @@ const Navbar = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-    setOpenMenuId(null); // Reset dropdowns
+    setOpenMenuId(null);
   };
 
   return (
@@ -126,29 +127,36 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="bg-white py-4 shadow-lg md:hidden">
-          {Object.entries(navItems).map(([menuId, menu]) => (
-            <div key={menuId} className="mb-4">
-              <h3 className="font-semibold text-gray-300 text-lg mb-2 px-6">
-                {menu.title}
-              </h3>
-              {menu.items && (
-                <ul className="space-y-1">
-                  {menu.items.map((item, idx) => (
-                    <li key={idx}>
-                      <div className="w-full hover:bg-gray-100 px-10 py-2 rounded cursor-pointer transition-colors duration-200">
-                        {item.title}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="bg-white py-4 shadow-lg md:hidden"
+          >
+            {Object.entries(navItems).map(([menuId, menu]) => (
+              <div key={menuId} className="mb-4">
+                <h3 className="font-semibold text-gray-300 text-lg mb-2 px-6">
+                  {menu.title}
+                </h3>
+                {menu.items && (
+                  <ul className="space-y-1">
+                    {menu.items.map((item, idx) => (
+                      <li key={idx}>
+                        <div className="w-full hover:bg-gray-100 px-10 py-2 rounded cursor-pointer transition-colors duration-200">
+                          {item.title}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
