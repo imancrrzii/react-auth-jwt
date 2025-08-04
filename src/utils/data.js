@@ -17,7 +17,7 @@ export const navItems = {
     items: [
       {
         title: "Tentang SIFina",
-        link: "tentang-sifina",
+        link: "/tentang-sifina",
       },
     ],
   },

@@ -58,7 +58,7 @@ const Feature = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row justify-center items-center gap-8 lg:gap-16 mt-8 lg:mt-0 px-4 lg:px-0">
+      <div className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-16 mt-8 lg:mt-0 px-4 lg:px-0">
         <div className="flex flex-col gap-4 bg-white border-1 border-gray-100 px-6 py-10 w-full lg:w-[275px] rounded-4xl shadow-sm">
           <FaMoneyBill className="w-7 h-7 text-sky-500" />
           <h3 className="text-sm font-bold">Proses Pembayaran</h3>
