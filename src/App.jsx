@@ -11,6 +11,7 @@ import LandingPage from "./pages/LandingPage.jsx";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoginPortalPage from "./pages/LoginPortalPage.jsx";
+import About from "./pages/About.jsx";
 
 const App = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const App = () => {
       <ToastContainer /> 
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/tentang-sifina" element={<About />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/login-portal" element={<LoginPortalPage />} />
         <Route path="/verify-otp" element={<LoginPage />} />

@@ -4,9 +4,11 @@ export const navItems = {
     items: [
       {
         title: "SIFina Dashboard",
+        link: "sifina-dash",
       },
       {
         title: "SIFina Portal",
+        link: "sifina-port",
       },
     ],
   },
@@ -15,6 +17,7 @@ export const navItems = {
     items: [
       {
         title: "Tentang SIFina",
+        link: "tentang-sifina",
       },
     ],
   },

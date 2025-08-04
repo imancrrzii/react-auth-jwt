@@ -44,7 +44,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         {
           name: "Informasi VA",
           path: "/va",
-          icon: <FaCreditCard className="h-5 w-5" />, // Ganti dengan ikon yang sesuai untuk Virtual Accountd className="h-5 w-5" />,
+          icon: <FaCreditCard className="h-5 w-5" />, 
         },
       ],
     },
@@ -90,13 +90,13 @@ export default function Sidebar({ collapsed, setCollapsed }) {
                     collapsed ? "justify-center" : "px-4"
                   } py-3 mb-1 rounded hover:bg-blue-300 ${
                     isActive ? "bg-blue-100 rounded-lg" : ""
-                  } ${isActive ? "text-blue-500" : "text-black"}` // Apply text color to NavLink directly
+                  } ${isActive ? "text-blue-500" : "text-black"}` 
                 }
               >
                 {React.cloneElement(item.icon, {
                   className: `h-5 w-5 ${
                     collapsed ? "mx-auto" : ""
-                  }`, // Icon will inherit text color from NavLink
+                  }`, 
                 })}
                 {!collapsed && (
                   <span className="ml-2 font-bold text-sm">

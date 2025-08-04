@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const SifinaPortal = () => {
   return (
-    <div className="bg-white relative min-h-[600px] py-12">
+    <div id="sifina-port" className="bg-white relative min-h-[600px] py-12">
       <div className="flex flex-col lg:flex-row justify-between items-center overflow-visible relative">
         <img
           src={gelembung}

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const SifinaDashboard = () => {
   return (
-    <div className="bg-white py-12 lg:py-16">
+    <div id="sifina-dash" className="bg-white py-12 lg:py-16">
       <div className="flex justify-between flex-col sm:flex-row p-0 lg:px-16 relative">
         <div className="flex justify-start pl-8 lg:pl-0 w-full md:w-2/5 lg:w-1/2">
           <img src={sifina1} alt="" className="w-64 md:w-120 lg:w-144" />

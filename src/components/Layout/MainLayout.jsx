@@ -9,7 +9,7 @@ export default function MainLayout({ children }) {
 
   return (
     <div className="flex">
-      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} className />
       <div className="flex-1 min-h-screen bg-gray-50 transition-all duration-300" style={{ marginLeft: `${sidebarWidth}px` }}>
         <div className="flex justify-end items-center px-4 pt-4">
           <ProfileMenu />

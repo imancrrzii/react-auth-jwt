@@ -30,7 +30,7 @@ const LoginPage = () => {
 
   return (
     <div className="pt-8 container mx-auto">
-      <div className="flex px-4 sm:px-10 md:px-20 max-lg:mb-12 justify-around max-w-screen-2xl flex-col lg:flex-row gap-8">
+      <div className="flex px-4 sm:px-10 md:px-20 mb-2 justify-around max-w-screen-2xl flex-col lg:flex-row gap-8">
         <div className="pl-8 py-2 max-sm:px-3 max-xl:px-5 flex-1">
           <div className="flex flex-col gap-3">
             <div className="mb-4">
@@ -64,17 +64,17 @@ const LoginPage = () => {
               <img
                 src={login2}
                 alt="Ikon kiri atas"
-                className="absolute lg:top-18 lg:left-1 lg:w-12 animate-glow z-50"
+                className="absolute top-0 xl:top-4 xl:left-1 w-6 md:w-8 xl:w-12 animate-glow z-50"
               />
               <img
                 src={login3}
                 alt="Ikon kanan atas"
-                className="absolute top-1 right-4 lg:right-20 w-10 lg:w-18 animate-bounceDown"
+                className="absolute top-1 right-4 xl:right-12 w-10 md:w-12 lg:w-12 xl:w-18 animate-bounceDown"
               />
               <img
                 src={login4}
                 alt="Ikon kiri bawah"
-                className="absolute left-4 lg:left-25 top-1/2 transform -translate-y-1/2 w-10 lg:w-18 animate-bounceDown"
+                className="absolute left-4 xl:left-16 top-1/2 transform -translate-y-1/2 w-10 md:w-12 lg:w-12 xl:w-18 animate-bounceDown"
               />
             </div>
           </div>

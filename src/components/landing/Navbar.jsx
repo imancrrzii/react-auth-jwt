@@ -5,6 +5,7 @@ import { navItems } from "../../utils/data";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdMenu, MdClose } from "react-icons/md";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-scroll";
 
 const Navbar = () => {
   const [openMenuId, setOpenMenuId] = useState(null);
@@ -52,28 +53,38 @@ const Navbar = () => {
               onMouseEnter={() => handleMouseEnter(menuId)}
               onMouseLeave={handleMouseLeave}
             >
-              <button
-                className="font-bold text-md transition-all duration-200 flex items-center cursor-pointer"
-                onClick={() => handleMenuClick(menuId)}
-              >
-                {menu.title}
-                {menu.items && menu.items.length > 0 && (
+              {!menu.items || menu.items.length === 0 ? (
+                <Link
+                  to={menu.link}
+                  smooth={true}
+                  duration={500}
+                  offset={-70}
+                  className="font-bold text-md transition-all duration-200 flex items-center cursor-pointer"
+                >
+                  {menu.title}
+                </Link>
+              ) : (
+                <div
+                  className="font-bold text-md transition-all duration-200 flex items-center cursor-pointer"
+                  onClick={() => handleMenuClick(menuId)}
+                >
+                  {menu.title}
                   <IoIosArrowDown
                     className={`ml-1 h-5 w-5 transform transition-transform duration-200 ${
                       openMenuId === menuId ? "rotate-180" : ""
                     }`}
                   />
-                )}
-              </button>
+                </div>
+              )}
+
               {/* Dropdown - Desktop */}
-              {menu.items && (
+              {menu.items && menu.items.length > 0 && (
                 <div
-                  className={`absolute right-0 mt-2 bg-white border border-gray-200 shadow-xs rounded-md transition-all duration-400 min-w-[200px]
-                    ${
-                      openMenuId === menuId
-                        ? "opacity-100 visible"
-                        : "opacity-0 invisible"
-                    }`}
+                  className={`absolute right-0 mt-2 bg-white border border-gray-200 shadow-xs rounded-md transition-all duration-400 min-w-[200px] ${
+                    openMenuId === menuId
+                      ? "opacity-100 visible"
+                      : "opacity-0 invisible"
+                  }`}
                 >
                   <ul className="py-2">
                     {menu.items.map((item, idx) => (
@@ -81,7 +92,19 @@ const Navbar = () => {
                         key={idx}
                         className="py-2 px-4 hover:bg-gray-100 cursor-pointer"
                       >
-                        {item.title}
+                        {item.link ? (
+                          <Link
+                            to={item.link}
+                            smooth={true}
+                            duration={500}
+                            offset={-70}
+                            className="block w-full"
+                          >
+                            {item.title}
+                          </Link>
+                        ) : (
+                          <span className="block w-full">{item.title}</span>
+                        )}
                       </li>
                     ))}
                   </ul>
