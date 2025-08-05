@@ -1,4 +1,3 @@
-// src/pages/LoginPage.jsx
 import { useEffect } from "react";
 import LoginForm from "../components/login/LoginForm";
 import login1 from "../assets/images/login-1.png";
@@ -12,21 +11,21 @@ import { toast } from "react-toastify";
 const LoginPage = () => {
   const location = useLocation();
   useEffect(() => {
-    const logoutMessage = sessionStorage.getItem("logout_message"); 
+    const logoutMessage = sessionStorage.getItem("logout_message");
     if (logoutMessage) {
       toast.error(logoutMessage, {
-        position: "top-right", 
-        autoClose: 3000, 
+        position: "top-right",
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "colored", 
+        theme: "colored",
       });
       sessionStorage.removeItem("logout_message");
     }
-  }, []); 
+  }, []);
 
   return (
     <div className="pt-8 container mx-auto">
@@ -54,7 +53,6 @@ const LoginPage = () => {
             </div>
 
             <div className="relative mt-5 w-full h-auto overflow-hidden">
-              {/* Gambar utama */}
               <img
                 src={login1}
                 alt="Gambar utama"

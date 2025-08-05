@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../store/useUserStore";
 import axiosInstance from "../utils/axiosInstance";
-import axios from "axios";
 
 const Dashboard = () => {
   const user = useUserStore((state) => state.user);
+  const [showSaldo, setShowSaldo] = useState(false);
   const clearUser = useUserStore((state) => state.clearUser);
   const [saldo, setSaldo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedRekening, setSelectedRekening] = useState("");
   const navigate = useNavigate();
+  const toggleShowSaldo = () => setShowSaldo((prev) => !prev);
 
   useEffect(() => {
     const fetchSaldo = async () => {
@@ -81,13 +82,12 @@ const Dashboard = () => {
         </p>
       </div>
 
-      {/* Card Saldo */}
       <div className="bg-white w-full shadow-sm p-5 rounded-4xl text-white">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           <div className="flex flex-col gap-8">
-            <div className="bg-gradient-to-r from-[#69a1fa] to-[#a08bf7] p-5 shadow w-full sm:w-[300px] rounded-4xl">
+            <div className="bg-gradient-to-r from-[#69a1fa] to-[#a08bf7] p-5 shadow w-full sm:w-[310px] rounded-4xl">
               <div className="flex flex-col gap-4">
-                <h3 className="text-md font-bold mb-1 text-white uppercase tracking-wide">
+                <h3 className="text-md font-bold mb-1 text-white uppercase tracking-widest">
                   {user?.nama || "Pengguna"}
                 </h3>
                 <h6 className="text-sm font-medium text-white">
@@ -100,15 +100,48 @@ const Dashboard = () => {
               ) : error ? (
                 <h3 className="text-sm font-bold py-2 text-red-300">{error}</h3>
               ) : saldo !== null ? (
-                <h3 className="text-sm font-bold py-2">
-                  <span style={{ marginRight: "10px" }}>Rp.</span>{" "}
-                  <span className="text-xl font-bold">
-                    {parseFloat(saldo).toLocaleString("id-ID", {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
-                  </span>
-                </h3>
+                <div className="flex items-center justify-between py-2 w-full">
+                  {showSaldo ? (
+                    <h3 className="text-sm font-bold">
+                      <span style={{ marginRight: "10px" }}>Rp.</span>{" "}
+                      <span className="text-xl font-bold">
+                        {parseFloat(saldo).toLocaleString("id-ID", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </span>
+                    </h3>
+                  ) : (
+                    <h3 className="text-sm font-bold tracking-widest">
+                      •••••••••
+                    </h3>
+                  )}
+                  <button
+                    onClick={toggleShowSaldo}
+                    className="text-white focus:outline-none"
+                  >
+                    {showSaldo ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path d="M10 3C5 3 1.73 7.11 1 10c.73 2.89 4 7 9 7s8.27-4.11 9-7c-.73-2.89-4-7-9-7zM10 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
+                        <path d="M10 7a3 3 0 100 6 3 3 0 000-6z" />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M12 4.5C7 4.5 2.73 8.11 2 12c.73 3.89 5 7.5 10 7.5 5 0 9.27-3.61 10-7.5-.73-3.89-5-7.5-10-7.5zm0 13c-2.76 0-5-2.24-5-5 0-.66.13-1.29.36-1.87l6.51 6.51c-.58.23-1.21.36-1.87.36zm4.64-2.13L10.13 7.36c.58-.23 1.21-.36 1.87-.36 2.76 0 5 2.24 5 5 0 .66-.13 1.29-.36 1.87z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
               ) : (
                 <h3 className="text-sm font-bold py-2">
                   Pilih rekening untuk melihat saldo
@@ -119,14 +152,14 @@ const Dashboard = () => {
                 Rekening: {selectedRekening || "Belum dipilih"}
               </h6>
             </div>
-            <div className="mb-6">
-              <div className="relative w-full sm:w-[300px]">
+            <div className="mb-2">
+              <div className="relative w-full sm:w-[310px]">
                 <select
                   value={selectedRekening}
                   onChange={(e) => setSelectedRekening(e.target.value)}
-                  className="block w-full pl-4 pr-10 py-2 text-base text-gray-800 bg-gray-100 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none transition-colors duration-200 ease-in-out cursor-pointer"
+                  className="block w-full pl-4 pr-10 py-2 text-base text-gray-800 bg-gray-100 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 appearance-none transition-colors duration-200 ease-in-out cursor-pointer"
                 >
-                  <option value="" disabled className="text-gray-500">
+                  <option value="" className="text-gray-500">
                     Pilih Rekening
                   </option>
                   {user?.no_rekening?.map((rek, index) => (

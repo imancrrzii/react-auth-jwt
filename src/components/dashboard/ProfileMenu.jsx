@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HiKey, HiUser } from "react-icons/hi";
+import { HiKey } from "react-icons/hi";
 import { IoSettingsSharp } from "react-icons/io5";
 import useUserStore from "../../store/useUserStore";
 import { RiShutDownLine } from "react-icons/ri";
@@ -26,7 +26,6 @@ export default function ProfileMenu() {
       }
 
       try {
-        // API Logout ini akan otomatis diintersep jika token akan kedaluwarsa
         const response = await axiosInstance.post("/logout", { no_hp });
 
         if (response.data.respCode === "0000") {

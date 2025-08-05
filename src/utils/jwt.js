@@ -1,4 +1,3 @@
-// jwtUtils.js
 import { decryptToken } from "./tokenCrypto";
 
 export const decodeJwt = (token) => {

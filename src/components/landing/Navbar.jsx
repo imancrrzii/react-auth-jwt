@@ -5,8 +5,7 @@ import { navItems } from "../../utils/data";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdMenu, MdClose } from "react-icons/md";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link as ScrollLink } from "react-scroll";
-import { Link as RouterLink, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [openMenuId, setOpenMenuId] = useState(null);
@@ -32,7 +31,6 @@ const Navbar = () => {
     setOpenMenuId(null);
   };
 
-  // Handler for both desktop & mobile menu navigation
   const handleItemClick = useCallback(
     (link) => {
       if (!link) return;
@@ -52,21 +50,24 @@ const Navbar = () => {
         navigate(link);
       }
 
-      setIsMobileMenuOpen(false); 
+      setIsMobileMenuOpen(false);
     },
     [location, navigate]
   );
 
   return (
-    <nav className="sticky top-0 bg-sky-500 h-24 pt-6 w-full z-30" id="sifina-navbar">
-      {/* Navbar Container */}
+    <nav
+      className="sticky top-0 bg-sky-500 h-24 pt-6 w-full z-30"
+      id="sifina-navbar"
+    >
       <div className="flex justify-between items-center h-full bg-white px-8 py-2 rounded-t-2xl lg:px-8 max-md:px-4 shadow-xs">
-        {/* Logo Kiri */}
         <div className="flex h-full">
-          <img className="h-full p-1 cursor-pointer max-sm:p-2" src={logo1} alt="Logo 1" />
+          <img
+            className="h-full p-1 cursor-pointer max-sm:p-2"
+            src={logo1}
+            alt="Logo 1"
+          />
         </div>
-
-        {/* Menu Tengah - Desktop */}
         <div className="hidden md:flex space-x-6 items-center">
           {Object.entries(navItems).map(([menuId, menu]) => (
             <div
@@ -88,12 +89,12 @@ const Navbar = () => {
                   />
                 )}
               </div>
-
-              {/* Dropdown - Desktop */}
               {menu.items && menu.items.length > 0 && (
                 <div
                   className={`absolute right-0 mt-2 bg-white border border-gray-200 shadow-xs rounded-md transition-all duration-400 min-w-[200px] ${
-                    openMenuId === menuId ? "opacity-100 visible" : "opacity-0 invisible"
+                    openMenuId === menuId
+                      ? "opacity-100 visible"
+                      : "opacity-0 invisible"
                   }`}
                 >
                   <ul className="py-2">
@@ -112,21 +113,32 @@ const Navbar = () => {
             </div>
           ))}
         </div>
-
-        {/* Logo Kanan */}
         <div className="h-full flex">
-          <img className="h-full p-1 cursor-pointer max-sm:p-2" src={logo2} alt="Logo 2" />
+          <img
+            className="h-full p-1 cursor-pointer max-sm:p-2"
+            src={logo2}
+            alt="Logo 2"
+          />
         </div>
-
-        {/* Hamburger Menu - Mobile */}
         <div className="md:hidden">
-          <button onClick={toggleMobileMenu} className="relative w-8 h-8 flex items-center justify-center">
-            <span className={`absolute ${isMobileMenuOpen ? "rotate-180 opacity-0" : "rotate-0 opacity-100"}`}>
+          <button
+            onClick={toggleMobileMenu}
+            className="relative w-8 h-8 flex items-center justify-center"
+          >
+            <span
+              className={`absolute ${
+                isMobileMenuOpen
+                  ? "rotate-180 opacity-0"
+                  : "rotate-0 opacity-100"
+              }`}
+            >
               <MdMenu className="text-sky-500" size={24} />
             </span>
             <span
               className={`absolute transition-transform duration-700 ease-in-out ${
-                isMobileMenuOpen ? "rotate-0 opacity-100" : "rotate-180 opacity-0"
+                isMobileMenuOpen
+                  ? "rotate-0 opacity-100"
+                  : "rotate-180 opacity-0"
               }`}
             >
               <MdClose className="text-sky-500" size={24} />
@@ -135,7 +147,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -147,7 +158,9 @@ const Navbar = () => {
           >
             {Object.entries(navItems).map(([menuId, menu]) => (
               <div key={menuId} className="mb-4">
-                <h3 className="font-semibold text-gray-300 text-lg mb-2 px-6">{menu.title}</h3>
+                <h3 className="font-semibold text-gray-300 text-lg mb-2 px-6">
+                  {menu.title}
+                </h3>
                 {menu.items && (
                   <ul className="space-y-1">
                     {menu.items.map((item, idx) => (

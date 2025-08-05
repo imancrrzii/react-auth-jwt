@@ -86,10 +86,6 @@ const OTPVerificationForm = () => {
   };
 
   useEffect(() => {
-    // if (!no_hp) {
-    //   alert("Nomor HP tidak ditemukan, silakan login ulang");
-    //   navigate("/");
-    // }
     if (inputRefs.current[0]) {
       inputRefs.current[0].focus();
     }
@@ -253,15 +249,13 @@ const OTPVerificationForm = () => {
   return (
     <div className="border rounded-2xl border-gray-300 w-[413px] p-4 max-lg:w-full mb-4 lg:mb-8">
       <div className="flex flex-col gap-8 mb-6">
-        {/* Back button */}
         <Link
           to={"/login"}
-          className="flex border-gray-100 border-1 shadow-md rounded-md w-10 h-10 items-center justify-center p-1"
+          className="flex border-gray-100 border-1 shadow-sm rounded-md w-10 h-10 items-center justify-center p-1"
         >
           <HiArrowLeft className="text-md cursor-pointer" />
         </Link>
 
-        {/* Header and Image */}
         <div className="flex flex-col justify-center items-center gap-4">
           <h1 className="text-xl font-bold">Verifikasi OTP</h1>
           <img src={image} alt="Notification icon" className="w-40 md:w-50" />
@@ -272,7 +266,6 @@ const OTPVerificationForm = () => {
         </div>
       </div>
 
-      {/* Error message display */}
       {error && (
         <div
           className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"

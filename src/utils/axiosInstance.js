@@ -4,7 +4,6 @@ import { getAccessTokenExpiration } from "./jwt";
 import CryptoJS from "crypto-js";
 
 let redirectToLogin = () => {
-  // console.warn("Redirect function not set in axiosInstance. Please set it.");
   if (typeof window !== "undefined") {
     window.location.href = "/login";
   }
@@ -135,8 +134,6 @@ axiosInstance.interceptors.request.use(
       expirationTime &&
       expirationTime - currentTime < REFRESH_THRESHOLD_IN_MS
     ) {
-      // console.log("Access token hampir kedaluwarsa, mencoba refresh...");
-
       if (!isRefreshing) {
         isRefreshing = true;
         try {
@@ -162,8 +159,7 @@ axiosInstance.interceptors.request.use(
 
     config.headers["Authorization"] = `Bearer ${accessToken}`;
 
-    const clientSecret =
-      import.meta.env.VITE_SECRET_KEY || "your-default-secret";
+    const clientSecret = import.meta.env.VITE_SECRET_KEY;
     const httpMethod = config.method?.toUpperCase() || "GET";
     const endpointPath = new URL(config.baseURL + config.url).pathname;
 
@@ -221,10 +217,6 @@ axiosInstance.interceptors.response.use(
           isRefreshing = false;
         }
       } else {
-        // console.log(
-        //   "Error 401, refresh sedang berjalan, mengantrekan request:",
-        //   originalRequest.url
-        // );
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })
@@ -233,11 +225,6 @@ axiosInstance.interceptors.response.use(
             return axiosInstance(originalRequest);
           })
           .catch((err) => {
-            // console.error(
-            //   "Request diantrekan karena 401, refresh gagal. Menolak:",
-            //   originalRequest.url,
-            //   err
-            // );
             return Promise.reject(err);
           });
       }

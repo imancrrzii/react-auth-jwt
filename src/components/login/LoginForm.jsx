@@ -39,6 +39,12 @@ const LoginForm = () => {
           respMessage || "Sesi login masih aktif. Silakan coba lagi nanti."
         );
         return;
+      } else if (respCode === "0603") {
+        toast.error(
+          respMessage ||
+            "Pengguna tidak ditemukan. Periksa kembali nomor HP Anda."
+        );
+        return;
       }
 
       setUser(userData);
@@ -112,42 +118,44 @@ const LoginForm = () => {
         )}
 
         <div className="mt-4">
-                  <Input
-          type="password"
-          id="password"
-          labelText="Kata Sandi"
-          {...register("password", { required: "Kata Sandi wajib diisi" })}
-          variantLabel="text-sm font-semibold"
-          placeholder="Masukkan Kata Sandi"
-          variant={`${
-            errors.password
-              ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-              : "border-gray-300 focus:border-blue-300 focus:ring-sky-500"
-          } focus:ring-1 focus:outline-none placeholder:text-xs bg-white shadow-sm sm:text-sm py-3 w-full px-4 mt-2 text-sm rounded-lg border`}
-          iconRight={
-            <svg
-              className="h-5 w-5 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7s-8.268-2.943-9.542-7z"
-              />
-            </svg>
-          }
-        />
-        {errors.password && (
-          <p className="text-red-500 text-xs mt-2">{errors.password.message}</p>
-        )}
+          <Input
+            type="password"
+            id="password"
+            labelText="Kata Sandi"
+            {...register("password", { required: "Kata Sandi wajib diisi" })}
+            variantLabel="text-sm font-semibold"
+            placeholder="Masukkan Kata Sandi"
+            variant={`${
+              errors.password
+                ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                : "border-gray-300 focus:border-blue-300 focus:ring-sky-500"
+            } focus:ring-1 focus:outline-none placeholder:text-xs bg-white shadow-sm sm:text-sm py-3 w-full px-4 mt-2 text-sm rounded-lg border`}
+            iconRight={
+              <svg
+                className="h-5 w-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7s-8.268-2.943-9.542-7z"
+                />
+              </svg>
+            }
+          />
+          {errors.password && (
+            <p className="text-red-500 text-xs mt-2">
+              {errors.password.message}
+            </p>
+          )}
         </div>
 
         <div className="flex justify-end mb-8 mt-2">

@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import landingReal from "../../assets/images/landing-image-1.png";
 import landingCenter1 from "../../assets/images/landing-image-3.svg";
@@ -12,7 +11,6 @@ const Hero = () => {
   return (
     <div className="min-h-full">
       <div className="relative bg-white flex flex-col items-center pt-15 md:pt-10 pb-0 lg:pb-32 overflow-hidden">
-        {/* Ornamen kiri kanan */}
         <motion.img
           src={LandingKiri}
           alt=""
@@ -31,7 +29,6 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         />
 
-        {/* Konten utama */}
         <div className="max-w-[1000px] flex flex-col items-center justify-center text-center gap-6 md:gap-8 px-4 md:px-8 py-4 z-10">
           <h1 className="text-4xl md:text-5xl font-bold tracking-wide">
             Platform <span className="text-sky-500">SIFina</span>
@@ -79,7 +76,6 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Gambar landingReal yang menembus */}
         <motion.img
           src={landingReal}
           alt=""

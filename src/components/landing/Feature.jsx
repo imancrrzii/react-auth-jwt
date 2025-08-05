@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import fitur1 from "../../assets/images/fitur-1.svg";
 import fitur2 from "../../assets/images/fitur-2.svg";
@@ -13,7 +12,7 @@ const Feature = () => {
         <div className="container mx-auto">
           <div className="flex flex-col justify-center items-center gap-2 mb-8 lg:mb-16">
             <h3 className="text-3xl lg:text-4xl font-bold tracking-wide">
-              Fitur <span className="text-sky-500">Unggulan</span>{" "}
+              Fitur <span className="text-sky-500">Unggulan</span>
             </h3>
             <p className="font-medium text-md lg:text-xl text-center md:text-start px-4 p-0">
               Temukan fitur unggulan kami yang akan mempermudah bisnis Anda.
@@ -25,7 +24,7 @@ const Feature = () => {
               className="flex flex-col gap-4 justify-center items-center"
               initial={{ x: "-100%", opacity: 0 }}
               whileInView={{ x: "0%", opacity: 1 }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
               viewport={{ once: false }}
             >
               <img src={fitur1} alt="" className="w-16 lg:w-20" />
@@ -41,7 +40,7 @@ const Feature = () => {
               className="flex flex-col gap-4 justify-center items-center"
               initial={{ x: "-100%", opacity: 0 }}
               whileInView={{ x: "0%", opacity: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
               viewport={{ once: false }}
             >
               <img src={fitur2} alt="" className="w-16 lg:w-20" />
@@ -69,7 +68,7 @@ const Feature = () => {
               className="flex flex-col gap-4 justify-center items-center"
               initial={{ x: "-100%", opacity: 0 }}
               whileInView={{ x: "0%", opacity: 1 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: false }}
             >
               <img src={fitur4} alt="" className="w-16 lg:w-20" />
@@ -82,7 +81,7 @@ const Feature = () => {
               className="flex flex-col gap-4 justify-center items-center col-span-2 sm:col-span-1 lg:col-span-1 sm:justify-self-center"
               initial={{ x: "-100%", opacity: 0 }}
               whileInView={{ x: "0%", opacity: 1 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
+              transition={{ duration: 1, ease: "easeOut" }}
               viewport={{ once: false }}
             >
               <img src={fitur5} alt="" className="w-16 lg:w-20" />

@@ -1,4 +1,3 @@
-import React from "react";
 import gelembung2 from "../assets/images/about-top-right.svg";
 import about from "../assets/images/about.png";
 
@@ -33,8 +32,7 @@ const Description = () => {
       </div>
 
       <div className="w-full py-14">
-        <div className="border border-gray-100">
-        </div>
+        <div className="border border-gray-100"></div>
       </div>
     </>
   );

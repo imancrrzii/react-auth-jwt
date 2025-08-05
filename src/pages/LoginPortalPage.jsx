@@ -1,4 +1,3 @@
-import React from "react";
 import logo from "../assets/images/sifina-putih.svg";
 import login1 from "../assets/images/login-portal-1.svg";
 import login2 from "../assets/images/login-portal-2.svg";
@@ -10,9 +9,7 @@ const LoginPortalPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row manrope overflow-hidden">
-      {/* LEFT SIDE (Blue background) */}
       <div className="bg-gradient-to-br from-sky-500 to-sky-600 lg:min-h-[110vh] flex-1 p-8 lg:p-16 flex flex-col justify-between relative w-full lg:w-3/5 xl:w-1/2">
-        {/* Logo & Descriptions */}
         <div className="flex flex-col gap-6 z-10">
           <img src={logo} alt="Sifina Logo" className="w-32 md:w-44" />
           <div className="text-white">
@@ -30,7 +27,6 @@ const LoginPortalPage = () => {
           </div>
         </div>
 
-        {/* Floating Image */}
         <img
           src={login1}
           alt=""

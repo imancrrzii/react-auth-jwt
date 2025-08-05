@@ -1,4 +1,3 @@
-// src/AppRoot.jsx
 import { useEffect } from "react";
 import { useNavigate, Route, Routes } from "react-router-dom";
 import { setRedirectToLogin } from "./utils/axiosInstance";

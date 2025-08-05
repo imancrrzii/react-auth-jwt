@@ -7,9 +7,9 @@ const SifinaDashboard = () => {
     <div id="sifina-dash" className="bg-white py-12 lg:py-16">
       <div className="flex justify-between flex-col sm:flex-row p-0 lg:px-16 relative">
         <div className="flex justify-start pl-8 lg:pl-0 w-full md:w-2/5 lg:w-1/2">
-          <img src={sifina1} alt="" className="w-64 md:w-120 lg:w-144" />
+          <img src={sifina1} alt="" className="w-64 md:w-96 lg:w-full self-start"/>
         </div>
-        <div className="flex flex-col gap-6 p-8 lg:pr-16 lg:pl-0 lg:py-16 w-full md:w-3/5 lg:w-1/2 ">
+        <div className="flex flex-col gap-6 p-8 lg:pr-16 lg:pl-0 lg:py-16 w-full md:w-3/5 lg:w-1/2">
           <h3 className="text-3xl lg:text-4xl font-bold tracking-wide ">
             <div>Dashboard</div>
             <div className="mt-4">
@@ -45,17 +45,7 @@ const SifinaDashboard = () => {
           </div>
           <Link
             to={"/login"}
-            className="   
-            px-4 py-3 
-            rounded-lg 
-            text-white 
-            hover:opacity-90
-            font-normal
-            text-sm	
-            min-w-[100px]
-            shadow-md w-[250px] mt-4 hover:bg-sky-600 z-10 bg-sky-500 
-            "
-          >
+            className="px-4 py-3 rounded-lg text-white hover:opacity-90 font-normal text-sm	min-w-[100px] shadow-md w-[250px] mt-4 hover:bg-sky-600 z-10 bg-sky-500">
             <div className="flex items-center gap-2">
               <p className="w-full text-center font-semibold cursor-pointer">
                 Masuk Aplikasi

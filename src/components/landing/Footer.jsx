@@ -1,4 +1,3 @@
-import React from "react";
 import footer from "../../assets/images/footer.svg";
 import sifinaPutih from "../../assets/images/sifina-putih.svg";
 import { Link } from "react-router-dom";
@@ -25,7 +24,6 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex flex-col md:flex-row justify-between gap-8 ">
-            {/* Kolom Kiri - 3 Link */}
             <div className="flex flex-col gap-2">
               <h6 className="text-white text-sm font-semibold">
                 Layanan SIFina
@@ -45,8 +43,6 @@ const Footer = () => {
                 </Link>
               </div>
             </div>
-
-            {/* Kolom Kanan - 2 Link */}
             <div className="flex flex-col gap-2">
               <h6 className="text-white text-sm font-semibold">
                 Tentang SIFina

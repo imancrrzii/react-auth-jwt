@@ -1,11 +1,9 @@
-import React from "react";
-import { FaBook, FaBookOpen, FaSearch, FaWallet } from "react-icons/fa";
+import { FaBookOpen, FaSearch, FaWallet } from "react-icons/fa";
 import {
   FaArrowRightArrowLeft,
   FaClockRotateLeft,
   FaMoneyBill,
 } from "react-icons/fa6";
-import { RiWalletFill } from "react-icons/ri";
 
 const Feature = () => {
   return (

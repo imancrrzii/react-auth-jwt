@@ -1,4 +1,3 @@
-import React from "react";
 import digital from "../assets/images/bg-about-fitur.png";
 import fitur1 from "../assets/images/fitur-1.svg";
 import fitur2 from "../assets/images/fitur-2.svg";

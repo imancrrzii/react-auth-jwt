@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { faqData } from "../../utils/data";
-import { FiChevronRight, FiChevronDown } from "react-icons/fi";
+import { FiChevronRight } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 const AccordionItem = ({ question, answer }) => {
   const [open, setOpen] = useState(false);
@@ -60,13 +60,11 @@ const AccordionFAQ = () => {
         </h3>
       </div>
       <div className="flex flex-col lg:flex-row gap-0 lg:gap-8">
-        {/* Kiri */}
         <div className="flex-1">
           {leftColumn.map((item, index) => (
             <AccordionItem key={index} {...item} />
           ))}
         </div>
-        {/* Kanan */}
         <div className="flex-1">
           {rightColumn.map((item, index) => (
             <AccordionItem key={index} {...item} />

@@ -1,9 +1,5 @@
-// components/Sidebar.jsx
 import { NavLink } from "react-router-dom";
-import {
-  HiChevronLeft,
-  HiHome,
-} from "react-icons/hi";
+import { HiChevronLeft, HiHome } from "react-icons/hi";
 import logo2 from "../../assets/images/logo-3.png";
 import logoMini from "../../assets/images/logo-kecil.svg";
 import React from "react";
@@ -21,7 +17,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
           path: "/dashboard",
           icon: <HiHome className="h-5 w-5" />,
         },
-                {
+        {
           name: "Informasi Rekening",
           path: "/info-rekening",
           icon: <MdHistory className="h-5 w-5" />,
@@ -44,7 +40,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         {
           name: "Informasi VA",
           path: "/va",
-          icon: <FaCreditCard className="h-5 w-5" />, 
+          icon: <FaCreditCard className="h-5 w-5" />,
         },
       ],
     },
@@ -90,18 +86,14 @@ export default function Sidebar({ collapsed, setCollapsed }) {
                     collapsed ? "justify-center" : "px-4"
                   } py-3 mb-1 rounded hover:bg-blue-300 ${
                     isActive ? "bg-blue-100 rounded-lg" : ""
-                  } ${isActive ? "text-blue-500" : "text-black"}` 
+                  } ${isActive ? "text-blue-500" : "text-black"}`
                 }
               >
                 {React.cloneElement(item.icon, {
-                  className: `h-5 w-5 ${
-                    collapsed ? "mx-auto" : ""
-                  }`, 
+                  className: `h-5 w-5 ${collapsed ? "mx-auto" : ""}`,
                 })}
                 {!collapsed && (
-                  <span className="ml-2 font-bold text-sm">
-                    {item.name}
-                  </span>
+                  <span className="ml-2 font-bold text-sm">{item.name}</span>
                 )}
               </NavLink>
             ))}

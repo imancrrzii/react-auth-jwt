@@ -1,4 +1,3 @@
-import React from "react";
 import gelembung from "../../assets/images/gelembung-1.svg";
 import portal from "../../assets/images/sifina-portal-1.png";
 import { IoMdCheckmark } from "react-icons/io";
@@ -51,17 +50,7 @@ const SifinaPortal = () => {
               </div>
               <Link
                 to={"/login-portal"}
-                className="   
-            px-4 py-3 
-            rounded-lg 
-            text-white 
-            hover:opacity-90
-            font-normal
-            text-sm	
-            min-w-[100px]
-            shadow-md w-[250px] mt-4 hover:bg-sky-600 z-10 bg-sky-500 
-            "
-              >
+                className="px-4 py-3 rounded-lg text-white hover:opacity-90 font-normal text-sm	min-w-[100px] shadow-md w-[250px] mt-4 hover:bg-sky-600 z-10 bg-sky-500">
                 <div className="flex items-center gap-2">
                   <p className="w-full text-center font-semibold cursor-pointer">
                     Masuk Aplikasi
