@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import Input from "../components/ui/Input";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import image from "../assets/images/notif.svg";
@@ -7,6 +6,7 @@ import { HiArrowLeft } from "react-icons/hi";
 import useUserStore from "../store/useUserStore";
 import { encryptToken } from "../utils/tokenCrypto";
 import { decryptData } from "../utils/tokenCrypto";
+import Input from "../components/Form/Input";
 
 const OTPVerificationForm = () => {
   const user = useUserStore((state) => state.user);

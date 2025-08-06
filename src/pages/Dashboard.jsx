@@ -70,7 +70,7 @@ const Dashboard = () => {
       <div className="flex flex-col px-4 mb-6">
         <h1 className="text-2xl font-bold mb-1">
           Selamat datang,{" "}
-          <span className="text-sky-600">{user?.nama || "Pengguna"}.</span>
+          <span className="text-sky-500">{user?.nama || "Pengguna"}.</span>
         </h1>
         <p className="text-xs font-bold text-gray-400">
           {new Date().toLocaleDateString("id-ID", {
@@ -118,7 +118,7 @@ const Dashboard = () => {
                   )}
                   <button
                     onClick={toggleShowSaldo}
-                    className="text-white focus:outline-none"
+                    className="text-white focus:outline-none cursor-pointer"
                   >
                     {showSaldo ? (
                       <svg

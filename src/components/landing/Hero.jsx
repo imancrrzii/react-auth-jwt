@@ -4,7 +4,7 @@ import landingCenter1 from "../../assets/images/landing-image-3.svg";
 import landingCenter2 from "../../assets/images/landing-image-2.svg";
 import LandingKanan from "../../assets/images/landing-image-4.svg";
 import LandingKiri from "../../assets/images/landing-image-5.svg";
-import Button from "../ui/Button";
+import Button from "../form/Button";
 import { HiArrowRight } from "react-icons/hi";
 
 const Hero = () => {

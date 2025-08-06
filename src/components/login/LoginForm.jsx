@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Input from "../ui/Input";
-import Button from "../ui/Button";
+import Button from "../form/Button";
 import logo from "../../assets/images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -9,6 +8,9 @@ import useUserStore from "../../store/useUserStore";
 import { toast } from "react-toastify";
 import { encryptData } from "../../utils/tokenCrypto";
 import "react-toastify/dist/ReactToastify.css";
+import { ClipLoader } from "react-spinners";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Input from "../Form/Input";
 
 const LoginForm = () => {
   const {
@@ -21,6 +23,11 @@ const LoginForm = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const setUser = useUserStore((state) => state.setUser);
+  const [showPassword, setShowPassword] = useState(false);
+  
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const onSubmit = async (data) => {
     setIsLoading(true);
@@ -119,7 +126,7 @@ const LoginForm = () => {
 
         <div className="mt-4">
           <Input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             labelText="Kata Sandi"
             {...register("password", { required: "Kata Sandi wajib diisi" })}
@@ -131,24 +138,17 @@ const LoginForm = () => {
                 : "border-gray-300 focus:border-blue-300 focus:ring-sky-500"
             } focus:ring-1 focus:outline-none placeholder:text-xs bg-white shadow-sm sm:text-sm py-3 w-full px-4 mt-2 text-sm rounded-lg border`}
             iconRight={
-              <svg
-                className="h-5 w-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
+              <div
+                onClick={togglePasswordVisibility}
+                className="cursor-pointer absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 mt-2"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7s-8.268-2.943-9.542-7z"
-                />
-              </svg>
+                {/* Ganti dengan React Icons */}
+                {showPassword ? (
+                  <FaEyeSlash className="h-5 w-5 text-gray-400" />
+                ) : (
+                  <FaEye className="h-5 w-5 text-gray-400" />
+                )}
+              </div>
             }
           />
           {errors.password && (
@@ -166,10 +166,18 @@ const LoginForm = () => {
 
         <Button
           type="submit"
-          variant="bg-sky-500 text-white hover:bg-sky-600 active:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 px-4 py-3 w-full rounded-xl font-semibold text-sm cursor-pointer"
-          text={isLoading ? "Memuat..." : "Masuk"}
+          variant="bg-sky-500 text-white hover:bg-sky-600 active:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 px-4 py-3 w-full rounded-lg font-semibold text-sm cursor-pointer"
           disabled={isLoading}
-        />
+        >
+          {isLoading ? (
+            <div className="flex items-center justify-center space-x-2">
+              <ClipLoader color="#ffffff" size={20} />
+              <span>Memuat...</span>
+            </div>
+          ) : (
+            "Masuk"
+          )}
+        </Button>
       </form>
     </div>
   );

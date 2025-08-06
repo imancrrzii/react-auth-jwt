@@ -60,7 +60,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         />
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="absolute top-12 -right-3 bg-white text-gray-800 rounded-xl shadow p-0 hover:bg-gray-200 transition-all"
+          className="absolute top-12 -right-3 bg-white text-gray-800 rounded-xl shadow p-0 hover:bg-gray-200 transition-all cursor-pointer"
         >
           <HiChevronLeft
             className={`h-8 w-8 transform transition-transform duration-300 ${
