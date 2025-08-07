@@ -9,7 +9,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Save } from "lucide-react";
+import { ArrowLeftCircle, Save } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const UserTambah = () => {
   return (
@@ -109,8 +110,16 @@ const UserTambah = () => {
             </div>
 
             {/* Tombol Submit */}
-            <div className="md:col-span-2 mt-4 flex justify-end">
-              <Button type="submit" className="bg-sky-900">
+            <div className="md:col-span-2 mt-4 flex justify-end gap-3">
+              <Button asChild variant="outline">
+                <Link
+                  to="/dashboard-shad/dashboard-shad-user/"
+                >
+                  <ArrowLeftCircle className="w-4 h-4" />
+                  Kembali
+                </Link>
+              </Button>
+              <Button type="submit" className="bg-sky-900 cursor-pointer">
                 <span>
                   <Save />
                 </span>

@@ -84,7 +84,7 @@ export default function SidebarToggle() {
         <div className="flex items-center justify-between px-4 py-1 border-b bg-gray-50 flex-shrink-0">
           <button
             onClick={toggleSidebar}
-            className="p-2 rounded-xl border bg-[#b8dbff] hover:bg-gray-200 transition-transform duration-300"
+            className="p-2 rounded-xl border bg-[#b8dbff] hover:bg-gray-200 transition-transform duration-300 cursor-pointer"
           >
             <PanelsTopLeft className="w-4 h-4 text-sky-900" />
           </button>

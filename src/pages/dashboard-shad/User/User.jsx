@@ -6,7 +6,6 @@ import {
   getFilteredRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Table,
   TableHeader,
@@ -15,6 +14,7 @@ import {
   TableCell,
   TableHead,
 } from "@/components/ui/table";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,8 +25,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FaUsers } from "react-icons/fa";
-import { ChevronLeft, ChevronRight, PlusCircle } from "lucide-react";
+import { Eye, ChevronLeft, ChevronRight, PlusCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ViewDialog } from "./ViewDialog";
 
 export default function User() {
   const [data, setData] = useState([]);
@@ -37,14 +38,18 @@ export default function User() {
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
+  const [selectedRow, setSelectedRow] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        const query = globalFilter
+          ? `search?q=${encodeURIComponent(globalFilter)}`
+          : "";
         const res = await fetch(
-          `https://dummyjson.com/products?limit=${pageSize}&skip=${
-            pageIndex * pageSize
-          }`
+          `https://dummyjson.com/products/${
+            query ? query + "&" : "?"
+          }limit=${pageSize}&skip=${pageIndex * pageSize}`
         );
         const json = await res.json();
         setData(json.products);
@@ -55,7 +60,7 @@ export default function User() {
     };
 
     fetchProducts();
-  }, [pageIndex, pageSize]);
+  }, [pageIndex, pageSize, globalFilter]);
 
   const columns = useMemo(
     () => [
@@ -82,18 +87,10 @@ export default function User() {
         id: "actions",
         header: "Aksi",
         size: 100,
-        cell: ({ row }) => (
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => alert(`Detail: ${row.original.title}`)}
-          >
-            Lihat
-          </Button>
-        ),
+        cell: ({ row }) => <ViewDialog row={row.original} />,
       },
     ],
-    []
+    [selectedRow]
   );
 
   const table = useReactTable({
@@ -172,44 +169,41 @@ export default function User() {
 
       <Card className="w-full max-w-full overflow-hidden">
         <CardContent className="space-y-4 px-8">
-          <div className="flex items-start">
-            <div className="flex items-center gap-2">
-              <Button asChild>
-                <Link to="tambah" className="flex items-center gap-2 bg-sky-900">
-                  <PlusCircle className="w-4 h-4" />
-                  Tambah Pengguna
-                </Link>
-              </Button>
-            </div>
-          </div>
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <Input
-                placeholder="Cari pengguna..."
-                value={globalFilter ?? ""}
-                onChange={(e) => setGlobalFilter(e.target.value)}
-                className="max-w-xs"
-              />
-            </div>
-
-            <div className="flex items-center gap-2 text-sm">
-              <span>Tampilkan</span>
-              <Select
-                value={pageSize.toString()}
-                onValueChange={handlePageSizeChange}
+          <div className="flex justify-between items-center">
+            <Button asChild>
+              <Link
+                to="tambah"
+                className="flex items-center gap-2 bg-sky-900 text-white px-4 py-2 rounded hover:bg-sky-800"
               >
-                <SelectTrigger className="w-20">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="10">10</SelectItem>
-                  <SelectItem value="20">20</SelectItem>
-                  <SelectItem value="50">50</SelectItem>
-                  <SelectItem value="100">100</SelectItem>
-                </SelectContent>
-              </Select>
-              <span>entri</span>
-            </div>
+                <PlusCircle className="w-4 h-4" />
+                Tambah Pengguna
+              </Link>
+            </Button>
+
+            <Input
+              placeholder="Cari pengguna..."
+              value={globalFilter ?? ""}
+              onChange={(e) => setGlobalFilter(e.target.value)}
+              className="max-w-xs"
+            />
+          </div>
+
+          <div className="flex items-center gap-2 text-sm">
+            <span>Tampilkan</span>
+            <Select
+              value={pageSize.toString()}
+              onValueChange={handlePageSizeChange}
+            >
+              <SelectTrigger className="w-20">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="10">10</SelectItem>
+                <SelectItem value="20">20</SelectItem>
+                <SelectItem value="50">50</SelectItem>
+              </SelectContent>
+            </Select>
+            <span>entri</span>
           </div>
 
           <div className="w-full border rounded-md overflow-hidden">
@@ -225,9 +219,6 @@ export default function User() {
                             width: header.column.columnDef.size
                               ? `${header.column.columnDef.size}px`
                               : "auto",
-                            minWidth: header.column.columnDef.size
-                              ? `${header.column.columnDef.size}px`
-                              : "100px",
                           }}
                           className="whitespace-nowrap px-2"
                         >
@@ -242,10 +233,11 @@ export default function User() {
                                   header.getContext()
                                 )}
                               </span>
-                              {{
-                                asc: "↑",
-                                desc: "↓",
-                              }[header.column.getIsSorted()] ?? null}
+                              {header.column.getIsSorted() === "asc"
+                                ? "↑"
+                                : header.column.getIsSorted() === "desc"
+                                ? "↓"
+                                : ""}
                             </div>
                           )}
                         </TableHead>
@@ -264,9 +256,6 @@ export default function User() {
                               width: cell.column.columnDef.size
                                 ? `${cell.column.columnDef.size}px`
                                 : "auto",
-                              minWidth: cell.column.columnDef.size
-                                ? `${cell.column.columnDef.size}px`
-                                : "100px",
                             }}
                             className="whitespace-nowrap px-2 text-sm"
                           >
@@ -330,6 +319,7 @@ export default function User() {
                   )}
                 </span>
               ))}
+
               <Button
                 variant="outline"
                 size="sm"
