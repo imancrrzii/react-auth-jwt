@@ -7,12 +7,22 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import hero from "../../assets/images/dashboard.png";
-import { ArrowRightCircle, Calendar, CalendarDays, DockIcon, HandCoins, Wallet, Wallet2, Wallet2Icon } from "lucide-react";
+import {
+  ArrowRightCircle,
+  CalendarDays,
+  DockIcon,
+  HandCoins,
+  Wallet2Icon,
+} from "lucide-react";
+import { RiDashboardFill } from "react-icons/ri";
 
 const Homepage = ({ user }) => {
   return (
     <div className="max-w-full">
-      <div className="text-3xl font-bold text-sky-900 mb-6">Dashboard</div>
+      <div className="flex gap-2 text-sky-900 items-center mb-6">
+        <RiDashboardFill className="w-8 h-8" />
+        <div className="text-3xl font-bold">Dashboard</div>
+      </div>
 
       <div className="flex flex-col md:flex-row gap-4 mb-4">
         {/* Kartu utama, ambil lebih banyak lebar */}
@@ -81,7 +91,9 @@ const Homepage = ({ user }) => {
           </CardHeader>
           <CardContent className="flex items-center gap-2">
             <ArrowRightCircle className="text-red-600 w-5 h-5" />
-            <span className="text-md text-gray-700 font-medium">Rp. 1.500.000</span>
+            <span className="text-md text-gray-700 font-medium">
+              Rp. 1.500.000
+            </span>
           </CardContent>
         </Card>
 
@@ -95,7 +107,9 @@ const Homepage = ({ user }) => {
           </CardHeader>
           <CardContent className="flex items-center gap-2">
             <ArrowRightCircle className="text-blue-700 w-5 h-5" />
-            <span className="text-md text-gray-700 font-medium">Rp. 1.500.000</span>
+            <span className="text-md text-gray-700 font-medium">
+              Rp. 1.500.000
+            </span>
           </CardContent>
         </Card>
 
@@ -109,7 +123,9 @@ const Homepage = ({ user }) => {
           </CardHeader>
           <CardContent className="flex items-center gap-2">
             <ArrowRightCircle className="text-yellow-600 w-5 h-5" />
-            <span className="text-md text-gray-700 font-medium">Rp. 1.500.000</span>
+            <span className="text-md text-gray-700 font-medium">
+              Rp. 1.500.000
+            </span>
           </CardContent>
         </Card>
 
@@ -123,7 +139,9 @@ const Homepage = ({ user }) => {
           </CardHeader>
           <CardContent className="flex items-center gap-2">
             <ArrowRightCircle className="text-green-600 w-5 h-5" />
-            <span className="text-md text-gray-700 font-medium">Rp. 1.500.000</span>
+            <span className="text-md text-gray-700 font-medium">
+              Rp. 1.500.000
+            </span>
           </CardContent>
         </Card>
       </div>

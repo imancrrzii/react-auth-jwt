@@ -6,7 +6,7 @@ export default function MainLayoutShad() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen max-w-screen overflow-hidden">
       <SidebarProvider open={open} onOpenChange={setOpen}>
         <SidebarToggle />
       </SidebarProvider>

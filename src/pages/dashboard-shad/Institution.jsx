@@ -2,8 +2,8 @@ import React from 'react'
 
 const Institution = () => {
   return (
-    <div className='text-4xl font-bold'>
-      institiutoto asekkkkk
+    <div className="max-w-full">
+      <div className="text-3xl font-bold text-sky-900 mb-6">Institusi</div>
     </div>
   )
 }

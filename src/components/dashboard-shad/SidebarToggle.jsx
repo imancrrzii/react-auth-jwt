@@ -78,9 +78,10 @@ export default function SidebarToggle() {
         </SidebarContent>
       </Sidebar>
 
-      <div className="flex-1 flex flex-col">
+      {/* Main content area dengan proper overflow handling */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-1 border-b bg-gray-50">
+        <div className="flex items-center justify-between px-4 py-1 border-b bg-gray-50 flex-shrink-0">
           <button
             onClick={toggleSidebar}
             className="p-2 rounded-xl border bg-[#b8dbff] hover:bg-gray-200 transition-transform duration-300"
@@ -110,8 +111,13 @@ export default function SidebarToggle() {
           <Header user={user} onLogout={handleLogout} />
         </div>
 
-        <div className="flex-1 overflow-auto py-4 px-6 lg:p-10 bg-gray-50">
-          <Outlet />
+        {/* Content container dengan proper width constraints */}
+        <div className="flex-1 overflow-hidden bg-gray-50">
+          <div className="h-full overflow-auto py-4 px-6 lg:p-10">
+            <div className="w-full max-w-full">
+              <Outlet />
+            </div>
+          </div>
         </div>
       </div>
     </>
