@@ -16,6 +16,7 @@ import Homepage from "./pages/dashboard-shad/Homepage.jsx";
 import Institution from "./pages/dashboard-shad/Institution.jsx";
 import User from "./pages/dashboard-shad/User/User.jsx";
 import UserTambah from "./pages/dashboard-shad/User/UserTambah.jsx";
+import { Toaster } from "sonner";
 
 const App = () => {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ const App = () => {
   return (
     <>
       <ToastContainer />
+      <Toaster position="top-right" richColors />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/tentang-sifina" element={<About />} />

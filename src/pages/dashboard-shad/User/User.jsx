@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   useReactTable,
   getCoreRowModel,
@@ -28,6 +29,7 @@ import { FaUsers } from "react-icons/fa";
 import { Eye, ChevronLeft, ChevronRight, PlusCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ViewDialog } from "./ViewDialog";
+import { DeleteDialog } from "./DeleteDialog";
 
 export default function User() {
   const [data, setData] = useState([]);
@@ -41,53 +43,151 @@ export default function User() {
   const [selectedRow, setSelectedRow] = useState(null);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchUsers = async () => {
       try {
-        const query = globalFilter
-          ? `search?q=${encodeURIComponent(globalFilter)}`
-          : "";
         const res = await fetch(
-          `https://dummyjson.com/products/${
-            query ? query + "&" : "?"
-          }limit=${pageSize}&skip=${pageIndex * pageSize}`
+          globalFilter
+            ? `https://dummyjson.com/users/search?q=${encodeURIComponent(
+                globalFilter
+              )}&limit=${pageSize}&skip=${pageIndex * pageSize}`
+            : `https://dummyjson.com/users?limit=${pageSize}&skip=${
+                pageIndex * pageSize
+              }`
         );
+
         const json = await res.json();
-        setData(json.products);
+        setData(json.users);
         setTotalCount(json.total);
       } catch (err) {
         console.error("Failed to fetch data:", err);
       }
     };
 
-    fetchProducts();
+    fetchUsers();
   }, [pageIndex, pageSize, globalFilter]);
 
   const columns = useMemo(
     () => [
-      { accessorKey: "id", header: "ID", size: 60 },
-      { accessorKey: "title", header: "Nama Produk", size: 200 },
+      { accessorKey: "id", header: "No", size: 60 },
       {
-        accessorKey: "description",
-        header: "Deskripsi",
-        size: 300,
-        cell: ({ getValue }) => {
-          const value = getValue();
-          const shortened =
-            value.length > 50 ? value.substring(0, 50) + "..." : value;
-          return <span title={value}>{shortened}</span>;
+        accessorKey: "image",
+        header: "Foto",
+        size: 100,
+        cell: ({ getValue, row }) => {
+          const image = getValue();
+          const name = `${row.original.firstName} ${row.original.lastName}`;
+          return (
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={image} alt={name} />
+              <AvatarFallback>
+                {row.original.firstName[0]}
+                {row.original.lastName[0]}
+              </AvatarFallback>
+            </Avatar>
+          );
         },
       },
-      { accessorKey: "brand", header: "Brand", size: 150 },
-      { accessorKey: "category", header: "Kategori", size: 150 },
-      { accessorKey: "price", header: "Harga", size: 100 },
-      { accessorKey: "rating", header: "Rating", size: 100 },
-      { accessorKey: "discountPercentage", header: "Diskon", size: 60 },
-      { accessorKey: "stock", header: "Stok", size: 100 },
+      {
+        id: "fullName",
+        header: "Nama Lengkap",
+        size: 300,
+        cell: ({ row }) => {
+          const { firstName, maidenName, lastName } = row.original;
+          return `${firstName} ${maidenName} ${lastName}`;
+        },
+        filterFn: (row, columnId, value) => {
+          const fullName =
+            `${row.original.firstName} ${row.original.maidenName} ${row.original.lastName}`.toLowerCase();
+          return fullName.includes(value.toLowerCase());
+        },
+        sortingFn: (rowA, rowB) => {
+          const nameA = `${rowA.original.firstName} ${rowA.original.maidenName} ${rowA.original.lastName}`;
+          const nameB = `${rowB.original.firstName} ${rowB.original.maidenName} ${rowB.original.lastName}`;
+          return nameA.localeCompare(nameB);
+        },
+      },
+      {
+        accessorKey: "email",
+        header: "Email",
+        size: 250,
+      },
+      {
+        accessorKey: "phone",
+        header: "Telepon",
+        size: 150,
+      },
+      {
+        accessorKey: "gender",
+        header: "Gender",
+        size: 100,
+      },
+      {
+        accessorKey: "age",
+        header: "Umur",
+        size: 100,
+      },
+      {
+        accessorKey: "university",
+        header: "Universitas",
+        size: 100,
+      },
+      {
+        accessorKey: "username",
+        header: "Username",
+        size: 100,
+      },
+      {
+        accessorKey: "password",
+        header: "Kata sandi",
+        size: 100,
+      },
+      {
+        accessorKey: "birthDate",
+        header: "Tanggal Lahir",
+        size: 100,
+      },
+      {
+        id: "companyName",
+        header: "Nama Perusahaan",
+        size: 200,
+        cell: ({ row }) => row.original.company?.name || "-",
+      },
+      {
+        id: "companyDepartment",
+        header: "Departemen",
+        size: 150,
+        cell: ({ row }) => row.original.company?.department || "-",
+      },
+      {
+        id: "companyTitle",
+        header: "Jabatan",
+        size: 150,
+        cell: ({ row }) => row.original.company?.title || "-",
+      },
+      {
+        id: "companyAddress",
+        header: "Alamat Perusahaan",
+        size: 300,
+        cell: ({ row }) => {
+          const address = row.original.company?.address;
+          if (!address) return "-";
+          return `${address.address}, ${address.city}, ${address.state} ${address.postalCode}`;
+        },
+      },
+
       {
         id: "actions",
         header: "Aksi",
         size: 100,
-        cell: ({ row }) => <ViewDialog row={row.original} />,
+        cell: ({ row }) => (
+          <div className="flex gap-2 justify-center">
+            <ViewDialog row={row.original} />
+            <DeleteDialog row={row.original} />
+          </div>
+        ),
+        meta: {
+          className: "text-center",
+        },
       },
     ],
     [selectedRow]
@@ -168,7 +268,7 @@ export default function User() {
       </div>
 
       <Card className="w-full max-w-full overflow-hidden">
-        <CardContent className="space-y-4 px-8">
+        <CardContent className="space-y-4 px-6">
           <div className="flex justify-between items-center">
             <Button asChild>
               <Link
@@ -179,31 +279,32 @@ export default function User() {
                 Tambah Pengguna
               </Link>
             </Button>
+          </div>
 
+          <div className="flex justify-between text-sm">
+            <div className="flex items-center gap-2">
+              <span>Tampilkan</span>
+              <Select
+                value={pageSize.toString()}
+                onValueChange={handlePageSizeChange}
+              >
+                <SelectTrigger className="w-20">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="20">20</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                </SelectContent>
+              </Select>
+              <span>entri</span>
+            </div>
             <Input
               placeholder="Cari pengguna..."
               value={globalFilter ?? ""}
               onChange={(e) => setGlobalFilter(e.target.value)}
-              className="max-w-xs"
+              className="max-w-xs w-full sm:w-64 flex-grow"
             />
-          </div>
-
-          <div className="flex items-center gap-2 text-sm">
-            <span>Tampilkan</span>
-            <Select
-              value={pageSize.toString()}
-              onValueChange={handlePageSizeChange}
-            >
-              <SelectTrigger className="w-20">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="10">10</SelectItem>
-                <SelectItem value="20">20</SelectItem>
-                <SelectItem value="50">50</SelectItem>
-              </SelectContent>
-            </Select>
-            <span>entri</span>
           </div>
 
           <div className="w-full border rounded-md overflow-hidden">
@@ -220,11 +321,18 @@ export default function User() {
                               ? `${header.column.columnDef.size}px`
                               : "auto",
                           }}
-                          className="whitespace-nowrap px-2"
+                          className={`whitespace-nowrap px-2 text-xs font-semibold border-r-1 bg-gray-50 ${
+                            header.column.columnDef.meta?.className ?? ""
+                          }`}
                         >
                           {header.isPlaceholder ? null : (
                             <div
-                              className="cursor-pointer select-none flex items-center space-x-1"
+                              className={`cursor-pointer select-none ${
+                                header.column.columnDef.meta?.className ===
+                                "text-center"
+                                  ? "flex justify-center"
+                                  : "flex items-center space-x-1"
+                              }`}
                               onClick={header.column.getToggleSortingHandler()}
                             >
                               <span>
@@ -248,7 +356,12 @@ export default function User() {
                 <TableBody>
                   {table.getRowModel().rows.length ? (
                     table.getRowModel().rows.map((row) => (
-                      <TableRow key={row.id}>
+                      <TableRow
+                        key={row.id}
+                        className={`border-b ${
+                          row.id % 2 === 0 ? "bg-white" : "bg-gray-50"
+                        }`}
+                      >
                         {row.getVisibleCells().map((cell) => (
                           <TableCell
                             key={cell.id}
@@ -257,7 +370,7 @@ export default function User() {
                                 ? `${cell.column.columnDef.size}px`
                                 : "auto",
                             }}
-                            className="whitespace-nowrap px-2 text-sm"
+                            className="whitespace-nowrap px-2 text-xs border-r-1"
                           >
                             {flexRender(
                               cell.column.columnDef.cell,

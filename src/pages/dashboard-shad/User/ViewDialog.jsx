@@ -12,11 +12,11 @@ import { Eye } from "lucide-react";
 export function ViewDialog({ row }) {
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild>   
         <Button
           size="icon"
           variant="outline"
-          className="rounded-xl p-1 bg-[#b8dbff] text-sky-900 hover:bg-gray-200 cursor-pointer"
+          className="rounded-xl p-1 bg-blue-600 text-white hover:bg-blue-700 hover:text-white cursor-pointer"
         >
           <Eye className="w-4 h-4" />
         </Button>
