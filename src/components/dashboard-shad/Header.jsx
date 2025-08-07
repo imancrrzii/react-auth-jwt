@@ -17,7 +17,10 @@ export default function Header({ user, onLogout }) {
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="flex items-center gap-2 px-2 cursor-pointer">
+          <Button
+            variant="ghost"
+            className="flex items-center gap-2 px-2 cursor-pointer"
+          >
             <Avatar className="h-8 w-8">
               <AvatarImage src={user.avatar} alt={user.name} />
               <AvatarFallback>
@@ -28,7 +31,13 @@ export default function Header({ user, onLogout }) {
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col text-left">
-              <span className="font-bold text-md">{user.name}</span>
+              <span className="font-bold text-md block md:hidden">
+                {user.name.split(" ")[0]}
+              </span>
+              <span className="font-bold text-md hidden md:block">
+                {user.name}
+              </span>
+
               <span className="font-light text-xs">Administrator</span>
             </div>
           </Button>

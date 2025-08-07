@@ -6,7 +6,7 @@ export default function MainLayoutShad() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex h-screen manrope">
+    <div className="flex h-screen">
       <SidebarProvider open={open} onOpenChange={setOpen}>
         <SidebarToggle />
       </SidebarProvider>

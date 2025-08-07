@@ -6,14 +6,13 @@ import {
   SidebarGroupLabel,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Calendar, Castle, Home, PanelsTopLeft, Users } from "lucide-react";
+import { Calendar, Landmark, PanelsTopLeft, Users } from "lucide-react";
 import SidebarMenu from "./SidebarMenuItems";
 import Header from "../dashboard-shad/Header";
 import { Outlet } from "react-router-dom";
 import { SidebarHeader } from "../ui/sidebar";
 import logo from "../../assets/images/logo/SIFINA-XL.png";
 import logoKecil from "../../assets/images/fitur-1.svg";
-import { MdDashboard } from "react-icons/md";
 import { RiDashboardLine } from "react-icons/ri";
 
 const items = [
@@ -30,7 +29,7 @@ const items = [
   {
     title: "Institusi",
     url: "/dashboard-shad/dashboard-shad-institution",
-    icon: Castle,
+    icon: Landmark,
   },
 ];
 
@@ -91,7 +90,14 @@ export default function SidebarToggle() {
 
           <div className="flex items-center gap-2 text-xs font-bold text-sky-900">
             <Calendar className="w-4 h-4 text-sky-900" />
-            <span>
+            <span className="block md:hidden">
+              {new Date().toLocaleDateString("id-ID", {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric",
+              })}
+            </span>
+            <span className="hidden md:block">
               {new Date().toLocaleDateString("id-ID", {
                 weekday: "long",
                 year: "numeric",
@@ -104,7 +110,7 @@ export default function SidebarToggle() {
           <Header user={user} onLogout={handleLogout} />
         </div>
 
-        <div className="flex-1 overflow-auto py-12 px-16 bg-gray-50">
+        <div className="flex-1 overflow-auto py-4 px-6 lg:p-10 bg-gray-50">
           <Outlet />
         </div>
       </div>

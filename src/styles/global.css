@@ -7,6 +7,10 @@ body {
   font-family: "Manrope", sans-serif;
 }
 
+.anek {
+  font-family: "Anek Latin", sans-serif;
+}
+
 @keyframes float {
   0%,
   100% {
