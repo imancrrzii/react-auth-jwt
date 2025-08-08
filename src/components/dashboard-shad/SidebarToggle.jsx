@@ -113,7 +113,7 @@ export default function SidebarToggle() {
 
         {/* Content container dengan proper width constraints */}
         <div className="flex-1 overflow-hidden bg-gray-50">
-          <div className="h-full overflow-auto py-4 px-6 lg:p-10">
+          <div className="h-full overflow-auto py-4 px-3 lg:px-6 lg:p-10">
             <div className="w-full max-w-full">
               <Outlet />
             </div>

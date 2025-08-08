@@ -1,4 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
+import * as XLSX from "xlsx";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable"; // ← ini penting!
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   useReactTable,
@@ -25,7 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FaUsers } from "react-icons/fa";
+import { FaFileExcel, FaFilePdf, FaUsers } from "react-icons/fa";
 import { Eye, ChevronLeft, ChevronRight, PlusCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ViewDialog } from "./ViewDialog";
@@ -193,6 +196,67 @@ export default function User() {
     [selectedRow]
   );
 
+  const exportToExcel = () => {
+    const worksheetData = data.map((user) => ({
+      ID: user.id,
+      Nama: `${user.firstName} ${user.maidenName} ${user.lastName}`,
+      Email: user.email,
+      Telepon: user.phone,
+      Gender: user.gender,
+      Umur: user.age,
+      Universitas: user.university,
+      Username: user.username,
+      Password: user.password,
+      "Tanggal Lahir": user.birthDate,
+      Perusahaan: user.company?.name || "-",
+      Departemen: user.company?.department || "-",
+      Jabatan: user.company?.title || "-",
+      "Alamat Perusahaan": user.company?.address
+        ? `${user.company.address.address}, ${user.company.address.city}, ${user.company.address.state} ${user.company.address.postalCode}`
+        : "-",
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Users");
+
+    XLSX.writeFile(workbook, "data_pengguna.xlsx");
+  };
+
+  const exportToPDF = () => {
+    const doc = new jsPDF();
+
+    const tableColumn = [
+      "ID",
+      "Nama",
+      "Email",
+      "Telepon",
+      "Gender",
+      "Umur",
+      "Universitas",
+      "Username",
+    ];
+
+    const tableRows = data.map((user) => [
+      user.id,
+      `${user.firstName} ${user.maidenName} ${user.lastName}`,
+      user.email,
+      user.phone,
+      user.gender,
+      user.age,
+      user.university,
+      user.username,
+    ]);
+
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+      startY: 20,
+    });
+
+    doc.save("data_pengguna.pdf");
+  };
+
   const table = useReactTable({
     data,
     columns,
@@ -268,7 +332,7 @@ export default function User() {
       </div>
 
       <Card className="w-full max-w-full overflow-hidden">
-        <CardContent className="space-y-4 px-6">
+        <CardContent className="space-y-4 px-2 lg:px-6">
           <div className="flex justify-between items-center">
             <Button asChild>
               <Link
@@ -281,7 +345,7 @@ export default function User() {
             </Button>
           </div>
 
-          <div className="flex justify-between text-sm">
+          <div className="flex flex-col md:flex-row justify-between text-sm gap-2">
             <div className="flex items-center gap-2">
               <span>Tampilkan</span>
               <Select
@@ -298,6 +362,21 @@ export default function User() {
                 </SelectContent>
               </Select>
               <span>entri</span>
+            </div>
+
+            <div className="flex gap-2 justify-start">
+              <Button
+                className="bg-white hover:bg-gray-200 border rounded-xl cursor-pointer"
+                onClick={exportToExcel}
+              >
+                <FaFileExcel className="text-green-500" />
+              </Button>
+              <Button
+                className="bg-white hover:bg-gray-200 border rounded-xl cursor-pointer"
+                onClick={exportToPDF}
+              >
+                <FaFilePdf className="text-red-500" />
+              </Button>
             </div>
             <Input
               placeholder="Cari pengguna..."
@@ -403,7 +482,7 @@ export default function User() {
               {totalCount} entri
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-nowrap w-max">
               <Button
                 variant="outline"
                 size="sm"
@@ -411,7 +490,7 @@ export default function User() {
                 disabled={pageIndex === 0}
               >
                 <ChevronLeft className="w-4 h-4" />
-                Sebelumnya
+                <span className="hidden sm:inline">Sebelumnya</span>
               </Button>
 
               {generatePageNumbers().map((page, index) => (
@@ -439,7 +518,7 @@ export default function User() {
                 onClick={() => setPageIndex((prev) => prev + 1)}
                 disabled={(pageIndex + 1) * pageSize >= totalCount}
               >
-                Selanjutnya
+                <span className="hidden sm:inline">Selanjutnya</span>
                 <ChevronRight className="w-4 h-4" />
               </Button>
             </div>

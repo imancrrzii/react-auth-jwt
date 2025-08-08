@@ -17,6 +17,7 @@ import Institution from "./pages/dashboard-shad/Institution.jsx";
 import User from "./pages/dashboard-shad/User/User.jsx";
 import UserTambah from "./pages/dashboard-shad/User/UserTambah.jsx";
 import { Toaster } from "sonner";
+import AddUser from "./pages/AddUser.jsx";
 
 const App = () => {
   const navigate = useNavigate();
@@ -53,7 +54,16 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/retribusi/pengguna"
+            element={
+              <ProtectedRoute>
+                <AddUser />
+              </ProtectedRoute>
+            }
+          />
         </Route>
+
         <Route path="/dashboard-shad" element={<MainLayoutShad />}>
           <Route
             path="dashboard-shad-home"

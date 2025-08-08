@@ -1,13 +1,22 @@
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { HiChevronLeft, HiHome } from "react-icons/hi";
+import { HiChevronLeft, HiChevronDown, HiHome } from "react-icons/hi";
+import { MdHistory } from "react-icons/md";
+import { LuArrowLeftRight, LuFile, LuHouse, LuQrCode, LuUsers } from "react-icons/lu";
+import {
+  FaCreditCard,
+  FaTools,
+} from "react-icons/fa";
 import logo2 from "../../assets/images/logo-3.png";
 import logoMini from "../../assets/images/logo-kecil.svg";
-import React from "react";
-import { MdHistory } from "react-icons/md";
-import { LuQrCode } from "react-icons/lu";
-import { FaCreditCard } from "react-icons/fa";
 
 export default function Sidebar({ collapsed, setCollapsed }) {
+  const [activeMenu, setActiveMenu] = useState(null);
+
+  const toggleMenu = (label) => {
+    setActiveMenu((prev) => (prev === label ? null : label));
+  };
+
   const menuGroups = [
     {
       label: "Dashboard",
@@ -46,12 +55,30 @@ export default function Sidebar({ collapsed, setCollapsed }) {
     },
   ];
 
+  const layananGroup = {
+    label: "Retribusi",
+    icon: <FaTools className="h-5 w-5" />,
+    items: [
+      {
+        name: "Pengguna",
+        path: "/retribusi/pengguna",
+        icon: <LuUsers className="h-5 w-5" />,
+      },
+      {
+        name: "Institusi",
+        path: "/retribusi/institusi",
+        icon: <LuHouse  className="h-5 w-5" />,
+      },
+    ],
+  };
+
   return (
     <div
       className={`fixed top-0 left-0 h-screen bg-white text-black transition-all duration-300 ${
         collapsed ? "w-20" : "w-64"
       }`}
     >
+      {/* Logo + Toggle */}
       <div className="relative flex items-center justify-between px-4 py-4">
         <img
           src={collapsed ? logoMini : logo2}
@@ -69,11 +96,13 @@ export default function Sidebar({ collapsed, setCollapsed }) {
           />
         </button>
       </div>
+
       <div className="mt-4 px-2 py-2">
+        {/* Menu Biasa */}
         {menuGroups.map((group, idx) => (
           <div key={idx} className="mb-4">
             {!collapsed && (
-              <div className="px-2 text-gray-400 text-xs mb-2 font-normal">
+              <div className="px-4 text-gray-400 text-xs mb-2 font-normal">
                 {group.label}
               </div>
             )}
@@ -84,9 +113,11 @@ export default function Sidebar({ collapsed, setCollapsed }) {
                 className={({ isActive }) =>
                   `flex items-center ${
                     collapsed ? "justify-center" : "px-4"
-                  } py-3 mb-1 rounded hover:bg-blue-300 ${
-                    isActive ? "bg-blue-100 rounded-lg" : ""
-                  } ${isActive ? "text-blue-500" : "text-black"}`
+                  } py-3 mb-1 rounded hover:bg-blue-300 transition-colors ${
+                    isActive
+                      ? "bg-blue-100 text-blue-500 font-semibold"
+                      : "text-black"
+                  }`
                 }
               >
                 {React.cloneElement(item.icon, {
@@ -99,6 +130,75 @@ export default function Sidebar({ collapsed, setCollapsed }) {
             ))}
           </div>
         ))}
+
+        {/* Layanan (Accordion Style) */}
+        <div className="mb-4">
+          {!collapsed && (
+            <div className="px-4 text-gray-400 text-xs mb-2 font-normal">
+              {layananGroup.label}
+            </div>
+          )}
+          <button
+            onClick={() => toggleMenu(layananGroup.label)}
+            className={`w-full flex items-center ${
+              collapsed ? "justify-center" : "px-4"
+            } py-3 mb-1 rounded hover:bg-blue-300 transition-colors ${
+              activeMenu === layananGroup.label
+                ? "bg-blue-100 text-blue-500 font-semibold"
+                : "text-black"
+            }`}
+          >
+            {!collapsed ? (
+              <>
+                <div className="flex items-center gap-2 flex-1">
+                  {React.cloneElement(layananGroup.icon, {
+                    className: "h-5 w-5",
+                  })}
+                  <span className="font-bold text-sm">
+                    {layananGroup.label}
+                  </span>
+                </div>
+                <HiChevronDown
+                  className={`w-4 h-4 transition-transform duration-300 ${
+                    activeMenu === layananGroup.label ? "rotate-180" : ""
+                  }`}
+                />
+              </>
+            ) : (
+              React.cloneElement(layananGroup.icon, {
+                className: "h-5 w-5 mx-auto",
+              })
+            )}
+          </button>
+
+          {/* Submenu */}
+          <div
+            className={`overflow-hidden transition-all duration-300${
+              activeMenu === layananGroup.label ? "max-h-60" : "max-h-0"
+            }`}
+          >
+            {layananGroup.items.map((item) => (
+              <NavLink
+                key={item.name}
+                to={item.path}
+                className={({ isActive }) =>
+                  `flex items-center ${
+                    collapsed ? "justify-center" : "px-8"
+                  } py-3 text-sm font-semibold mb-1 rounded hover:bg-blue-300 transition-colors cursor-pointer ${
+                    isActive
+                      ? "bg-blue-100 text-blue-500 font-semibold"
+                      : "text-black"
+                  }`
+                }
+              >
+                {React.cloneElement(item.icon, {
+                  className: `h-5 w-5 ${collapsed ? "mx-auto" : ""}`,
+                })}
+                {!collapsed && <span className="ml-2">{item.name}</span>}
+              </NavLink>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
