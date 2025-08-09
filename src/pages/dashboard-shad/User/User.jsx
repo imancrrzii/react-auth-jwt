@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import * as XLSX from "xlsx";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable"; // ← ini penting!
+// import * as XLSX from "xlsx";
+// import jsPDF from "jspdf";
+// import autoTable from "jspdf-autotable"; // ← ini penting!
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   useReactTable,
@@ -196,66 +196,66 @@ export default function User() {
     [selectedRow]
   );
 
-  const exportToExcel = () => {
-    const worksheetData = data.map((user) => ({
-      ID: user.id,
-      Nama: `${user.firstName} ${user.maidenName} ${user.lastName}`,
-      Email: user.email,
-      Telepon: user.phone,
-      Gender: user.gender,
-      Umur: user.age,
-      Universitas: user.university,
-      Username: user.username,
-      Password: user.password,
-      "Tanggal Lahir": user.birthDate,
-      Perusahaan: user.company?.name || "-",
-      Departemen: user.company?.department || "-",
-      Jabatan: user.company?.title || "-",
-      "Alamat Perusahaan": user.company?.address
-        ? `${user.company.address.address}, ${user.company.address.city}, ${user.company.address.state} ${user.company.address.postalCode}`
-        : "-",
-    }));
+  // const exportToExcel = () => {
+  //   const worksheetData = data.map((user) => ({
+  //     ID: user.id,
+  //     Nama: `${user.firstName} ${user.maidenName} ${user.lastName}`,
+  //     Email: user.email,
+  //     Telepon: user.phone,
+  //     Gender: user.gender,
+  //     Umur: user.age,
+  //     Universitas: user.university,
+  //     Username: user.username,
+  //     Password: user.password,
+  //     "Tanggal Lahir": user.birthDate,
+  //     Perusahaan: user.company?.name || "-",
+  //     Departemen: user.company?.department || "-",
+  //     Jabatan: user.company?.title || "-",
+  //     "Alamat Perusahaan": user.company?.address
+  //       ? `${user.company.address.address}, ${user.company.address.city}, ${user.company.address.state} ${user.company.address.postalCode}`
+  //       : "-",
+  //   }));
 
-    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Users");
+  //   const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+  //   const workbook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, "Users");
 
-    XLSX.writeFile(workbook, "data_pengguna.xlsx");
-  };
+  //   XLSX.writeFile(workbook, "data_pengguna.xlsx");
+  // };
 
-  const exportToPDF = () => {
-    const doc = new jsPDF();
+  // const exportToPDF = () => {
+  //   const doc = new jsPDF();
 
-    const tableColumn = [
-      "ID",
-      "Nama",
-      "Email",
-      "Telepon",
-      "Gender",
-      "Umur",
-      "Universitas",
-      "Username",
-    ];
+  //   const tableColumn = [
+  //     "ID",
+  //     "Nama",
+  //     "Email",
+  //     "Telepon",
+  //     "Gender",
+  //     "Umur",
+  //     "Universitas",
+  //     "Username",
+  //   ];
 
-    const tableRows = data.map((user) => [
-      user.id,
-      `${user.firstName} ${user.maidenName} ${user.lastName}`,
-      user.email,
-      user.phone,
-      user.gender,
-      user.age,
-      user.university,
-      user.username,
-    ]);
+  //   const tableRows = data.map((user) => [
+  //     user.id,
+  //     `${user.firstName} ${user.maidenName} ${user.lastName}`,
+  //     user.email,
+  //     user.phone,
+  //     user.gender,
+  //     user.age,
+  //     user.university,
+  //     user.username,
+  //   ]);
 
-    autoTable(doc, {
-      head: [tableColumn],
-      body: tableRows,
-      startY: 20,
-    });
+  //   autoTable(doc, {
+  //     head: [tableColumn],
+  //     body: tableRows,
+  //     startY: 20,
+  //   });
 
-    doc.save("data_pengguna.pdf");
-  };
+  //   doc.save("data_pengguna.pdf");
+  // };
 
   const table = useReactTable({
     data,
@@ -364,7 +364,7 @@ export default function User() {
               <span>entri</span>
             </div>
 
-            <div className="flex gap-2 justify-start">
+            {/* <div className="flex gap-2 justify-start">
               <Button
                 className="bg-white hover:bg-gray-200 border rounded-xl cursor-pointer"
                 onClick={exportToExcel}
@@ -377,7 +377,7 @@ export default function User() {
               >
                 <FaFilePdf className="text-red-500" />
               </Button>
-            </div>
+            </div> */}
             <Input
               placeholder="Cari pengguna..."
               value={globalFilter ?? ""}

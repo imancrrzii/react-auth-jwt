@@ -54,15 +54,15 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/retribusi/pengguna"
-            element={
-              <ProtectedRoute>
-                <AddUser />
-              </ProtectedRoute>
-            }
-          />
         </Route>
+        <Route
+          path="/retribusi/pengguna"
+          element={
+            <ProtectedRoute>
+              <AddUser />
+            </ProtectedRoute>
+          }
+        />
 
         <Route path="/dashboard-shad" element={<MainLayoutShad />}>
           <Route
