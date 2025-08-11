@@ -100,25 +100,25 @@ export default function MultiStepForm() {
       <div className="max-w-full mx-auto p-12 my-4">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="bg-white border-1 border-gray-200 shadow-sm rounded-md p-6 lg:w-1/4 hidden lg:block">
-            <div className="space-y-4">
+            <div className="space-y-6">
               {["Personal", "Kontak", "Preferensi", "Review"].map(
                 (stepName, index) => (
                   <div
                     key={index}
                     className={`flex items-center p-3 rounded-lg transition-colors ${
                       index === currentStep
-                        ? "bg-sky-50 border-l-4 border-blue-500"
+                        ? "bg-sky-50 border-l-4 border-sky-600"
                         : index < currentStep
-                        ? "bg-green-50 border-l-4 border-green-500"
+                        ? "bg-green-50 border-l-4 border-green-600"
                         : "bg-gray-50"
                     }`}
                   >
                     <div
                       className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                         index === currentStep
-                          ? "bg-sky-500 text-white"
+                          ? "bg-sky-600 text-white"
                           : index < currentStep
-                          ? "bg-green-500 text-white"
+                          ? "bg-green-600 text-white"
                           : "bg-gray-300 text-gray-600"
                       }`}
                     >
@@ -163,7 +163,7 @@ export default function MultiStepForm() {
                   />
                 </div>
                 {/* STEP CONTENT */}
-                <div className="min-h-[400px] transition-all duration-500">
+                <div className="min-h-[400px] transition-all duration-600">
                   <CurrentStep />
                 </div>
                 <div className="flex justify-between pt-6 border-gray-200">
@@ -171,7 +171,7 @@ export default function MultiStepForm() {
                     <button
                       type="button"
                       onClick={() => navigate("/retribusi/pengguna")}
-                      className="flex items-center px-4 py-2 bg-white border-1 text-sky-500 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer"
+                      className="flex items-center px-4 py-2 bg-white border-1 text-sky-600 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer"
                     >
                       <ChevronLeft className="w-4 h-4 mr-1" />
                       Kembali
@@ -180,7 +180,7 @@ export default function MultiStepForm() {
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="flex items-center px-4 py-2 bg-white border-1 text-sky-500 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer"
+                      className="flex items-center px-4 py-2 bg-white border-1 text-sky-600 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer"
                     >
                       <ChevronLeft className="w-4 h-4 mr-1" />
                       Sebelumnya
@@ -190,7 +190,7 @@ export default function MultiStepForm() {
                     <button
                       type="button"
                       onClick={handleFormSubmit}
-                      className="flex items-center px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 hover:shadow-lg transition-all duration-200"
+                      className="flex items-center px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-600 hover:shadow-lg transition-all duration-200"
                     >
                       Kirim Form
                       <Check className="w-4 h-4 ml-1" />
@@ -199,7 +199,7 @@ export default function MultiStepForm() {
                     <button
                       type="button"
                       onClick={nextStep}
-                      className="flex items-center px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 hover:shadow-lg transition-all duration-200 cursor-pointer"
+                      className="flex items-center px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-600 hover:shadow-lg transition-all duration-200 cursor-pointer"
                     >
                       Selanjutnya
                       <ChevronRight className="w-4 h-4 ml-1" />
@@ -213,7 +213,7 @@ export default function MultiStepForm() {
       </div>
       <ToastContainer
         position="top-center"
-        autoClose={5000}
+        autoClose={6000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={false}
