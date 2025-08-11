@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { HiChevronLeft, HiChevronDown, HiHome } from "react-icons/hi";
 import { MdHistory } from "react-icons/md";
-import { LuArrowLeftRight, LuFile, LuHouse, LuQrCode, LuUsers } from "react-icons/lu";
 import {
-  FaCreditCard,
-  FaTools,
-} from "react-icons/fa";
+  LuArrowLeftRight,
+  LuFile,
+  LuHouse,
+  LuQrCode,
+  LuUserPlus,
+  LuUsers,
+} from "react-icons/lu";
+import { FaCreditCard, FaTools } from "react-icons/fa";
 import logo2 from "../../assets/images/logo-3.png";
 import logoMini from "../../assets/images/logo-kecil.svg";
 
@@ -67,7 +71,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
       {
         name: "Institusi",
         path: "/retribusi/institusi",
-        icon: <LuHouse  className="h-5 w-5" />,
+        icon: <LuHouse className="h-5 w-5" />,
       },
     ],
   };
@@ -173,7 +177,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
 
           {/* Submenu */}
           <div
-            className={`overflow-hidden transition-all duration-300${
+            className={`overflow-hidden transition-all duration-300 ${
               activeMenu === layananGroup.label ? "max-h-60" : "max-h-0"
             }`}
           >

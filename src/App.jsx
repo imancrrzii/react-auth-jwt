@@ -14,10 +14,11 @@ import About from "./pages/About.jsx";
 import MainLayoutShad from "./components/Layout/MainLayoutShad.jsx";
 import Homepage from "./pages/dashboard-shad/Homepage.jsx";
 import Institution from "./pages/dashboard-shad/Institution.jsx";
-import User from "./pages/dashboard-shad/User/User.jsx";
+// import User from "./pages/dashboard-shad/User/User.jsx";
 import UserTambah from "./pages/dashboard-shad/User/UserTambah.jsx";
 import { Toaster } from "sonner";
 import AddUser from "./pages/AddUser.jsx";
+import User from "./pages/User.jsx";
 
 const App = () => {
   const navigate = useNavigate();
@@ -58,11 +59,19 @@ const App = () => {
             path="/retribusi/pengguna"
             element={
               <ProtectedRoute>
-                <AddUser />
+                <User />
               </ProtectedRoute>
             }
           />
         </Route>
+        <Route
+          path="/retribusi/pengguna/tambah"
+          element={
+            <ProtectedRoute>
+              <AddUser />
+            </ProtectedRoute>
+          }
+        ></Route>
 
         <Route path="/dashboard-shad" element={<MainLayoutShad />}>
           <Route
