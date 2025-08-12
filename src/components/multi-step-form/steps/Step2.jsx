@@ -3,15 +3,22 @@ import Input2 from "../../form/Input2";
 import Select from "../../form/Select";
 import Textarea from "../../form/Textarea";
 import { useFormContext } from "react-hook-form";
+import countries from "../../../data/countries";
 
 const Step2 = () => {
-  const { register, formState: { errors } } = useFormContext();
+  const { countryList, cityList } = countries;
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <div className="space-y-4">
       <div className="flex items-center mb-6">
         <Mail className="h-6 w-6 text-sky-600 mr-2" />
-        <h2 className="text-xl font-semibold text-gray-800">Informasi Kontak</h2>
+        <h2 className="text-xl font-semibold text-gray-800">
+          Informasi Kontak
+        </h2>
       </div>
 
       <Input2
@@ -24,8 +31,8 @@ const Step2 = () => {
           required: "Email wajib diisi",
           pattern: {
             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: "Format email tidak valid"
-          }
+            message: "Format email tidak valid",
+          },
         })}
         error={errors.email}
       />
@@ -40,8 +47,8 @@ const Step2 = () => {
           required: "Nomor telepon wajib diisi",
           pattern: {
             value: /^[0-9+\-\s()]+$/,
-            message: "Format nomor telepon tidak valid"
-          }
+            message: "Format nomor telepon tidak valid",
+          },
         })}
         error={errors.phone}
       />
@@ -50,14 +57,9 @@ const Step2 = () => {
         id="country"
         name="country"
         labelText="Negara"
-        options={[
-          { value: "id", label: "Indonesia" },
-          { value: "my", label: "Malaysia" },
-          { value: "sg", label: "Singapore" },
-          { value: "th", label: "Thailand" }
-        ]}
+        options={countryList}
         register={register("country", {
-          required: "Negara wajib dipilih"
+          required: "Negara wajib dipilih",
         })}
         error={errors.country}
       />
@@ -66,15 +68,9 @@ const Step2 = () => {
         id="city"
         name="city"
         labelText="Kota"
-        options={[
-          { value: "jakarta", label: "Jakarta" },
-          { value: "surabaya", label: "Surabaya" },
-          { value: "bandung", label: "Bandung" },
-          { value: "medan", label: "Medan" },
-          { value: "palembang", label: "Palembang" }
-        ]}
+        options={cityList}
         register={register("city", {
-          required: "Kota wajib dipilih"
+          required: "Kota wajib dipilih",
         })}
         error={errors.city}
       />
@@ -86,7 +82,7 @@ const Step2 = () => {
         placeholder="Masukkan alamat lengkap Anda"
         register={register("address", {
           required: "Alamat wajib diisi",
-          minLength: { value: 10, message: "Alamat minimal 10 karakter" }
+          minLength: { value: 10, message: "Alamat minimal 10 karakter" },
         })}
         error={errors.address}
       />
@@ -98,7 +94,6 @@ export default Step2;
 
 // import { useFormContext } from "react-hook-form";
 // import Input from "../../Form/Input";
-
 
 // export default function Step2() {
 //   const {

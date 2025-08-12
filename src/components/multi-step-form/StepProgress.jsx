@@ -21,7 +21,7 @@ const StepProgress = ({ currentStep, totalSteps }) => {
           return (
             <div key={index} className="flex flex-col items-center relative z-10">
               <div
-                className={`flex items-center justify-center w-13 h-13 rounded-full border-2 transition-all duration-300 ${
+                className={`flex items-center justify-center w-20 h-20 rounded-full border-2 transition-all duration-300 ${
                   isCompleted
                     ? "bg-sky-600 border-sky-600 text-white"
                     : isActive
@@ -50,10 +50,10 @@ const StepProgress = ({ currentStep, totalSteps }) => {
 
         {totalSteps > 1 && (
           <>
-            <div className="absolute top-6 left-6 right-6 h-2 bg-gray-200 rounded-full" style={{ zIndex: 1 }} />
+            <div className="absolute top-10 left-6 right-6 h-2 bg-gray-200 rounded-full" style={{ zIndex: 1 }} />
             
             <div
-              className="absolute top-6 left-6 h-2 bg-sky-500 rounded-full transition-all duration-500 ease-in-out"
+              className="absolute top-10 left-6 h-2 bg-sky-500 rounded-full transition-all duration-500 ease-in-out"
               style={{ 
                 width: `calc(${percent}% - 48px)`,
                 zIndex: 2

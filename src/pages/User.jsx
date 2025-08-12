@@ -10,8 +10,13 @@ import {
   ArrowDown,
   Users,
   UserPlus2,
+  Eye,
+  Edit,
+  Trash,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import ModalUserDetail from "../components/user/ModalUserDetail";
+import DeleteWithConfirm from "../components/user/DeleteWithConfirm";
 
 const User = () => {
   const [users, setUsers] = useState([]);
@@ -21,7 +26,10 @@ const User = () => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [userToDelete, setUserToDelete] = useState(null);
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -47,6 +55,21 @@ const User = () => {
       direction = "desc";
     }
     setSortConfig({ key, direction });
+  };
+
+  const handleView = (user) => {
+    setSelectedUser(user);
+    setShowDetailModal(true);
+  };
+
+  const navigate = useNavigate();
+
+  const handleEdit = (id) => {
+    navigate(`/retribusi/pengguna/edit/${id}`);
+  };
+
+  const handleDelete = (deletedId) => {
+    setUsers((prev) => prev.filter((user) => user.id !== deletedId));
   };
 
   const getSortIcon = (columnKey) => {
@@ -404,6 +427,9 @@ const User = () => {
                     {getSortIcon("university")}
                   </div>
                 </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50 sticky right-0 z-10 border-l border-gray-200">
+                  Aksi
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -529,6 +555,28 @@ const User = () => {
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900 max-w-44 truncate">
                     {user.university}
                   </td>
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900 bg-white sticky right-0 z-10 border-l border-gray-200">
+                    <div className="flex gap-1">
+                      <button
+                        onClick={() => handleView(user)}
+                        className="bg-blue-100 border-blue-500 p-2 rounded-full text-blue-600 hover:text-blue-800 cursor-pointer"
+                      >
+                        <Eye className="w-3 h-3" />
+                      </button>
+                      <button
+                        onClick={() => handleEdit(user.id)}
+                        className="bg-yellow-100 border-yellow-600 p-2 rounded-full text-yellow-600 hover:text-yellow-800 cursor-pointer"
+                      >
+                        <Edit className="w-3 h-3" />
+                      </button>
+                      <button
+                        onClick={() => setUserToDelete(user)}
+                        className="bg-red-100 border p-2 rounded-full text-red-600 hover:text-red-800 cursor-pointer"
+                      >
+                        <Trash className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -610,6 +658,22 @@ const User = () => {
           </div>
         </div>
       </div>
+      <ModalUserDetail
+        user={selectedUser}
+        isOpen={showDetailModal}
+        onClose={() => setShowDetailModal(false)}
+      />
+      {userToDelete && (
+        <DeleteWithConfirm
+          id={userToDelete.id}
+          name={`${userToDelete.firstName} ${userToDelete.lastName}`}
+          onDeleted={(id) => {
+            handleDelete(id);
+            setUserToDelete(null);
+          }}
+          onClose={() => setUserToDelete(null)}
+        />
+      )}
     </div>
   );
 };

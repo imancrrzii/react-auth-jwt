@@ -19,6 +19,8 @@ import UserTambah from "./pages/dashboard-shad/User/UserTambah.jsx";
 import { Toaster } from "sonner";
 import AddUser from "./pages/AddUser.jsx";
 import User from "./pages/User.jsx";
+import Users from "./pages/dashboard-shad/User/User.jsx";
+import EditUser from "./pages/EditUser.jsx";
 
 const App = () => {
   const navigate = useNavigate();
@@ -72,13 +74,21 @@ const App = () => {
             </ProtectedRoute>
           }
         ></Route>
+        <Route
+          path="/retribusi/pengguna/edit/:id"
+          element={
+            <ProtectedRoute>
+              <EditUser />
+            </ProtectedRoute>
+          }
+        />
 
         <Route path="/dashboard-shad" element={<MainLayoutShad />}>
           <Route
             path="dashboard-shad-home"
             element={<Homepage user={user} />}
           />
-          <Route path="dashboard-shad-user" element={<User />} />
+          <Route path="dashboard-shad-user" element={<Users />} />
           <Route path="dashboard-shad-user/tambah" element={<UserTambah />} />
           <Route path="dashboard-shad-institution" element={<Institution />} />
           {/* <Route path="inbox" element={<InboxPage />} />

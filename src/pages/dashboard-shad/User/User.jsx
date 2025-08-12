@@ -34,7 +34,7 @@ import { Link } from "react-router-dom";
 import { ViewDialog } from "./ViewDialog";
 import { DeleteDialog } from "./DeleteDialog";
 
-export default function User() {
+export default function Users() {
   const [data, setData] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [pageIndex, setPageIndex] = useState(0);
