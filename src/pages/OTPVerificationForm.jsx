@@ -7,6 +7,7 @@ import useUserStore from "../store/useUserStore";
 import { encryptToken } from "../utils/tokenCrypto";
 import { decryptData } from "../utils/tokenCrypto";
 import Input from "../components/Form/Input";
+import axiosInstance from "../utils/axiosInstance";
 
 const OTPVerificationForm = () => {
   const user = useUserStore((state) => state.user);
@@ -142,7 +143,7 @@ const OTPVerificationForm = () => {
     setHasSubmitted(true);
 
     try {
-      const response = await axios.post("http://localhost:9000/v1/verify-otp", {
+      const response = await axiosInstance.post("/verify-otp", {
         no_hp,
         otp: fullOtp,
       });
@@ -229,10 +230,13 @@ const OTPVerificationForm = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:9000/v1/resend-otp", {
-        no_hp,
-        password,
-      });
+      const response = await axiosInstance.post(
+        "http://localhost:9000/v1/resend-otp",
+        {
+          no_hp,
+          password,
+        }
+      );
 
       if (response.data.respCode === "0000") {
         alert("Kode OTP berhasil dikirim ulang.");

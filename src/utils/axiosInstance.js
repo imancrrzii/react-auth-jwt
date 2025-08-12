@@ -48,6 +48,62 @@ const clearAuthTokensAndRedirect = (errorMsg = "Sesi Anda telah berakhir.") => {
   redirectToLogin();
 };
 
+// const refreshAccessToken = async () => {
+//   try {
+//     const encryptedRefreshToken = localStorage.getItem("refresh_token");
+//     if (!encryptedRefreshToken) {
+//       clearAuthTokensAndRedirect(
+//         "Refresh token tidak ditemukan. Silakan login ulang."
+//       );
+//       throw new Error("Refresh token tidak ditemukan.");
+//     }
+
+//     const refreshToken = decryptToken(encryptedRefreshToken);
+//     if (!refreshToken) {
+//       clearAuthTokensAndRedirect(
+//         "Refresh token tidak valid. Silakan login ulang."
+//       );
+//       throw new Error("Gagal mendekripsi refresh token.");
+//     }
+
+//     const response = await refreshAxiosInstance.get("/refresh-token", {
+//       headers: {
+//         Authorization: `Bearer ${refreshToken}`,
+//       },
+//     });
+
+//     if (response.data.respCode === "0000") {
+//       const newAccessToken = response.data.data.access_token;
+//       const newRefreshToken = response.data.data.refresh_token;
+
+//       localStorage.setItem("access_token", encryptToken(newAccessToken));
+//       if (newRefreshToken) {
+//         localStorage.setItem("refresh_token", encryptToken(newRefreshToken));
+//       }
+//       return newAccessToken;
+//     } else {
+//       clearAuthTokensAndRedirect(
+//         response.data.respMessage || "Refresh token gagal. Silakan login ulang."
+//       );
+//       throw new Error(
+//         response.data.respMessage || "Gagal mendapatkan token baru."
+//       );
+//     }
+//   } catch (error) {
+//     console.error("Error saat refresh token:", error);
+//     if (
+//       !error.message.includes("Refresh token tidak ditemukan") &&
+//       !error.message.includes("Gagal mendekripsi refresh token") &&
+//       !error.message.includes("Gagal mendapatkan token baru")
+//     ) {
+//       clearAuthTokensAndRedirect(
+//         "Terjadi kesalahan saat mencoba refresh token. Silakan login ulang."
+//       );
+//     }
+//     throw error;
+//   }
+// };
+
 const refreshAccessToken = async () => {
   try {
     const encryptedRefreshToken = localStorage.getItem("refresh_token");
@@ -66,9 +122,26 @@ const refreshAccessToken = async () => {
       throw new Error("Gagal mendekripsi refresh token.");
     }
 
+    const clientSecret = import.meta.env.VITE_SECRET_KEY;
+    const httpMethod = "GET";
+    const endpointPath = "/refresh-token";
+    const bodyHash = CryptoJS.SHA256("").toString(CryptoJS.enc.Hex);
+
+    const currentTimestamp = new Date();
+    currentTimestamp.setHours(currentTimestamp.getHours() + 7);
+    const formattedTime =
+      currentTimestamp.toISOString().slice(0, 19) + "+07:00";
+
+    const stringToSign = `${httpMethod}:${endpointPath}:${refreshToken}:${bodyHash}:${formattedTime}`;
+    const signature = CryptoJS.HmacSHA512(stringToSign, clientSecret).toString(
+      CryptoJS.enc.Hex
+    );
+
     const response = await refreshAxiosInstance.get("/refresh-token", {
       headers: {
         Authorization: `Bearer ${refreshToken}`,
+        "X-TIMESTAMP": formattedTime,
+        "X-SIGNATURE": signature,
       },
     });
 
@@ -104,26 +177,101 @@ const refreshAccessToken = async () => {
   }
 };
 
+// axiosInstance.interceptors.request.use(
+//   async (config) => {
+//     if (config.url === "/login" || config.url === "/verify-otp") {
+//       return config;
+//     }
+
+//     const encryptedToken = localStorage.getItem("access_token");
+//     if (!encryptedToken) {
+//       clearAuthTokensAndRedirect(
+//         "Access token tidak ditemukan. Silakan login ulang."
+//       );
+//       return Promise.reject(new axios.Cancel("No access token available."));
+//     }
+
+//     let accessToken = decryptToken(encryptedToken);
+//     if (!accessToken) {
+//       clearAuthTokensAndRedirect(
+//         "Access token tidak valid. Silakan login ulang."
+//       );
+//       return Promise.reject(new axios.Cancel("Invalid access token."));
+//     }
+
+//     const expirationTime = getAccessTokenExpiration();
+//     const currentTime = Date.now();
+//     const REFRESH_THRESHOLD_IN_MS = 580000;
+
+//     if (
+//       expirationTime &&
+//       expirationTime - currentTime < REFRESH_THRESHOLD_IN_MS
+//     ) {
+//       if (!isRefreshing) {
+//         isRefreshing = true;
+//         try {
+//           const newAccessToken = await refreshAccessToken();
+//           accessToken = newAccessToken;
+//           processQueue(null, newAccessToken);
+//         } catch (error) {
+//           processQueue(error);
+//           return Promise.reject(error);
+//         } finally {
+//           isRefreshing = false;
+//         }
+//       } else {
+//         try {
+//           accessToken = await new Promise((resolve, reject) => {
+//             failedQueue.push({ resolve, reject });
+//           });
+//         } catch (err) {
+//           return Promise.reject(err);
+//         }
+//       }
+//     }
+
+//     config.headers["Authorization"] = `Bearer ${accessToken}`;
+
+//     const clientSecret = import.meta.env.VITE_SECRET_KEY;
+//     const httpMethod = config.method?.toUpperCase() || "GET";
+//     const endpointPath = new URL(config.baseURL + config.url).pathname;
+
+//     let requestBody = "";
+//     if (config.data) {
+//       requestBody =
+//         typeof config.data === "object"
+//           ? JSON.stringify(config.data)
+//           : config.data;
+//     }
+
+//     const minifiedBody = requestBody.replace(/\s+/g, "").toLowerCase();
+//     const bodyHash = CryptoJS.SHA256(minifiedBody).toString(CryptoJS.enc.Hex);
+
+//     const currentTimestamp = new Date();
+//     currentTimestamp.setHours(currentTimestamp.getHours() + 7);
+//     const formattedTime =
+//       currentTimestamp.toISOString().slice(0, 19) + "+07:00";
+
+//     const stringToSign = `${httpMethod}:${endpointPath}:${accessToken}:${bodyHash}:${formattedTime}`;
+//     const signature = CryptoJS.HmacSHA512(stringToSign, clientSecret).toString(
+//       CryptoJS.enc.Hex
+//     );
+
+//     config.headers["X-TIMESTAMP"] = formattedTime;
+//     config.headers["X-SIGNATURE"] = signature;
+
+//     return config;
+//   },
+//   (error) => Promise.reject(error)
+// );
+
 axiosInstance.interceptors.request.use(
   async (config) => {
-    if (config.url === "/login" || config.url === "/verify-otp") {
-      return config;
-    }
-
+    let accessToken = null;
     const encryptedToken = localStorage.getItem("access_token");
-    if (!encryptedToken) {
-      clearAuthTokensAndRedirect(
-        "Access token tidak ditemukan. Silakan login ulang."
-      );
-      return Promise.reject(new axios.Cancel("No access token available."));
-    }
 
-    let accessToken = decryptToken(encryptedToken);
-    if (!accessToken) {
-      clearAuthTokensAndRedirect(
-        "Access token tidak valid. Silakan login ulang."
-      );
-      return Promise.reject(new axios.Cancel("Invalid access token."));
+    if (encryptedToken) {
+      accessToken = decryptToken(encryptedToken);
     }
 
     const expirationTime = getAccessTokenExpiration();
@@ -131,6 +279,7 @@ axiosInstance.interceptors.request.use(
     const REFRESH_THRESHOLD_IN_MS = 580000;
 
     if (
+      accessToken &&
       expirationTime &&
       expirationTime - currentTime < REFRESH_THRESHOLD_IN_MS
     ) {
@@ -157,11 +306,23 @@ axiosInstance.interceptors.request.use(
       }
     }
 
-    config.headers["Authorization"] = `Bearer ${accessToken}`;
+    if (accessToken) {
+      config.headers["Authorization"] = `Bearer ${accessToken}`;
+    }
 
-    const clientSecret = import.meta.env.VITE_SECRET_KEY;
-    const httpMethod = config.method?.toUpperCase() || "GET";
-    const endpointPath = new URL(config.baseURL + config.url).pathname;
+    const base = config.baseURL || "";
+    const url = config.url || "";
+
+    const normalizedBase = base.endsWith("/") ? base : `${base}/`;
+
+    const fullUrl = url.startsWith(base)
+      ? url
+      : `${normalizedBase}${url.startsWith("/") ? url.substring(1) : url}`;
+
+    const endpointPath = new URL(fullUrl).pathname;
+
+    // Ambil method dan body
+    const httpMethod = (config.method || "GET").toUpperCase();
 
     let requestBody = "";
     if (config.data) {
@@ -179,13 +340,14 @@ axiosInstance.interceptors.request.use(
     const formattedTime =
       currentTimestamp.toISOString().slice(0, 19) + "+07:00";
 
-    const stringToSign = `${httpMethod}:${endpointPath}:${accessToken}:${bodyHash}:${formattedTime}`;
+    const safeAccessToken = accessToken || "";
+
+    const clientSecret = import.meta.env.VITE_SECRET_KEY;
+
+    const stringToSign = `${httpMethod}:${endpointPath}:${safeAccessToken}:${bodyHash}:${formattedTime}`;
     const signature = CryptoJS.HmacSHA512(stringToSign, clientSecret).toString(
       CryptoJS.enc.Hex
     );
-
-    config.headers["X-TIMESTAMP"] = formattedTime;
-    config.headers["X-SIGNATURE"] = signature;
 
     return config;
   },

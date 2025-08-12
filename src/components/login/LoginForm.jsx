@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ClipLoader } from "react-spinners";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Input from "../Form/Input";
+import axiosInstance from "../../utils/axiosInstance";
 
 const LoginForm = () => {
   const {
@@ -34,7 +35,7 @@ const LoginForm = () => {
     setError(null);
 
     try {
-      const response = await axios.post("http://localhost:9000/v1/login", {
+      const response = await axiosInstance.post("/login", {
         no_hp: data.no_hp,
         password: data.password,
       });
