@@ -11,6 +11,7 @@ import axiosInstance from "../utils/axiosInstance";
 
 const OTPVerificationForm = () => {
   const user = useUserStore((state) => state.user);
+  const [isFirstResend, setIsFirstResend] = useState(true); // untuk deteksi pengiriman pertama
 
   const navigate = useNavigate();
   const no_hp = user?.no_hp || "";
@@ -25,7 +26,7 @@ const OTPVerificationForm = () => {
   const [countdown, setCountdown] = useState(0);
   const intervalRef = useRef(null);
 
-  const COUNTDOWN_DURATION = 300;
+  const COUNTDOWN_DURATION = 10;
 
   useEffect(() => {
     const savedStartTime = localStorage.getItem(`otp_start_time_${no_hp}`);
@@ -219,10 +220,23 @@ const OTPVerificationForm = () => {
   const handleResendOtp = async () => {
     const password = decryptData(localStorage.getItem("password_temp"));
 
-    const userStorage = localStorage.getItem("persist:root");
-    const no_hp = userStorage
-      ? JSON.parse(userStorage)?.state?.user?.no_hp
-      : null;
+    let no_hp = null;
+
+    try {
+      const encryptedRoot = localStorage.getItem("persist:root");
+
+      if (!encryptedRoot) throw new Error("Data persist:root tidak ditemukan");
+
+      const decryptedRoot = decryptData(encryptedRoot);
+
+      const noHpFromState = decryptedRoot?.state?.user?.no_hp;
+
+      no_hp = noHpFromState;
+    } catch (err) {
+      console.error("Gagal parsing localStorage:", err);
+      alert("Terjadi kesalahan saat membaca data pengguna.");
+      return;
+    }
 
     if (!no_hp || !password) {
       alert("Nomor HP atau password tidak ditemukan.");
@@ -240,7 +254,12 @@ const OTPVerificationForm = () => {
 
       if (response.data.respCode === "0000") {
         alert("Kode OTP berhasil dikirim ulang.");
-        setCountdown(300);
+
+        if (!isFirstResend) {
+          setCountdown(30);
+        }
+
+        setIsFirstResend(false);
       } else {
         alert(response.data.respMessage || "Gagal mengirim ulang OTP.");
       }
@@ -312,8 +331,8 @@ const OTPVerificationForm = () => {
             >
               Kirim Ulang
             </button>
+            {countdown > 0 && <span> dalam {formatTime(countdown)}</span>}
           </span>
-          <span> dalam {formatTime(countdown)}</span>
         </p>
       </div>
     </div>

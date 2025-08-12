@@ -365,7 +365,8 @@ axiosInstance.interceptors.response.use(
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
-      originalRequest.url !== "/refresh-token"
+      originalRequest.url !== "/refresh-token" &&
+      originalRequest.url !== "/verify-otp"
     ) {
       originalRequest._retry = true;
 
