@@ -47,18 +47,18 @@ export default function DeleteWithConfirm({ id, name, onDeleted, onClose }) {
 
         <div className="flex justify-end space-x-3">
           <button
-            onClick={onClose}
-            disabled={loading}
-            className="px-4 py-2 border rounded text-sm"
-          >
-            Tidak
-          </button>
-          <button
             onClick={handleDelete}
             disabled={loading}
             className="px-4 py-2 bg-red-600 text-white rounded text-sm"
           >
             {loading ? "Menghapus..." : "Ya"}
+          </button>
+          <button
+            onClick={onClose}
+            disabled={loading}
+            className="px-4 py-2 border rounded text-sm"
+          >
+            Tidak
           </button>
         </div>
       </div>
