@@ -349,6 +349,9 @@ axiosInstance.interceptors.request.use(
       CryptoJS.enc.Hex
     );
 
+    config.headers["X-TIMESTAMP"] = formattedTime;
+    config.headers["X-SIGNATURE"] = signature;
+
     return config;
   },
   (error) => Promise.reject(error)
