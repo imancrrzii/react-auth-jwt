@@ -1,23 +1,94 @@
-import { User } from "lucide-react";
-import Input2 from "../../form/Input2";
-import RadioGroup from "../../form/RadioGroup";
 import { useFormContext } from "react-hook-form";
+import { useState } from "react";
+import Input2 from "../../form/Input2";
 import Textarea from "../../form/Textarea";
+import RadioGroup from "../../form/RadioGroup";
+import Select from "../../form/Select";
+import Checkbox from "../../form/Checkbox";
 
 const Step1 = () => {
   const {
     register,
+    setValue,
+    watch,
     formState: { errors },
   } = useFormContext();
 
+  const [showCustomFields, setShowCustomFields] = useState(false);
+
+  const pilihanInstitusi = watch("pilihanInstitusi");
+
+  const handleCheckboxChange = (e) => {
+    setShowCustomFields(e.target.checked);
+
+    if (e.target.checked) {
+      setValue("pilihanInstitusi", "");
+    }
+  };
+
   return (
     <div className="space-y-4">
-      <div className="flex items-center mb-6">
-        <User className="h-6 w-6 text-sky-600 mr-2" />
-        <h2 className="text-xl font-bold text-gray-800">
-          Informasi Personal
-        </h2>
-      </div>
+      {/* Select Institusi */}
+      <Select
+        id="pilihanInstitusi"
+        name="pilihanInstitusi"
+        labelText="Pilih Institusi"
+        options={[
+          { value: "universitas_a", label: "Universitas A - Padang" },
+          { value: "universitas_b", label: "Universitas B - Palembang" },
+          { value: "universitas_c", label: "Universitas C - Bogor" },
+        ]}
+        register={register("pilihanInstitusi", {
+          validate: (val) => {
+            const isCustom = watch("noInstitution");
+            const customUni = watch("customInstitution.universitas");
+            const customKota = watch("customInstitution.kota_universitas");
+
+            if (!val && !isCustom) {
+              return "Institusi wajib dipilih atau isi data institusi baru";
+            }
+
+            if (isCustom && (!customUni || !customKota)) {
+              return "Harap lengkapi data institusi";
+            }
+
+            return true;
+          },
+        })}
+        error={errors.pilihanInstitusi}
+        disabled={showCustomFields} 
+      />
+
+      {/* Checkbox */}
+      <Checkbox
+        id="noInstitution"
+        name="noInstitution"
+        labelText="Tidak ada data yang Anda inginkan?"
+        register={register("noInstitution")}
+        onChange={handleCheckboxChange}
+        disabled={!!pilihanInstitusi} 
+      />
+
+      {showCustomFields && (
+        <div className="border border-gray-200 p-4 rounded-md space-y-4 bg-gray-50">
+          <Input2
+            id="customInstitution.universitas"
+            name="customInstitution.universitas"
+            labelText="Nama Institusi"
+            placeholder="Masukkan nama institusi"
+            register={register("customInstitution.universitas")}
+            error={errors?.customInstitution?.universitas}
+          />
+          <Input2
+            id="customInstitution.kota_universitas"
+            name="customInstitution.kota_universitas"
+            labelText="Kota Institusi"
+            placeholder="Masukkan kota institusi"
+            register={register("customInstitution.kota_universitas")}
+            error={errors?.customInstitution?.kota_universitas}
+          />
+        </div>
+      )}
 
       <Input2
         id="firstName"
@@ -26,7 +97,6 @@ const Step1 = () => {
         placeholder="Masukkan nama depan"
         register={register("firstName", {
           required: "Nama depan wajib diisi",
-          minLength: { value: 2, message: "Minimal 2 karakter" },
         })}
         error={errors.firstName}
       />
@@ -38,7 +108,6 @@ const Step1 = () => {
         placeholder="Masukkan nama belakang"
         register={register("lastName", {
           required: "Nama belakang wajib diisi",
-          minLength: { value: 2, message: "Minimal 2 karakter" },
         })}
         error={errors.lastName}
       />
@@ -63,7 +132,6 @@ const Step1 = () => {
         placeholder="Masukkan alamat lengkap Anda"
         register={register("address", {
           required: "Alamat wajib diisi",
-          minLength: { value: 10, message: "Alamat minimal 10 karakter" },
         })}
         error={errors.address}
       />
@@ -72,47 +140,3 @@ const Step1 = () => {
 };
 
 export default Step1;
-
-// import { useFormContext } from "react-hook-form";
-// import Input from "../../Form/Input";
-
-// export default function Step1() {
-//   const {
-//     register,
-//     formState: { errors },
-//   } = useFormContext();
-
-//   return (
-//     <div>
-//       <Input
-//         id="name"
-//         name="name"
-//         labelText="Nama Lengkap"
-//         variantLabel="block mb-2 font-semibold"
-//         placeholder="Masukkan nama lengkap"
-//         variant={`w-full border px-3 py-2 rounded focus:outline-none transition ${
-//           errors.name ? "border-red-500" : "border-gray-300"
-//         } focus:border-sky-500`}
-//         aria-invalid={errors.name ? "true" : "false"}
-//         aria-describedby="name-error"
-//         {...register("name", {
-//           required: "Nama wajib diisi",
-//           minLength: {
-//             value: 3,
-//             message: "Nama minimal 3 karakter",
-//           },
-//           pattern: {
-//             value: /^[A-Za-z\s]+$/i,
-//             message: "Nama hanya boleh huruf dan spasi",
-//           },
-//         })}
-//       />
-
-//       {errors.name && (
-//         <p id="name-error" role="alert" className="text-red-500 text-sm mt-1">
-//           {errors.name.message}
-//         </p>
-//       )}
-//     </div>
-//   );
-// }

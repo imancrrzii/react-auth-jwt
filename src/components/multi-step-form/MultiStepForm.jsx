@@ -16,7 +16,6 @@ import Step1 from "./steps/Step1";
 import Step2 from "./steps/Step2";
 import Step3 from "./steps/Step3";
 import Step4 from "./steps/Step4";
-// Import komponen SidebarProgress yang sudah diperbaiki
 import SidebarProgress from "./SidebarProgress";
 
 const steps = [Step1, Step2, Step3, Step4];
@@ -25,17 +24,20 @@ const LOCAL_KEY = "multi_step_form_data";
 export default function MultiStepForm({ initialData }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isToastActive, setIsToastActive] = useState(false);
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false); // Tambah state baru
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const navigate = useNavigate();
 
   const methods = useForm({
-    mode: "onBlur",
+    mode: "onSubmit",
     defaultValues: initialData ||
       JSON.parse(localStorage.getItem(LOCAL_KEY)) || {
         firstName: "",
         lastName: "",
         birthDate: "",
         gender: "",
+        pilihanInstitusi:"",
+        universitas: "",
+        kota_universitas: "",
         email: "",
         phone: "",
         country: "",
@@ -60,14 +62,14 @@ export default function MultiStepForm({ initialData }) {
   });
 
   const progresses = [
-    { title: "Personal", description: "Informasi pribadi Anda", icon: User },
-    { title: "Kontak", description: "Data kontak dan alamat", icon: Mail },
+    { title: "Langkah 1", description: "Data Institusi", icon: User },
+    { title: "Langkah 2", description: "Data User", icon: Mail },
     {
-      title: "Preferensi",
-      description: "Pilihan dan pengaturan",
+      title: "Langkah 3",
+      description: "Data Opsional",
       icon: Settings,
     },
-    { title: "Review", description: "Periksa kembali data", icon: Check },
+    { title: "Langkah 4", description: "Data Review", icon: Check },
   ];
 
   const CurrentStep = steps[currentStep];
@@ -114,7 +116,7 @@ export default function MultiStepForm({ initialData }) {
         {isToastActive && (
           <div className="fixed inset-0 backdrop-brightness-50 z-40" />
         )}
-        <div className="flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col sm:flex-row gap-4">
           <SidebarProgress
             steps={steps}
             progresses={progresses}
@@ -132,7 +134,7 @@ export default function MultiStepForm({ initialData }) {
                   }
                 }}
               >
-                <div className="lg:hidden mb-6">
+                <div className="md:hidden mb-6">
                   <StepProgress
                     currentStep={currentStep}
                     totalSteps={steps.length}

@@ -27,7 +27,7 @@
 
 //         {/* Progress bar - limited height */}
 //         <div
-//           className="absolute left-5 top-0 w-1 rounded-full bg-green-600 transition-all duration-500 ease-in-out"
+//           className="absolute left-5 top-0 w-1 rounded-full bg-emerald-600 transition-all duration-500 ease-in-out"
 //           style={{ height: `calc(${progressPercentage}% - 10px)` }} // -10px biar berhenti pas sebelum box terakhir
 //         />
 
@@ -48,7 +48,7 @@
 //                     isActive
 //                       ? "bg-sky-600 border-sky-700 text-white shadow-md"
 //                       : isCompleted
-//                       ? "bg-green-600 border-green-700 text-white"
+//                       ? "bg-emerald-600 border-emerald-700 text-white"
 //                       : "bg-gray-200 border-gray-300 text-gray-600"
 //                   }`}
 //                 >
@@ -62,7 +62,7 @@
 //                       isActive
 //                         ? "text-sky-700"
 //                         : isCompleted
-//                         ? "text-green-700"
+//                         ? "text-emerald-700"
 //                         : "text-gray-600"
 //                     }`}
 //                   >
@@ -73,7 +73,7 @@
 //                       isActive
 //                         ? "text-sky-500"
 //                         : isCompleted
-//                         ? "text-green-500"
+//                         ? "text-emerald-600"
 //                         : "text-gray-400"
 //                     }`}
 //                   >
@@ -97,9 +97,10 @@ export default function SidebarProgress({
   isFormSubmitted = false,
 }) {
   return (
-    <div className="hidden lg:flex justify-center px-12 py-8 border border-gray-200 shadow-sm rounded-md">
+    <div className="hidden md:flex justify-center px-12 py-8 border border-gray-200 shadow-sm rounded-md">
       <div className="relative flex flex-col w-48">
         <h3 className="font-bold text-xl text-gray-800 mb-6">Buat Akun</h3>
+
         {progresses.map((progress, index) => {
           const isActive = index === currentStep && !isFormSubmitted;
           const isCompleted = index < currentStep || isFormSubmitted;
@@ -108,14 +109,13 @@ export default function SidebarProgress({
           return (
             <div key={index} className="flex flex-col items-center relative">
               <div className="flex items-center w-full">
-                {/* Number / Check icon */}
                 <div
-                  className={`w-14 h-14 flex items-center justify-center rounded-2xl text-lg font-bold border-1 z-10 transition-all duration-300 ${
+                  className={`w-12 h-11 flex items-center justify-center rounded-2xl text-lg font-bold border-1 z-10 transition-all duration-300 ${
                     isActive
                       ? "bg-sky-500 border-sky-600 text-white shadow-md"
                       : isCompleted
-                      ? "bg-green-500 border-green-600 text-white"
-                      : "bg-gray-200 border-gray-300 text-gray-600"
+                      ? "bg-emerald-500 border-emerald-600 text-white"
+                      : "bg-gray-300 border-gray-200 text-white"
                   }`}
                 >
                   {isCompleted ? <Check className="w-6 h-6" /> : index + 1}
@@ -123,37 +123,41 @@ export default function SidebarProgress({
 
                 {/* Title & Description */}
                 <div className="ml-4">
-                  <span
-                    className={`block font-bold select-none transition-colors duration-300 ${
+                  <small
+                    className={`block font-semibold text-xs select-none transition-colors duration-300 ${
                       isActive
                         ? "text-sky-600"
                         : isCompleted
-                        ? "text-green-600"
+                        ? "text-emerald-600"
                         : "text-gray-500"
                     }`}
                   >
                     {progress?.title}
-                  </span>
-                  <small
-                    className={`block text-xs font-semibold transition-colors duration-300 ${
+                  </small>
+                  <h3
+                    className={`block text-md font-bold transition-colors duration-300 ${
                       isActive
                         ? "text-sky-500"
                         : isCompleted
-                        ? "text-green-500"
+                        ? "text-emerald-500"
                         : "text-gray-400"
                     }`}
                   >
                     {progress?.description}
-                  </small>
+                  </h3>
                 </div>
               </div>
 
-              {/* Garis vertikal animasi */}
+              {/* Garis vertikal (step connector) */}
               {!isLastStep && (
-                <div className="relative -left-17 w-1 h-16 my-2 rounded-full overflow-hidden bg-gray-300">
+                <div className="relative -left-18 w-1 h-16 my-2 rounded-full overflow-hidden bg-gray-300">
                   <div
                     className={`absolute left-0 top-0 w-full rounded-full transition-all duration-700 ease-in-out ${
-                      isCompleted ? "bg-green-500 h-full" : "bg-transparent h-0"
+                      isCompleted
+                        ? "bg-emerald-500 h-full"
+                        : isActive
+                        ? "bg-sky-500 h-full"
+                        : "bg-transparent h-0"
                     }`}
                   />
                 </div>

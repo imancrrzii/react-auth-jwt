@@ -1,8 +1,15 @@
-import React from 'react'
+import React from 'react';
 
 const CheckboxGroup = ({ name, labelText, options, register, error }) => (
-  <div className="mb-4">
+  <div className="mb-4 relative">
     <label className="block mb-2 font-medium text-gray-700">{labelText}</label>
+    {error && (
+      <div className="absolute right-0 -top-6 bg-red-500 text-white text-xs rounded-sm px-2 py-1 shadow-lg z-10">
+        {error.message}
+        <div className="absolute bottom-[-6px] right-1 w-3 h-3 bg-red-500 rotate-45"></div>
+      </div>
+    )}
+
     <div className="space-y-2">
       {options.map((option) => (
         <div key={option.value} className="flex items-center">
@@ -23,8 +30,7 @@ const CheckboxGroup = ({ name, labelText, options, register, error }) => (
         </div>
       ))}
     </div>
-    {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
   </div>
 );
 
-export default CheckboxGroup
+export default CheckboxGroup;
