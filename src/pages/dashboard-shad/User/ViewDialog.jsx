@@ -16,7 +16,7 @@ export function ViewDialog({ row }) {
         <Button
           size="icon"
           variant="outline"
-          className="rounded-xl p-1 bg-blue-600 text-white hover:bg-blue-700 hover:text-white cursor-pointer"
+          className="rounded-xl p-1 bg-sky-600 text-white hover:bg-sky-700 hover:text-white cursor-pointer"
         >
           <Eye className="w-4 h-4" />
         </Button>

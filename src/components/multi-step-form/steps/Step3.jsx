@@ -23,10 +23,7 @@ const Step3 = () => {
           { value: "tech", label: "Teknologi" },
           { value: "sports", label: "Olahraga" },
           { value: "music", label: "Musik" },
-          { value: "travel", label: "Travel" },
-          { value: "cooking", label: "Memasak" },
-          { value: "reading", label: "Membaca" },
-          { value: "gaming", label: "Gaming" }
+          { value: "travel", label: "Travel" }
         ]}
         register={register("interests")}
         error={errors.interests}
@@ -43,40 +40,6 @@ const Step3 = () => {
           required: "Tingkat pengalaman wajib dipilih"
         })}
         error={errors.experience}
-      />
-
-      <Select
-        id="language"
-        name="language"
-        labelText="Bahasa Utama"
-        options={[
-          { value: "id", label: "Bahasa Indonesia" },
-          { value: "en", label: "English" },
-          { value: "ms", label: "Bahasa Melayu" },
-          { value: "zh", label: "中文" }
-        ]}
-        register={register("language", {
-          required: "Bahasa wajib dipilih"
-        })}
-        error={errors.language}
-      />
-
-      <Toggle
-        id="newsletter"
-        name="newsletter"
-        labelText="Berlangganan Newsletter"
-        watch={watch}
-        register={register("newsletter")}
-        error={errors.newsletter}
-      />
-
-      <Toggle
-        id="notifications"
-        name="notifications"
-        labelText="Terima Notifikasi"
-        watch={watch}
-        register={register("notifications")}
-        error={errors.notifications}
       />
 
       <Toggle

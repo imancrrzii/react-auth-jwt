@@ -38,7 +38,6 @@ const Step4 = () => {
           { value: "credit_card", label: "Kartu Kredit" },
           { value: "bank_transfer", label: "Transfer Bank" },
           { value: "ewallet", label: "E-Wallet" },
-          { value: "paypal", label: "PayPal" }
         ]}
         register={register("paymentMethod", {
           required: "Metode pembayaran wajib dipilih"
@@ -70,16 +69,6 @@ const Step4 = () => {
         error={errors.website}
       />
 
-      <Textarea
-        id="notes"
-        name="notes"
-        labelText="Catatan Tambahan (Opsional)"
-        placeholder="Berikan catatan atau komentar tambahan"
-        rows={4}
-        register={register("notes")}
-        error={errors.notes}
-      />
-
       <Checkbox
         id="terms"
         name="terms"
@@ -98,14 +87,6 @@ const Step4 = () => {
           required: "Anda harus menyetujui kebijakan privasi"
         })}
         error={errors.privacy}
-      />
-
-      <Checkbox
-        id="marketing"
-        name="marketing"
-        labelText="Saya setuju menerima informasi marketing (opsional)"
-        register={register("marketing")}
-        error={errors.marketing}
       />
     </div>
   );

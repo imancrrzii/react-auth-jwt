@@ -630,7 +630,7 @@ const User = () => {
                       onClick={() => goToPage(pageNumber)}
                       className={`px-3 py-2 rounded-md text-sm font-medium cursor-pointer ${
                         currentPage === pageNumber
-                          ? "bg-blue-600 text-white"
+                          ? "bg-sky-500 text-white"
                           : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
                       }`}
                     >

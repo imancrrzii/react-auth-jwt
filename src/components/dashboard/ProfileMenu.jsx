@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HiKey } from "react-icons/hi";
 import { IoSettingsSharp } from "react-icons/io5";
 import useUserStore from "../../store/useUserStore";
@@ -12,6 +12,7 @@ export default function ProfileMenu() {
   const clearUser = useUserStore((state) => state.clearUser);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const menuRef = useRef(null);
 
   const handleClick = () => setOpen(!open);
 
@@ -38,10 +39,7 @@ export default function ProfileMenu() {
           console.error("Logout failed:", response.status, response.data);
         }
       } catch (error) {
-        console.error(
-          "Logout API error:",
-          error.response?.data || error.message
-        );
+        console.error("Logout API error:", error.response?.data || error.message);
         if (
           error.response?.status === 401 ||
           error.message === "Refresh token tidak ditemukan."
@@ -62,12 +60,29 @@ export default function ProfileMenu() {
     setOpen(false);
   };
 
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    if (open) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [open]);
+
   return (
-    <div className="relative ml-auto">
+    <div className="relative ml-auto" ref={menuRef}>
       <button
         onClick={handleClick}
-        className="bg-blue-400 rounded-md w-10 h-10 flex items-center justify-center cursor-pointer"
-      >
+        className="bg-blue-400 rounded-md w-10 h-10 flex items-center justify-center cursor-pointer">
         <IoSettingsSharp className="h-6 w-6 text-white" />
       </button>
       {open && (
@@ -76,8 +91,7 @@ export default function ProfileMenu() {
             <li>
               <button
                 onClick={() => handleAction("account")}
-                className="flex items-center w-full px-4 py-2 hover:bg-gray-100 cursor-pointer"
-              >
+                className="flex items-center w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">
                 <FaGears className="w-4 h-4 mr-2" />
                 My Profile
               </button>
@@ -85,8 +99,7 @@ export default function ProfileMenu() {
             <li>
               <button
                 onClick={() => handleAction("change-password")}
-                className="flex items-center w-full px-4 py-2 hover:bg-gray-100 cursor-pointer"
-              >
+                className="flex items-center w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">
                 <HiKey className="w-4 h-4 mr-2" />
                 Ganti Password
               </button>
@@ -94,8 +107,7 @@ export default function ProfileMenu() {
             <li>
               <button
                 onClick={() => handleAction("logout")}
-                className="flex items-center w-full px-4 py-2 text-red-600 hover:bg-gray-100 cursor-pointer"
-              >
+                className="flex items-center w-full px-4 py-2 text-red-600 hover:bg-gray-100 cursor-pointer">
                 <RiShutDownLine className="w-4 h-4 mr-2" />
                 Logout
               </button>

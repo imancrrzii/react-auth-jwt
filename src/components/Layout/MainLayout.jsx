@@ -7,7 +7,6 @@ export default function MainLayout() {
   const [collapsed, setCollapsed] = useState(false);
   const sidebarWidth = collapsed ? 80 : 256;
 
-  // Detect screen size and collapse sidebar if small
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -17,10 +16,8 @@ export default function MainLayout() {
       }
     };
 
-    // Initial check
     handleResize();
 
-    // Add resize listener
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

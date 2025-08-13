@@ -53,6 +53,17 @@ const Step2 = () => {
         error={errors.phone}
       />
 
+      <Input2
+        id="birthDate"
+        name="birthDate"
+        type="date"
+        labelText="Tanggal Lahir"
+        register={register("birthDate", {
+          required: "Tanggal lahir wajib diisi",
+        })}
+        error={errors.birthDate}
+      />
+
       <Select
         id="country"
         name="country"
@@ -73,18 +84,6 @@ const Step2 = () => {
           required: "Kota wajib dipilih",
         })}
         error={errors.city}
-      />
-
-      <Textarea
-        id="address"
-        name="address"
-        labelText="Alamat Lengkap"
-        placeholder="Masukkan alamat lengkap Anda"
-        register={register("address", {
-          required: "Alamat wajib diisi",
-          minLength: { value: 10, message: "Alamat minimal 10 karakter" },
-        })}
-        error={errors.address}
       />
     </div>
   );

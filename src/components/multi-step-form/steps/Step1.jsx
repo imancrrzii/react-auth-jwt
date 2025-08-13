@@ -2,15 +2,21 @@ import { User } from "lucide-react";
 import Input2 from "../../form/Input2";
 import RadioGroup from "../../form/RadioGroup";
 import { useFormContext } from "react-hook-form";
+import Textarea from "../../form/Textarea";
 
 const Step1 = () => {
-  const { register, formState: { errors } } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <div className="space-y-4">
       <div className="flex items-center mb-6">
         <User className="h-6 w-6 text-sky-600 mr-2" />
-        <h2 className="text-xl font-semibold text-gray-800">Informasi Personal</h2>
+        <h2 className="text-xl font-bold text-gray-800">
+          Informasi Personal
+        </h2>
       </div>
 
       <Input2
@@ -20,7 +26,7 @@ const Step1 = () => {
         placeholder="Masukkan nama depan"
         register={register("firstName", {
           required: "Nama depan wajib diisi",
-          minLength: { value: 2, message: "Minimal 2 karakter" }
+          minLength: { value: 2, message: "Minimal 2 karakter" },
         })}
         error={errors.firstName}
       />
@@ -32,20 +38,9 @@ const Step1 = () => {
         placeholder="Masukkan nama belakang"
         register={register("lastName", {
           required: "Nama belakang wajib diisi",
-          minLength: { value: 2, message: "Minimal 2 karakter" }
+          minLength: { value: 2, message: "Minimal 2 karakter" },
         })}
         error={errors.lastName}
-      />
-
-      <Input2
-        id="birthDate"
-        name="birthDate"
-        type="date"
-        labelText="Tanggal Lahir"
-        register={register("birthDate", {
-          required: "Tanggal lahir wajib diisi"
-        })}
-        error={errors.birthDate}
       />
 
       <RadioGroup
@@ -53,12 +48,24 @@ const Step1 = () => {
         labelText="Jenis Kelamin"
         options={[
           { value: "male", label: "Laki-laki" },
-          { value: "female", label: "Perempuan" }
+          { value: "female", label: "Perempuan" },
         ]}
         register={register("gender", {
-          required: "Jenis kelamin wajib dipilih"
+          required: "Jenis kelamin wajib dipilih",
         })}
         error={errors.gender}
+      />
+
+      <Textarea
+        id="address"
+        name="address"
+        labelText="Alamat Lengkap"
+        placeholder="Masukkan alamat lengkap Anda"
+        register={register("address", {
+          required: "Alamat wajib diisi",
+          minLength: { value: 10, message: "Alamat minimal 10 karakter" },
+        })}
+        error={errors.address}
       />
     </div>
   );
@@ -68,7 +75,6 @@ export default Step1;
 
 // import { useFormContext } from "react-hook-form";
 // import Input from "../../Form/Input";
-
 
 // export default function Step1() {
 //   const {

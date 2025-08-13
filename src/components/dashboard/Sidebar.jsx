@@ -3,11 +3,8 @@ import { NavLink } from "react-router-dom";
 import { HiChevronLeft, HiChevronDown, HiHome } from "react-icons/hi";
 import { MdHistory } from "react-icons/md";
 import {
-  LuArrowLeftRight,
-  LuFile,
   LuHouse,
   LuQrCode,
-  LuUserPlus,
   LuUsers,
 } from "react-icons/lu";
 import { FaCreditCard, FaTools } from "react-icons/fa";
@@ -82,7 +79,6 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         collapsed ? "w-20" : "w-64"
       }`}
     >
-      {/* Logo + Toggle */}
       <div className="relative flex items-center justify-between px-4 py-4">
         <img
           src={collapsed ? logoMini : logo2}
@@ -102,7 +98,6 @@ export default function Sidebar({ collapsed, setCollapsed }) {
       </div>
 
       <div className="mt-4 px-2 py-2">
-        {/* Menu Biasa */}
         {menuGroups.map((group, idx) => (
           <div key={idx} className="mb-4">
             {!collapsed && (
@@ -135,7 +130,6 @@ export default function Sidebar({ collapsed, setCollapsed }) {
           </div>
         ))}
 
-        {/* Layanan (Accordion Style) */}
         <div className="mb-4">
           {!collapsed && (
             <div className="px-4 text-gray-400 text-xs mb-2 font-normal">

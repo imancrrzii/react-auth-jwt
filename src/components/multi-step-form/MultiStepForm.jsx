@@ -16,6 +16,8 @@ import Step1 from "./steps/Step1";
 import Step2 from "./steps/Step2";
 import Step3 from "./steps/Step3";
 import Step4 from "./steps/Step4";
+// Import komponen SidebarProgress yang sudah diperbaiki
+import SidebarProgress from "./SidebarProgress";
 
 const steps = [Step1, Step2, Step3, Step4];
 const LOCAL_KEY = "multi_step_form_data";
@@ -23,26 +25,22 @@ const LOCAL_KEY = "multi_step_form_data";
 export default function MultiStepForm({ initialData }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isToastActive, setIsToastActive] = useState(false);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false); // Tambah state baru
   const navigate = useNavigate();
 
   const methods = useForm({
     mode: "onBlur",
     defaultValues: initialData ||
       JSON.parse(localStorage.getItem(LOCAL_KEY)) || {
-        // Step 1 - Informasi Personal
         firstName: "",
         lastName: "",
         birthDate: "",
         gender: "",
-
-        // Step 2 - Informasi Kontak
         email: "",
         phone: "",
         country: "",
         city: "",
         address: "",
-
-        // Step 3 - Preferensi & Pengaturan
         interests: [],
         experience: 0,
         language: "",
@@ -50,8 +48,6 @@ export default function MultiStepForm({ initialData }) {
         notifications: false,
         darkMode: false,
         avatar: null,
-
-        // Step 4 - Informasi Tambahan
         subscription: "",
         paymentMethod: "",
         referral: "",
@@ -64,10 +60,14 @@ export default function MultiStepForm({ initialData }) {
   });
 
   const progresses = [
-    { title: "Personal", icon: User },
-    { title: "Kontak", icon: Mail },
-    { title: "Preferensi", icon: Settings },
-    { title: "Review", icon: Check },
+    { title: "Personal", description: "Informasi pribadi Anda", icon: User },
+    { title: "Kontak", description: "Data kontak dan alamat", icon: Mail },
+    {
+      title: "Preferensi",
+      description: "Pilihan dan pengaturan",
+      icon: Settings,
+    },
+    { title: "Review", description: "Periksa kembali data", icon: Check },
   ];
 
   const CurrentStep = steps[currentStep];
@@ -90,6 +90,7 @@ export default function MultiStepForm({ initialData }) {
     console.log("🎉 SUBMIT:", data);
     localStorage.removeItem(LOCAL_KEY);
 
+    setIsFormSubmitted(true);
     setIsToastActive(true);
 
     toast.success("Form berhasil dikirim!", {
@@ -109,78 +110,19 @@ export default function MultiStepForm({ initialData }) {
 
   return (
     <>
-      <div className="max-w-full mx-auto p-12 my-4">
+      <div className="max-w-full mx-auto p-12 my-4 relative">
+        {isToastActive && (
+          <div className="fixed inset-0 backdrop-brightness-50 z-40" />
+        )}
         <div className="flex flex-col lg:flex-row gap-6">
-          <div className="bg-white border-1 border-gray-200 shadow-sm rounded-md px-4 py-6 lg:w-1/4 hidden lg:block">
-            <div className="relative">
-              <div className="absolute left-3 top-0 h-full w-1 rounded-full bg-gray-300 transform -translate-x-1/2"></div>
+          <SidebarProgress
+            steps={steps}
+            progresses={progresses}
+            currentStep={currentStep}
+            isFormSubmitted={isFormSubmitted}
+          />
 
-              <div
-                className={`absolute left-3 top-0 w-1 rounded-full bg-green-600 transform -translate-x-1/2 transition-all duration-500 ease-in-out`}
-                style={{
-                  height: `${(currentStep / (steps.length - 1)) * 100}%`,
-                }}
-              ></div>
-
-              <div className="space-y-6">
-                {progresses.map((progress, index) => {
-                  const Icon = progress.icon;
-                  return (
-                    <div key={index} className="relative">
-                      <div
-                        className={`absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-6 rounded-full border-2 z-10 ${
-                          index === currentStep
-                            ? "bg-sky-500 border-sky-600"
-                            : index < currentStep
-                            ? "bg-green-500 border-green-600"
-                            : "bg-gray-200 border-gray-300"
-                        }`}
-                      ></div>
-
-                      {/* Konten langkah */}
-                      <div
-                        className={`flex items-center p-3 rounded-lg transition-colors ml-10 relative z-0 ${
-                          index === currentStep
-                            ? "bg-sky-50 border-l-4 border-sky-600"
-                            : index < currentStep
-                            ? "bg-green-50 border-l-4 border-green-600"
-                            : "bg-gray-50"
-                        }`}
-                      >
-                        <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold ${
-                            index === currentStep
-                              ? "bg-sky-600 text-white"
-                              : index < currentStep
-                              ? "bg-green-600 text-white"
-                              : "bg-gray-200 text-gray-600"
-                          }`}
-                        >
-                          {index < currentStep ? (
-                            <Check className="w-5 h-5" />
-                          ) : (
-                            <Icon className="w-5 h-5" />
-                          )}
-                        </div>
-                        <span
-                          className={`ml-3 font-medium ${
-                            index === currentStep
-                              ? "text-blue-700"
-                              : index < currentStep
-                              ? "text-green-700"
-                              : "text-gray-600"
-                          }`}
-                        >
-                          {progress.title}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-          <div className="bg-white border-1 border-gray-200 shadow-sm rounded-md p-6 flex-1">
+          <div className="bg-white border border-gray-200 shadow-sm rounded-md px-6 py-8 flex-1">
             <FormProvider {...methods}>
               <form
                 onKeyDown={(e) => {
@@ -190,23 +132,24 @@ export default function MultiStepForm({ initialData }) {
                   }
                 }}
               >
-                {/* Step progress untuk mobile/tablet */}
                 <div className="lg:hidden mb-6">
                   <StepProgress
                     currentStep={currentStep}
                     totalSteps={steps.length}
                   />
                 </div>
-                {/* STEP CONTENT */}
-                <div className="min-h-[400px] transition-all duration-600">
+
+                <div className="min-h-[500px] transition-all duration-600">
                   <CurrentStep />
                 </div>
+
                 <div className="flex justify-between pt-6 border-gray-200">
                   {currentStep === 0 ? (
                     <button
                       type="button"
                       onClick={() => navigate("/retribusi/pengguna")}
-                      className="flex items-center px-4 py-2 bg-white border-1 text-sky-600 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer"
+                      className="flex items-center px-4 py-2 bg-white border border-sky-600 text-sky-600 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer"
+                      disabled={isFormSubmitted}
                     >
                       <ChevronLeft className="w-4 h-4 mr-1" />
                       Kembali
@@ -215,7 +158,8 @@ export default function MultiStepForm({ initialData }) {
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="flex items-center px-4 py-2 bg-white border-1 text-sky-600 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer"
+                      className="flex items-center px-4 py-2 bg-white border border-sky-600 text-sky-600 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={isFormSubmitted}
                     >
                       <ChevronLeft className="w-4 h-4 mr-1" />
                       Sebelumnya
@@ -225,16 +169,27 @@ export default function MultiStepForm({ initialData }) {
                     <button
                       type="button"
                       onClick={handleFormSubmit}
-                      className="flex items-center px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-600 hover:shadow-lg transition-all duration-200"
+                      className="flex items-center px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                      disabled={isFormSubmitted}
                     >
-                      Kirim Form
-                      <Check className="w-4 h-4 ml-1" />
+                      {isFormSubmitted ? (
+                        <>
+                          <Check className="w-4 h-4 mr-1" />
+                          Berhasil Dikirim!
+                        </>
+                      ) : (
+                        <>
+                          Kirim Form
+                          <Check className="w-4 h-4 ml-1" />
+                        </>
+                      )}
                     </button>
                   ) : (
                     <button
                       type="button"
                       onClick={nextStep}
-                      className="flex items-center px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-600 hover:shadow-lg transition-all duration-200 cursor-pointer"
+                      className="flex items-center px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 hover:shadow-lg transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={isFormSubmitted}
                     >
                       Selanjutnya
                       <ChevronRight className="w-4 h-4 ml-1" />
@@ -246,6 +201,7 @@ export default function MultiStepForm({ initialData }) {
           </div>
         </div>
       </div>
+
       <ToastContainer
         position="top-center"
         autoClose={6000}
@@ -256,9 +212,9 @@ export default function MultiStepForm({ initialData }) {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="white"
+        theme="light"
         toastClassName={() =>
-          "flex p-6 min-h-15 bg-white text-black rounded-md justify-between overflow-hidden cursor-pointer z-50 background- "
+          "flex p-6 min-h-15 bg-white text-black rounded-md justify-between overflow-hidden cursor-pointer z-50 shadow-lg border"
         }
         transition={Zoom}
       />
