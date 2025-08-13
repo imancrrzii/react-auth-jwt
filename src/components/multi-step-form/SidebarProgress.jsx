@@ -103,7 +103,6 @@ export default function SidebarProgress({
         {progresses.map((progress, index) => {
           const isActive = index === currentStep && !isFormSubmitted;
           const isCompleted = index < currentStep || isFormSubmitted;
-          const isCurrentOrCompleted = isCompleted || isActive;
           const isLastStep = index === progresses.length - 1;
 
           return (
@@ -111,9 +110,9 @@ export default function SidebarProgress({
               <div className="flex items-center w-full">
                 {/* Number / Check icon */}
                 <div
-                  className={`w-12 h-12 flex items-center justify-center rounded-2xl text-lg font-bold border-1 z-10 transition-all duration-300 ${
+                  className={`w-14 h-14 flex items-center justify-center rounded-2xl text-lg font-bold border-1 z-10 transition-all duration-300 ${
                     isActive
-                      ? "bg-sky-600 border-sky-700 text-white shadow-md"
+                      ? "bg-sky-500 border-sky-600 text-white shadow-md"
                       : isCompleted
                       ? "bg-green-500 border-green-600 text-white"
                       : "bg-gray-200 border-gray-300 text-gray-600"
@@ -123,17 +122,25 @@ export default function SidebarProgress({
                 </div>
 
                 {/* Title & Description */}
-                <div className="ml-3">
+                <div className="ml-4">
                   <span
                     className={`block font-bold select-none transition-colors duration-300 ${
-                      isCurrentOrCompleted ? "text-sky-700" : "text-gray-600"
+                      isActive
+                        ? "text-sky-600"
+                        : isCompleted
+                        ? "text-green-600"
+                        : "text-gray-500"
                     }`}
                   >
                     {progress?.title}
                   </span>
                   <small
                     className={`block text-xs font-semibold transition-colors duration-300 ${
-                      isCurrentOrCompleted ? "text-sky-500" : "text-gray-400"
+                      isActive
+                        ? "text-sky-500"
+                        : isCompleted
+                        ? "text-green-500"
+                        : "text-gray-400"
                     }`}
                   >
                     {progress?.description}
@@ -143,7 +150,7 @@ export default function SidebarProgress({
 
               {/* Garis vertikal animasi */}
               {!isLastStep && (
-                <div className="relative -left-18 w-1 h-16 my-2 rounded-full overflow-hidden bg-gray-300">
+                <div className="relative -left-17 w-1 h-16 my-2 rounded-full overflow-hidden bg-gray-300">
                   <div
                     className={`absolute left-0 top-0 w-full rounded-full transition-all duration-700 ease-in-out ${
                       isCompleted ? "bg-green-500 h-full" : "bg-transparent h-0"

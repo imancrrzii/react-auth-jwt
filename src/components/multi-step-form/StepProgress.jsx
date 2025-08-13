@@ -42,9 +42,9 @@ const StepProgress = ({ currentStep, totalSteps }) => {
                 <span
                   className={`transition-all duration-300 ${
                     isActive
-                      ? "text-sky-600 font-semibold"
+                      ? "text-sky-500 font-semibold"
                       : isCompleted
-                      ? "text-green-600 font-medium"
+                      ? "text-green-500 font-medium"
                       : "text-gray-400"
                   }`}
                 >

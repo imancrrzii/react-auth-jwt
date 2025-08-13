@@ -148,7 +148,7 @@ export default function MultiStepForm({ initialData }) {
                     <button
                       type="button"
                       onClick={() => navigate("/retribusi/pengguna")}
-                      className="flex items-center px-4 py-2 bg-white border border-sky-600 text-sky-600 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer"
+                      className="flex items-center px-4 py-2 bg-white border border-sky-500 text-sky-500 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer"
                       disabled={isFormSubmitted}
                     >
                       <ChevronLeft className="w-4 h-4 mr-1" />
@@ -158,7 +158,7 @@ export default function MultiStepForm({ initialData }) {
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="flex items-center px-4 py-2 bg-white border border-sky-600 text-sky-600 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center px-4 py-2 bg-white border border-sky-500 text-sky-500 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                       disabled={isFormSubmitted}
                     >
                       <ChevronLeft className="w-4 h-4 mr-1" />
@@ -188,7 +188,7 @@ export default function MultiStepForm({ initialData }) {
                     <button
                       type="button"
                       onClick={nextStep}
-                      className="flex items-center px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 hover:shadow-lg transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 hover:shadow-lg transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                       disabled={isFormSubmitted}
                     >
                       Selanjutnya
