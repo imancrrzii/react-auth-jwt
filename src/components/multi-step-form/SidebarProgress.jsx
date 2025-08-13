@@ -27,7 +27,7 @@
 
 //         {/* Progress bar - limited height */}
 //         <div
-//           className="absolute left-5 top-0 w-1 rounded-full bg-emerald-600 transition-all duration-500 ease-in-out"
+//           className="absolute left-5 top-0 w-1 rounded-full bg-emerald-600 transition-all duration-1000 ease-in-out"
 //           style={{ height: `calc(${progressPercentage}% - 10px)` }} // -10px biar berhenti pas sebelum box terakhir
 //         />
 
@@ -44,7 +44,7 @@
 //               <div className="flex items-center">
 //                 {/* Number / Check icon */}
 //                 <div
-//                   className={`w-10 h-10 flex items-center justify-center rounded-md text-lg font-bold border-2 z-10 transition-all duration-300 ${
+//                   className={`w-10 h-10 flex items-center justify-center rounded-md text-lg font-bold border-2 z-10 transition-all duration-1000 ${
 //                     isActive
 //                       ? "bg-sky-600 border-sky-700 text-white shadow-md"
 //                       : isCompleted
@@ -58,7 +58,7 @@
 //                 {/* Title & Description */}
 //                 <div className="ml-4">
 //                   <span
-//                     className={`block font-bold select-none transition-colors duration-300 ${
+//                     className={`block font-bold select-none transition-colors duration-1000 ${
 //                       isActive
 //                         ? "text-sky-700"
 //                         : isCompleted
@@ -69,7 +69,7 @@
 //                     {progresses[index]?.title}
 //                   </span>
 //                   <small
-//                     className={`block text-xs font-semibold transition-colors duration-300 ${
+//                     className={`block text-xs font-semibold transition-colors duration-1000 ${
 //                       isActive
 //                         ? "text-sky-500"
 //                         : isCompleted
@@ -110,7 +110,7 @@ export default function SidebarProgress({
             <div key={index} className="flex flex-col items-center relative">
               <div className="flex items-center w-full">
                 <div
-                  className={`w-12 h-11 flex items-center justify-center rounded-2xl text-lg font-bold border-1 z-10 transition-all duration-300 ${
+                  className={`w-12 h-11 flex items-center justify-center rounded-2xl text-lg font-bold border-1 z-10 transition-all duration-1000 ${
                     isActive
                       ? "bg-sky-500 border-sky-600 text-white shadow-md"
                       : isCompleted
@@ -124,7 +124,7 @@ export default function SidebarProgress({
                 {/* Title & Description */}
                 <div className="ml-4">
                   <small
-                    className={`block font-semibold text-xs select-none transition-colors duration-300 ${
+                    className={`block font-semibold text-xs select-none transition-colors duration-1000 ${
                       isActive
                         ? "text-sky-600"
                         : isCompleted
@@ -135,7 +135,7 @@ export default function SidebarProgress({
                     {progress?.title}
                   </small>
                   <h3
-                    className={`block text-md font-bold transition-colors duration-300 ${
+                    className={`block text-md font-bold transition-colors duration-1000 ${
                       isActive
                         ? "text-sky-500"
                         : isCompleted
@@ -152,7 +152,7 @@ export default function SidebarProgress({
               {!isLastStep && (
                 <div className="relative -left-18 w-1 h-16 my-2 rounded-full overflow-hidden bg-gray-300">
                   <div
-                    className={`absolute left-0 top-0 w-full rounded-full transition-all duration-700 ease-in-out ${
+                    className={`absolute left-0 top-0 w-full rounded-full transition-all duration-1000 ease-in-out ${
                       isCompleted
                         ? "bg-emerald-500 h-full"
                         : isActive

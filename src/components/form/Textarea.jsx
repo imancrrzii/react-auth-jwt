@@ -25,7 +25,7 @@ const Textarea = ({
       name={name}
       rows={rows}
       placeholder={placeholder}
-      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 transition-colors resize-none text-sm ${
+      className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors resize-none text-sm ${
         error
           ? "border-red-500 focus:ring-red-200"
           : "border-gray-300 focus:border-blue-500 focus:ring-blue-200"
