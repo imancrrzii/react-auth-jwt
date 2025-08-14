@@ -11,18 +11,22 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import StepProgress from "./StepProgress";
+import HorizontalProgress from "./HorizontalProgress";
 import Step1 from "./steps/Step1";
 import Step2 from "./steps/Step2";
 import Step3 from "./steps/Step3";
 import Step4 from "./steps/Step4";
-import SidebarProgress from "./SidebarProgress";
+import VerticalProgress from "./VerticalProgress";
 
-const steps = [Step1, Step2, Step3, Step4];
+const stepComponents = [Step1, Step2, Step3, Step4];
 const LOCAL_KEY = "multi_step_form_data";
 
-export default function MultiStepForm({ initialData }) {
-  const [currentStep, setCurrentStep] = useState(0);
+export default function MultiStepForm({
+  initialData,
+  initialStep = 0,
+  onFormSubmit,
+}) {
+  const [currentStep, setCurrentStep] = useState(initialStep);
   const [isToastActive, setIsToastActive] = useState(false);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const navigate = useNavigate();
@@ -35,7 +39,7 @@ export default function MultiStepForm({ initialData }) {
         lastName: "",
         birthDate: "",
         gender: "",
-        pilihanInstitusi:"",
+        pilihanInstitusi: "",
         universitas: "",
         kota_universitas: "",
         email: "",
@@ -61,22 +65,19 @@ export default function MultiStepForm({ initialData }) {
       },
   });
 
-  const progresses = [
+  const stepsConfig = [
     { title: "Langkah 1", description: "Data Institusi", icon: User },
     { title: "Langkah 2", description: "Data User", icon: Mail },
-    {
-      title: "Langkah 3",
-      description: "Data Opsional",
-      icon: Settings,
-    },
+    { title: "Langkah 3", description: "Data Opsional", icon: Settings },
     { title: "Langkah 4", description: "Data Review", icon: Check },
   ];
 
-  const CurrentStep = steps[currentStep];
+  const CurrentStep = stepComponents[currentStep];
+  const totalSteps = stepComponents.length;
 
   const nextStep = async () => {
     const isValid = await methods.trigger();
-    if (isValid && currentStep < steps.length - 1) {
+    if (isValid && currentStep < totalSteps - 1) {
       localStorage.setItem(LOCAL_KEY, JSON.stringify(methods.getValues()));
       setCurrentStep((prev) => prev + 1);
     }
@@ -88,12 +89,17 @@ export default function MultiStepForm({ initialData }) {
     }
   };
 
-  const onSubmit = async (data) => {
+  const handleSubmit = async (data) => {
     console.log("🎉 SUBMIT:", data);
     localStorage.removeItem(LOCAL_KEY);
 
     setIsFormSubmitted(true);
     setIsToastActive(true);
+
+    // Call external onFormSubmit if provided
+    if (onFormSubmit) {
+      onFormSubmit(data);
+    }
 
     toast.success("Form berhasil dikirim!", {
       position: "top-center",
@@ -107,39 +113,48 @@ export default function MultiStepForm({ initialData }) {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    methods.handleSubmit(onSubmit)();
+    methods.handleSubmit(handleSubmit)();
   };
 
   return (
     <>
-      <div className="max-w-full mx-auto p-12 my-4 relative">
+      <div className="max-w-full mx-auto p-4 lg:p-12 my-4 relative">
         {isToastActive && (
           <div className="fixed inset-0 backdrop-brightness-50 z-40" />
         )}
+
+        <div className="md:hidden mb-4">
+          <div className="block">
+            <HorizontalProgress
+              currentStep={currentStep}
+              totalSteps={totalSteps}
+              isFormSubmitted={isFormSubmitted}
+              steps={stepsConfig}
+            />
+          </div>
+        </div>
+
         <div className="flex flex-col sm:flex-row gap-4">
-          <SidebarProgress
-            steps={steps}
-            progresses={progresses}
-            currentStep={currentStep}
-            isFormSubmitted={isFormSubmitted}
-          />
+          <div className="hidden md:block">
+            <VerticalProgress
+              steps={stepsConfig}
+              progresses={stepsConfig}
+              currentStep={currentStep}
+              isFormSubmitted={isFormSubmitted}
+            />
+          </div>
 
           <div className="bg-white border border-gray-200 shadow-sm rounded-md px-6 py-8 flex-1">
             <FormProvider {...methods}>
               <form
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" && currentStep < steps.length - 1) {
+                  if (e.key === "Enter" && currentStep < totalSteps - 1) {
                     e.preventDefault();
                     nextStep();
                   }
                 }}
               >
-                <div className="md:hidden mb-6">
-                  <StepProgress
-                    currentStep={currentStep}
-                    totalSteps={steps.length}
-                  />
-                </div>
+                {/* Remove mobile progress from here since it's now outside */}
 
                 <div className="min-h-[500px] transition-all duration-600">
                   <CurrentStep />
@@ -167,7 +182,7 @@ export default function MultiStepForm({ initialData }) {
                       Sebelumnya
                     </button>
                   )}
-                  {currentStep === steps.length - 1 ? (
+                  {currentStep === totalSteps - 1 ? (
                     <button
                       type="button"
                       onClick={handleFormSubmit}
