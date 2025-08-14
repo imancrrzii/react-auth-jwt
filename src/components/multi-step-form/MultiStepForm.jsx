@@ -145,7 +145,7 @@ export default function MultiStepForm({ initialData }) {
                   <CurrentStep />
                 </div>
 
-                <div className="flex justify-between pt-6 border-gray-200">
+                <div className="flex justify-end gap-4 pt-6 border-gray-200">
                   {currentStep === 0 ? (
                     <button
                       type="button"
