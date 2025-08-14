@@ -298,7 +298,7 @@ const OTPVerificationForm = () => {
       <div className="flex justify-center">
         {error && (
           <div
-            className="inline-block text-xs font-medium text-red-800 bg-red-200 border border-red-300 px-3 py-1 rounded-full mb-4"
+            className="inline-block text-xs font-medium text-red-800 bg-red-100 border border-red-400 px-3 py-1 rounded-full mb-4"
             role="alert"
           >
             Kode {error}, silakan coba lagi.
