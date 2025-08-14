@@ -17,7 +17,7 @@ const HorizontalProgress = ({
   const finalTotalSteps = totalSteps || finalSteps.length;
 
   return (
-    <div className="w-full px-2 py-6 lg:p-6 bg-white rounded-lg shadow-xs border border-gray-200">
+    <div className="w-full px-2 py-8 lg:p-6 bg-white rounded-lg shadow-xs border border-gray-200">
       <div className="relative">
         <div className="flex items-start justify-between relative">
           {finalSteps.slice(0, finalTotalSteps).map((step, index) => {
@@ -84,7 +84,7 @@ const HorizontalProgress = ({
                 {!isLastStep && (
                   <>
                     <div
-                      className="absolute top-4 lg:top-6 h-1 bg-gray-200 rounded-full"
+                      className="absolute top-4 sm:top-5 h-1 bg-gray-200 rounded-full"
                       style={{
                         left: "calc(50% + 32px)",
                         right: "calc(-50% + 32px)",
@@ -93,7 +93,7 @@ const HorizontalProgress = ({
                     />
 
                     <div
-                      className="absolute top-4 lg:top-6 h-1 rounded-full"
+                      className="absolute top-4 sm:top-5 h-1 rounded-full"
                       style={{
                         left: "calc(50% + 32px)",
                         right: "calc(-50% + 32px)",

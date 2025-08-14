@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import image from "../assets/images/notif.svg";
 import { HiArrowLeft } from "react-icons/hi";
 import useUserStore from "../store/useUserStore";
@@ -9,6 +8,8 @@ import { decryptData } from "../utils/tokenCrypto";
 import Input from "../components/Form/Input";
 import axiosInstance from "../utils/axiosInstance";
 import usePageTitle from "../hooks/usePageTitle";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const OTPVerificationForm = () => {
   usePageTitle("Latihan SIFina | Verifikasi OTP");
@@ -240,12 +241,12 @@ const OTPVerificationForm = () => {
       no_hp = noHpFromState;
     } catch (err) {
       console.error("Gagal parsing localStorage:", err);
-      alert("Terjadi kesalahan saat membaca data pengguna.");
+      toast.error("Gagal memuat data pengguna. Silakan coba kembali.");
       return;
     }
 
     if (!no_hp || !password) {
-      alert("Nomor HP atau password tidak ditemukan.");
+      toast.error("Nomor HP atau kata sandi tidak ditemukan.");
       return;
     }
 
@@ -259,7 +260,7 @@ const OTPVerificationForm = () => {
       );
 
       if (response.data.respCode === "0000") {
-        alert("Kode OTP berhasil dikirim ulang.");
+        toast.success("Kode verifikasi telah dikirim kembali ke nomor Anda.");
 
         if (!isFirstResend) {
           setCountdown(30);
@@ -267,11 +268,15 @@ const OTPVerificationForm = () => {
 
         setIsFirstResend(false);
       } else {
-        alert(response.data.respMessage || "Gagal mengirim ulang OTP.");
+        toast.error(
+          response.data.respMessage || "Permintaan OTP ulang gagal diproses."
+        );
       }
     } catch (error) {
       console.error("Gagal mengirim ulang OTP:", error);
-      alert("Terjadi kesalahan saat mengirim ulang OTP.");
+      toast.error(
+        "Terjadi kesalahan saat mengirim ulang kode OTP. Silakan coba kembali."
+      );
     }
   };
 
@@ -336,12 +341,12 @@ const OTPVerificationForm = () => {
       </div>
       <div className="flex flex-col gap-3 justify-center items-center text-center my-8">
         <p className="text-sm text-gray-400">
-          Tidak menerima kode OTP? Anda dapat melakukan{" "}
+          Tidak menerima kode OTP? Anda dapat melakukan
           <span>
             <button
               onClick={handleResendOtp}
               disabled={countdown > 0}
-              className={`font-bold underline ${
+              className={`font-bold underline cursor-pointer ${
                 countdown > 0
                   ? "text-gray-400 cursor-not-allowed"
                   : "text-sky-600 hover:text-sky-700"

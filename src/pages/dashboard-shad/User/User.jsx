@@ -1,7 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import * as XLSX from "xlsx";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable"; // ← ini penting!
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   useReactTable,
@@ -29,7 +26,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FaFileExcel, FaFilePdf, FaUsers } from "react-icons/fa";
-import { Eye, ChevronLeft, ChevronRight, PlusCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, PlusCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ViewDialog } from "./ViewDialog";
 import { DeleteDialog } from "./DeleteDialog";
@@ -215,12 +212,6 @@ export default function Users() {
         ? `${user.company.address.address}, ${user.company.address.city}, ${user.company.address.state} ${user.company.address.postalCode}`
         : "-",
     }));
-
-    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Users");
-
-    XLSX.writeFile(workbook, "data_pengguna.xlsx");
   };
 
   const exportToPDF = () => {
@@ -362,21 +353,6 @@ export default function Users() {
                 </SelectContent>
               </Select>
               <span>entri</span>
-            </div>
-
-            <div className="flex gap-2 justify-start">
-              <Button
-                className="bg-white hover:bg-gray-200 border rounded-xl cursor-pointer"
-                onClick={exportToExcel}
-              >
-                <FaFileExcel className="text-green-500" />
-              </Button>
-              <Button
-                className="bg-white hover:bg-gray-200 border rounded-xl cursor-pointer"
-                onClick={exportToPDF}
-              >
-                <FaFilePdf className="text-red-500" />
-              </Button>
             </div>
             <Input
               placeholder="Cari pengguna..."
