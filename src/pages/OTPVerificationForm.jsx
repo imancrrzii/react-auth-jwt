@@ -12,6 +12,7 @@ import usePageTitle from "../hooks/usePageTitle";
 
 const OTPVerificationForm = () => {
   usePageTitle("Latihan SIFina | Verifikasi OTP");
+  const [isOtpValid, setIsOtpValid] = useState(false);
   const user = useUserStore((state) => state.user);
   const [isFirstResend, setIsFirstResend] = useState(true);
 
@@ -162,7 +163,10 @@ const OTPVerificationForm = () => {
         localStorage.removeItem("password_temp");
         localStorage.setItem("access_token", encryptToken(access_token));
         localStorage.setItem("refresh_token", encryptToken(refresh_token));
-        navigate("/dashboard");
+        setIsOtpValid(true);
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 1000);
       } else {
         setOtp(new Array(6).fill(""));
         setHasSubmitted(false);
@@ -291,17 +295,24 @@ const OTPVerificationForm = () => {
         </div>
       </div>
 
-      {error && (
-        <div
-          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
-          role="alert"
-        >
-          <strong className="font-bold">Error!</strong>
-          <span className="block sm:inline"> {error}</span>
-        </div>
-      )}
+      <div className="flex justify-center">
+        {error && (
+          <div
+            className="inline-block text-xs font-medium text-red-800 bg-red-200 border border-red-300 px-3 py-1 rounded-full mb-4"
+            role="alert"
+          >
+            Kode {error}, silakan coba lagi.
+          </div>
+        )}
+        {isOtpValid && (
+          <div className="transition-opacity duration-300 ease-in-out opacity-100 inline-flex items-center gap-2 bg-green-100 border border-green-400 text-green-800 px-3 py-1 rounded-full text-xs font-medium mb-4">
+            <div className="w-4 h-4 border-2 border-green-600 border-t-transparent rounded-full animate-spin" />
+            <span>Verifikasi berhasil, mengarahkan...</span>
+          </div>
+        )}
+      </div>
 
-      <div className="flex justify-center items-center gap-4 mb-16">
+      <div className="flex justify-center items-center gap-1 md:gap-2 mb-2">
         {otp.map((data, index) => (
           <Input
             key={index}
@@ -312,12 +323,17 @@ const OTPVerificationForm = () => {
             onFocus={(e) => e.target.select()}
             onKeyDown={(e) => handleKeyDown(e, index)}
             ref={(el) => (inputRefs.current[index] = el)}
-            className="w-10 h-10 text-center text-lg font-bold border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
+            className={`w-12 h-12 text-center text-lg font-bold border rounded-lg focus:outline-none focus:ring-1 ${
+              isOtpValid
+                ? "border-green-500 bg-green-50 text-green-700 focus:ring-green-400"
+                : error
+                ? "border-red-500 bg-red-50 text-red-700 focus:ring-red-400"
+                : "border-gray-300 focus:ring-sky-500"
+            }`}
             disabled={isLoading}
           />
         ))}
       </div>
-
       <div className="flex flex-col gap-3 justify-center items-center text-center my-8">
         <p className="text-sm text-gray-400">
           Tidak menerima kode OTP? Anda dapat melakukan{" "}
