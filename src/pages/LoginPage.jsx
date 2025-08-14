@@ -7,8 +7,10 @@ import login4 from "../assets/images/login-4.png";
 import { useLocation } from "react-router-dom";
 import OTPVerificationForm from "./OTPVerificationForm";
 import { toast } from "react-toastify";
+import usePageTitle from "../hooks/usePageTitle";
 
 const LoginPage = () => {
+  usePageTitle('Latihan SIFina | Login');
   const location = useLocation();
   useEffect(() => {
     const logoutMessage = sessionStorage.getItem("logout_message");

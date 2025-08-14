@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MultiStepForm from "../components/multi-step-form/MultiStepForm";
+import usePageTitle from "../hooks/usePageTitle";
 
 const normalizeDate = (dateString) => {
   if (!dateString) return "";
@@ -13,6 +14,7 @@ const normalizeDate = (dateString) => {
 };
 
 export default function EditUser() {
+  usePageTitle('Latihan SIFina | Edit Pengguna');
   const { id } = useParams();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);

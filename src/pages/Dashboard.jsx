@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../store/useUserStore";
 import axiosInstance from "../utils/axiosInstance";
+import usePageTitle from "../hooks/usePageTitle";
 
 const Dashboard = () => {
+  usePageTitle('Latihan SIFina | Dashboard');
   const user = useUserStore((state) => state.user);
   const [showSaldo, setShowSaldo] = useState(false);
   const clearUser = useUserStore((state) => state.clearUser);

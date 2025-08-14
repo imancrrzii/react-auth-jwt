@@ -17,8 +17,10 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import ModalUserDetail from "../components/user/ModalUserDetail";
 import DeleteWithConfirm from "../components/user/DeleteWithConfirm";
+import usePageTitle from "../hooks/usePageTitle";
 
 const User = () => {
+  usePageTitle('Latihan SIFina | Pengguna');
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

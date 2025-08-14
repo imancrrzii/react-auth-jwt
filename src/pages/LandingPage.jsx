@@ -7,8 +7,10 @@ import SifinaPortal from "../components/landing/SifinaPortal";
 import AccordionFAQ from "../components/landing/AccordionFAQ.";
 import Footer from "../components/landing/Footer";
 import { IoChevronUp } from "react-icons/io5";
+import usePageTitle from "../hooks/usePageTitle";
 
 const LandingPage = () => {
+  usePageTitle('Latihan SIFina | Landing');
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {

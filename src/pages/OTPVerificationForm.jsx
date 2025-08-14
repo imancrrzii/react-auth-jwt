@@ -8,10 +8,12 @@ import { encryptToken } from "../utils/tokenCrypto";
 import { decryptData } from "../utils/tokenCrypto";
 import Input from "../components/Form/Input";
 import axiosInstance from "../utils/axiosInstance";
+import usePageTitle from "../hooks/usePageTitle";
 
 const OTPVerificationForm = () => {
+  usePageTitle("Latihan SIFina | Verifikasi OTP");
   const user = useUserStore((state) => state.user);
-  const [isFirstResend, setIsFirstResend] = useState(true); // untuk deteksi pengiriman pertama
+  const [isFirstResend, setIsFirstResend] = useState(true);
 
   const navigate = useNavigate();
   const no_hp = user?.no_hp || "";

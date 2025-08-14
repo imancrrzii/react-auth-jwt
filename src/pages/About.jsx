@@ -6,8 +6,10 @@ import { IoChevronUp } from "react-icons/io5";
 import Content from "../about/Content";
 import Feature from "../about/Feature";
 import Platform from "../about/Platform";
+import usePageTitle from "../hooks/usePageTitle";
 
 const About = () => {
+  usePageTitle('Latihan SIFina | Tentang');
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {

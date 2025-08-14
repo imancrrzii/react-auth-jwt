@@ -3,8 +3,10 @@ import login1 from "../assets/images/login-portal-1.svg";
 import login2 from "../assets/images/login-portal-2.svg";
 import OTPVerificationForm from "./OTPVerificationForm";
 import LoginForm from "../components/login/LoginForm";
+import usePageTitle from "../hooks/usePageTitle";
 
 const LoginPortalPage = () => {
+  usePageTitle('Latihan SIFina | Login Portal');
   const isOtpPage = location.pathname === "/verify-otp";
 
   return (

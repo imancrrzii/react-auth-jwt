@@ -30,6 +30,12 @@ const App = () => {
     avatar: "https://i.pravatar.cc/150?img=12",
   };
 
+  const usePageTitle = (title) => {
+    useEffect(() => {
+      document.title = title;
+    }, [title]);
+  };
+
   useEffect(() => {
     setRedirectToLogin(() => {
       clearUserStore();
