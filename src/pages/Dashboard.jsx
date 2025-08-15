@@ -5,16 +5,22 @@ import axiosInstance from "../utils/axiosInstance";
 import usePageTitle from "../hooks/usePageTitle";
 
 const Dashboard = () => {
-  usePageTitle('Latihan SIFina | Dashboard');
+  usePageTitle("Latihan SIFina | Dashboard");
   const user = useUserStore((state) => state.user);
-  const [showSaldo, setShowSaldo] = useState(false);
   const clearUser = useUserStore((state) => state.clearUser);
   const [saldo, setSaldo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selectedRekening, setSelectedRekening] = useState("");
+  const [selectedRekening, setSelectedRekening] = useState(""); 
+  const [showSaldo, setShowSaldo] = useState(false);
   const navigate = useNavigate();
   const toggleShowSaldo = () => setShowSaldo((prev) => !prev);
+
+  useEffect(() => {
+    if (user?.no_rekening?.length > 0 && !selectedRekening) {
+      setSelectedRekening(user.no_rekening[0]);
+    }
+  }, [user, selectedRekening]);
 
   useEffect(() => {
     const fetchSaldo = async () => {
@@ -23,7 +29,6 @@ const Dashboard = () => {
         setLoading(false);
         return;
       }
-
       setLoading(true);
       setError("");
 
@@ -60,9 +65,6 @@ const Dashboard = () => {
 
     if (selectedRekening) {
       fetchSaldo();
-    } else {
-      setSaldo(null);
-      setLoading(false);
     }
   }, [selectedRekening, user, clearUser, navigate]);
 

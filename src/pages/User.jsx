@@ -18,9 +18,11 @@ import { Link, useNavigate } from "react-router-dom";
 import ModalUserDetail from "../components/user/ModalUserDetail";
 import DeleteWithConfirm from "../components/user/DeleteWithConfirm";
 import usePageTitle from "../hooks/usePageTitle";
+import ErrorDisplay from "../components/user/ErrorDisplay";
+import LoadingDisplay from "../components/user/LoadingDisplay";
 
 const User = () => {
-  usePageTitle('Latihan SIFina | Pengguna');
+  usePageTitle("Latihan SIFina | Pengguna");
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,10 +33,6 @@ const User = () => {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userToDelete, setUserToDelete] = useState(null);
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
 
   const fetchUsers = async () => {
     try {
@@ -50,6 +48,42 @@ const User = () => {
       setLoading(false);
     }
   };
+
+  const handleRetry = () => {
+    setLoading(true);
+    setError(null);
+
+    setTimeout(() => {
+      fetchUsers();
+    }, 2500);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  useEffect(() => {
+    const handleOnline = () => {
+      if (error && !loading) {
+        console.log("Koneksi kembali normal, mencoba reload data...");
+        fetchUsers();
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (!document.hidden && error && !loading) {
+        fetchUsers();
+      }
+    };
+
+    window.addEventListener("online", handleOnline);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [error, loading]); 
 
   const handleSort = (key) => {
     let direction = "asc";
@@ -146,33 +180,15 @@ const User = () => {
   };
 
   if (loading) {
-    return (
-      <div className="w-full">
-        <div className="bg-white rounded-lg shadow-sm border p-6">
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-          </div>
-        </div>
-      </div>
-    );
+    return <LoadingDisplay />;
   }
 
   if (error) {
     return (
-      <div className="w-full">
-        <div className="bg-white rounded-lg shadow-sm border p-6">
-          <div className="text-center text-red-600">
-            <p className="text-lg font-semibold">Error</p>
-            <p>{error}</p>
-            <button
-              onClick={fetchUsers}
-              className="mt-4 px-4 py-2 bg-sky-500 text-white rounded-md hover:bg-sky-600 transition-colors"
-            >
-              Coba Lagi
-            </button>
-          </div>
-        </div>
-      </div>
+      <ErrorDisplay
+        error="Gagal memuat data pengguna. Koneksi ke server terputus atau server sedang mengalami gangguan."
+        onRetry={handleRetry}
+      />
     );
   }
 
