@@ -19,6 +19,10 @@ export const navItems = {
         title: "Tentang SIFina",
         link: "/tentang-sifina",
       },
+      {
+        title: "SIFina Games",
+        link: "/sifina-games",
+      },
     ],
   },
 };

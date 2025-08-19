@@ -21,6 +21,7 @@ import AddUser from "./pages/AddUser.jsx";
 import User from "./pages/User.jsx";
 import Users from "./pages/dashboard-shad/User/User.jsx";
 import EditUser from "./pages/EditUser.jsx";
+import LandingGames from "./pages/LandingGames.jsx";
 
 const App = () => {
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/tentang-sifina" element={<About />} />
+        <Route path="/sifina-games" element={<LandingGames />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/login-portal" element={<LoginPortalPage />} />
         <Route path="/verify-otp" element={<LoginPage />} />
