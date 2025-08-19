@@ -8,9 +8,10 @@ import Platform from "../about/Platform";
 import usePageTitle from "../hooks/usePageTitle";
 import Hero from "../components/games/Hero";
 import Feature from "../components/games/Feature";
+import Excellence from "../components/games/Excellence";
 
 const LandingGames = () => {
-  usePageTitle('Latihan SIFina | Tentang');
+  usePageTitle("Latihan SIFina | Tentang");
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
@@ -36,8 +37,9 @@ const LandingGames = () => {
   return (
     <div className="min-h-screen max-w-[1440px] m-auto relative manrope">
       <Navbar />
-      <Hero/>
-      <Feature/>
+      <Hero />
+      <Feature />
+      <Excellence />
       <Footer />
 
       {showButton && (

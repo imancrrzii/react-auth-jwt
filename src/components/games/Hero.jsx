@@ -29,7 +29,7 @@ const Hero = () => {
           alt=""
           className="absolute bottom-20 left-4 sm:bottom-30 sm:left-35 w-18 h-18 lg:w-24 lg:h-24 opacity-80"
         />
-        <div className="absolute top-10 left-5 w-128 h-60 bg-blue-300 rounded-full blur-3xl opacity-30"></div>
+        <div className="absolute top-10 left-5 w-128 h-60 bg-sky-300 rounded-full blur-3xl opacity-30"></div>
         <div className="absolute top-10 right-5 w-128 h-60 bg-yellow-200 rounded-full blur-3xl opacity-30"></div>
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-purple-200 rounded-full blur-3xl opacity-25"></div>
       </div>
@@ -102,7 +102,7 @@ const Hero = () => {
 
         <div className="relative z-20 flex flex-col md:flex-row gap-2 mt-2">
           <div className="flex">
-            <button className="bg-blue-500 hover:bg-blue-600 px-5 py-2 text-xs rounded-full text-white font-semibold cursor-pointer flex items-center gap-1 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105">
+            <button className="bg-sky-500 hover:bg-sky-600 px-5 py-2 text-xs rounded-full text-white font-semibold cursor-pointer flex items-center gap-1 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105">
               Request Demo{" "}
               <span>
                 <Guitar className="w-3 h-3" />
