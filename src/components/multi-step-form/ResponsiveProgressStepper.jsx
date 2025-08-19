@@ -46,7 +46,7 @@ const ResponsiveProgressStepper = ({
                 `}
                 >
                   {isCompleted ? (
-                    <Check className="w-6 h-6" />
+                    <Check className="w-5 h-5" />
                   ) : (
                     <span className="text-lg font-bold">{index + 1}</span>
                   )}
@@ -148,7 +148,7 @@ const ResponsiveProgressStepper = ({
                       : "bg-gray-300 border-gray-200 text-white"
                   }`}
                 >
-                  {isCompleted ? <Check className="w-6 h-6" /> : index + 1}
+                  {isCompleted ? <Check className="w-5 h-5" /> : index + 1}
                 </div>
 
                 <div className="ml-4">
