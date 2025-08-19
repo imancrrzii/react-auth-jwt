@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/landing/Navbar";
 import Footer from "../components/landing/Footer";
-import Description from "../about/Description";
 import { IoChevronUp } from "react-icons/io5";
 import Content from "../about/Content";
 import Platform from "../about/Platform";
@@ -9,6 +8,7 @@ import usePageTitle from "../hooks/usePageTitle";
 import Hero from "../components/games/Hero";
 import Feature from "../components/games/Feature";
 import Excellence from "../components/games/Excellence";
+import Description from "../components/games/Description";
 
 const LandingGames = () => {
   usePageTitle("Latihan SIFina | Tentang");
@@ -40,6 +40,7 @@ const LandingGames = () => {
       <Hero />
       <Feature />
       <Excellence />
+      <Description />
       <Footer />
 
       {showButton && (
