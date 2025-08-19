@@ -3,13 +3,10 @@ import gambar1 from "../../assets/images/games/12.png";
 import gambar2 from "../../assets/images/games/13.png";
 import gambar3 from "../../assets/images/games/14.png";
 import gambar4 from "../../assets/images/games/15.png";
-// import gambar5 from "../../assets/images/games/7.png";
-// import gambar6 from "../../assets/images/games/5.png";
 
 const Hero = () => {
   return (
     <div className="px-8 sm:px-4 py-12 bg-white relative overflow-hidden">
-      {/* Background Layer - dengan z-index rendah */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <img
           src={gambar1}
@@ -32,24 +29,12 @@ const Hero = () => {
           alt=""
           className="absolute bottom-20 left-4 sm:bottom-30 sm:left-35 w-18 h-18 lg:w-24 lg:h-24 opacity-80"
         />
-        {/* <img
-          src={gambar5}
-          alt=""
-          className="absolute -bottom-10 left-35 w-18 h-18 opacity-80"
-        />
-        <img
-          src={gambar6}
-          alt=""
-          className="absolute -bottom-10 right-35 w-18 h-18 opacity-80"
-        /> */}
-        {/* Blur backgrounds dengan opacity lebih rendah */}
         <div className="absolute top-10 left-5 w-128 h-60 bg-blue-300 rounded-full blur-3xl opacity-30"></div>
         <div className="absolute top-10 right-5 w-128 h-60 bg-yellow-200 rounded-full blur-3xl opacity-30"></div>
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-purple-200 rounded-full blur-3xl opacity-25"></div>
       </div>
 
       <div className="relative z-10 flex flex-col gap-4 justify-center items-center">
-        {/* Badge dengan text shadow untuk kontras */}
         <div className="bg-white px-3 py-1 border-1 border-gray-100 shadow-xs rounded-full flex gap-1 items-center relative z-20">
           <small className="text-xs text-sky-600 font-bold drop-shadow-xs">
             Intelligent Hiring Process Automation
@@ -59,7 +44,6 @@ const Hero = () => {
           </span>
         </div>
 
-        {/* Title dengan text shadow yang kuat */}
         <div className="relative z-20">
           <h1
             className="text-3xl lg:text-5xl font-black max-w-4xl text-center lg:leading-tight text-gray-900 drop-shadow-lg"
@@ -72,7 +56,6 @@ const Hero = () => {
           </h1>
         </div>
 
-        {/* Description dengan text shadow */}
         <div className="relative z-20">
           <p
             className="text-sm font-medium max-w-sm text-center text-gray-800 drop-shadow-md"
@@ -86,9 +69,7 @@ const Hero = () => {
           </p>
         </div>
 
-        {/* Avatar section */}
         <div className="relative z-20 flex items-center">
-          {/* Avatar Stack */}
           <div className="flex -space-x-2">
             <img
               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
@@ -119,7 +100,6 @@ const Hero = () => {
           </span>
         </div>
 
-        {/* Button section */}
         <div className="relative z-20 flex flex-col md:flex-row gap-2 mt-2">
           <div className="flex">
             <button className="bg-blue-500 hover:bg-blue-600 px-5 py-2 text-xs rounded-full text-white font-semibold cursor-pointer flex items-center gap-1 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105">
