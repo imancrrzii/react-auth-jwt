@@ -9,6 +9,7 @@ import Hero from "../components/games/Hero";
 import Feature from "../components/games/Feature";
 import Excellence from "../components/games/Excellence";
 import Description from "../components/games/Description";
+import TryOut from "../components/games/TryOut";
 
 const LandingGames = () => {
   usePageTitle("Latihan SIFina | Tentang");
@@ -41,6 +42,7 @@ const LandingGames = () => {
       <Feature />
       <Excellence />
       <Description />
+      <TryOut />
       <Footer />
 
       {showButton && (
