@@ -20,6 +20,7 @@ import DeleteWithConfirm from "../components/user/DeleteWithConfirm";
 import usePageTitle from "../hooks/usePageTitle";
 import ErrorDisplay from "../components/user/ErrorDisplay";
 import LoadingDisplay from "../components/user/LoadingDisplay";
+import axios from 'axios';
 
 const User = () => {
   usePageTitle("Latihan SIFina | Pengguna");
@@ -37,9 +38,8 @@ const User = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await fetch("https://dummyjson.com/users?limit=119");
-      const data = await response.json();
-      setUsers(data.users);
+      const response = await axios.get("https://dummyjson.com/users?limit=119");
+      setUsers(response.data.users);
       setError(null);
     } catch (err) {
       setError("Gagal mengambil data pengguna");
@@ -83,7 +83,7 @@ const User = () => {
       window.removeEventListener("online", handleOnline);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [error, loading]); 
+  }, [error, loading]);
 
   const handleSort = (key) => {
     let direction = "asc";
@@ -221,14 +221,13 @@ const User = () => {
               setSearchTerm(e.target.value);
               setCurrentPage(1);
             }}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
       </div>
 
       {/* Card Container */}
-      <div className="bg-white rounded-lg shadow-sm border">
-        {/* Controls */}
+      <div className="bg-white rounded-lg shadow-xs border">
         <div className="p-4 border-b bg-gray-50 rounded-t-lg">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div className="flex items-center gap-2">
@@ -251,7 +250,6 @@ const User = () => {
           </div>
         </div>
 
-        {/* Table Container with Horizontal Scroll */}
         <div className="w-full overflow-x-auto">
           <table className="min-w-[1500px] table-fixed">
             <thead className="bg-gray-50 border-b">

@@ -3,7 +3,6 @@ import Button from "../form/Button";
 import logo from "../../assets/images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import useUserStore from "../../store/useUserStore";
 import { toast } from "react-toastify";
 import { encryptData } from "../../utils/tokenCrypto";
@@ -64,7 +63,6 @@ const LoginForm = () => {
       if (err.response) {
         const { respCode, respMessage } = err.response.data;
 
-        // 🟡 Mapping error ke field tertentu
         if (respCode === "0800") {
           setError("no_hp", {
             type: "manual",
@@ -143,7 +141,6 @@ const LoginForm = () => {
                 onClick={togglePasswordVisibility}
                 className="cursor-pointer absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 mt-2"
               >
-                {/* Ganti dengan React Icons */}
                 {showPassword ? (
                   <FaEyeSlash className="h-5 w-5 text-gray-400" />
                 ) : (

@@ -75,7 +75,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
 
   return (
     <div
-      className={`fixed top-0 left-0 h-screen bg-white text-black transition-all duration-300 ${
+      className={`fixed top-0 left-0 h-screen bg-white text-black transition-all duration-300 border-r-1 border-gray-200 shadow-xs ${
         collapsed ? "w-20" : "w-64"
       }`}
     >

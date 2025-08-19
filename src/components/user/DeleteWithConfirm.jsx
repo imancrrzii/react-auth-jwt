@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 export default function DeleteWithConfirm({ id, name, onDeleted, onClose }) {
   const [loading, setLoading] = useState(false);
@@ -8,10 +9,8 @@ export default function DeleteWithConfirm({ id, name, onDeleted, onClose }) {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`https://dummyjson.com/users/${id}`, {
-        method: "DELETE",
-      });
-      const data = await res.json();
+      const response = await axios.delete(`https://dummyjson.com/users/${id}`);
+      const data = response.data;
 
       if (data?.isDeleted) {
         toast.success(
