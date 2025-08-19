@@ -11,12 +11,11 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import HorizontalProgress from "./HorizontalProgress";
+import ResponsiveProgressStepper from "./ResponsiveProgressStepper";
 import Step1 from "./steps/Step1";
 import Step2 from "./steps/Step2";
 import Step3 from "./steps/Step3";
 import Step4 from "./steps/Step4";
-import VerticalProgress from "./VerticalProgress";
 
 const stepComponents = [Step1, Step2, Step3, Step4];
 const LOCAL_KEY = "multi_step_form_data";
@@ -123,26 +122,15 @@ export default function MultiStepForm({
           <div className="fixed inset-0 backdrop-brightness-50 z-40" />
         )}
 
-        <div className="md:hidden mb-4">
-          <div className="block">
-            <HorizontalProgress
-              currentStep={currentStep}
-              totalSteps={totalSteps}
-              isFormSubmitted={isFormSubmitted}
-              steps={stepsConfig}
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-4">
-          <div className="hidden md:block">
-            <VerticalProgress
-              steps={stepsConfig}
-              progresses={stepsConfig}
-              currentStep={currentStep}
-              isFormSubmitted={isFormSubmitted}
-            />
-          </div>
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* Gunakan komponen ResponsiveProgressStepper yang baru */}
+          <ResponsiveProgressStepper
+            currentStep={currentStep}
+            totalSteps={totalSteps}
+            isFormSubmitted={isFormSubmitted}
+            steps={stepsConfig}
+            title="Buat Akun"
+          />
 
           <div className="bg-white border border-gray-200 shadow-sm rounded-md px-6 py-8 flex-1">
             <FormProvider {...methods}>
@@ -154,8 +142,6 @@ export default function MultiStepForm({
                   }
                 }}
               >
-                {/* Remove mobile progress from here since it's now outside */}
-
                 <div className="min-h-[500px] transition-all duration-600">
                   <CurrentStep />
                 </div>
@@ -219,7 +205,7 @@ export default function MultiStepForm({
         </div>
       </div>
 
-      <ToastContainer
+      <ToastContainer 
         position="top-center"
         autoClose={6000}
         hideProgressBar={false}
