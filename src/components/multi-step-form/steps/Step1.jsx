@@ -27,7 +27,7 @@ const Step1 = () => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 ">
       {/* Select Institusi */}
       <Select
         id="pilihanInstitusi"
@@ -56,7 +56,7 @@ const Step1 = () => {
           },
         })}
         error={errors.pilihanInstitusi}
-        disabled={showCustomFields} 
+        disabled={showCustomFields}
       />
 
       {/* Checkbox */}
@@ -66,7 +66,7 @@ const Step1 = () => {
         labelText="Tidak ada data yang Anda inginkan?"
         register={register("noInstitution")}
         onChange={handleCheckboxChange}
-        disabled={!!pilihanInstitusi} 
+        disabled={!!pilihanInstitusi}
       />
 
       {showCustomFields && (
@@ -99,6 +99,50 @@ const Step1 = () => {
           required: "Nama depan wajib diisi",
         })}
         error={errors.firstName}
+      />
+
+      <Input2
+        id="lastName"
+        name="lastName"
+        labelText="Nama Belakang"
+        placeholder="Masukkan nama belakang"
+        register={register("lastName", {
+          required: "Nama belakang wajib diisi",
+        })}
+        error={errors.lastName}
+      />
+
+      <Input2
+        id="lastName"
+        name="lastName"
+        labelText="Nama Belakang"
+        placeholder="Masukkan nama belakang"
+        register={register("lastName", {
+          required: "Nama belakang wajib diisi",
+        })}
+        error={errors.lastName}
+      />
+
+      <Input2
+        id="lastName"
+        name="lastName"
+        labelText="Nama Belakang"
+        placeholder="Masukkan nama belakang"
+        register={register("lastName", {
+          required: "Nama belakang wajib diisi",
+        })}
+        error={errors.lastName}
+      />
+
+      <Input2
+        id="lastName"
+        name="lastName"
+        labelText="Nama Belakang"
+        placeholder="Masukkan nama belakang"
+        register={register("lastName", {
+          required: "Nama belakang wajib diisi",
+        })}
+        error={errors.lastName}
       />
 
       <Input2
