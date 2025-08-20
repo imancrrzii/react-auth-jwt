@@ -8,10 +8,16 @@ const TryOut = () => {
           <div className="bg-sky-100 text-sky-600 py-2 px-3 w-fit rounded-full uppercase tracking-widest font-semibold text-xs items-center">
             👌 Don't miss out
           </div>
-          <div className="text-2xl lg:text-4xl font-bold">
+          <div
+            className="text-xl lg:text-3xl font-black max-w-lg text-start lg:leading-tight text-gray-900 drop-shadow-lg"
+            style={{
+              textShadow:
+                "2px 2px 4px rgba(255,255,255,0.8), -1px -1px 2px rgba(255,255,255,0.8)",
+            }}
+          >
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </div>
-          <div className="text-sm lg:w-1/4 text-gray-700 text-shadow-gray-600 font-medium">
+          <div className="text-sm lg:w-1/2 text-gray-700 text-shadow-gray-600 font-medium">
             Lorem ipsum dolor sit amet consectetur adipisicing
           </div>
           <button className="bg-sky-500 text-white w-fit px-6 py-2 rounded-full font-medium mt-2">
@@ -20,7 +26,7 @@ const TryOut = () => {
         </div>
 
         <div className="w-full lg:w-1/2 flex justify-center items-center">
-          <img src={image1} alt="" className="w-96 h-96" />
+          <img src={image1} alt="" className="w-64 h-64 lg:w-96 lg:h-96" />
         </div>
       </div>
     </div>
