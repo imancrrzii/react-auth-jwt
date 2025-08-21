@@ -52,7 +52,7 @@ const Pricing = () => {
               "2px 2px 4px rgba(255,255,255,0.8), -1px -1px 2px rgba(255,255,255,0.8)",
           }}
         >
-          Flexible Pricing Plans for Every Team
+          Flexible Pricing Plans for Every Teams
         </h1>
         <div className="flex flex-col md:flex-row justify-center items-center text-start">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full mt-8">
