@@ -7,9 +7,9 @@ const HorizontalProgress = ({
   steps,
 }) => {
   const defaultSteps = [
-    { title: "Langkah 1", description: "Data Institusi" },
-    { title: "Langkah 2", description: "Data User" },
-    { title: "Langkah 3", description: "Data Opsional" },
+    { title: "Langkah 1", description: "Data Induk" },
+    { title: "Langkah 2", description: "Data Institusi" },
+    { title: "Langkah 3", description: "Data Pengguna" },
     { title: "Selesai", description: "Berhasil Mengisi Data" },
   ];
 
