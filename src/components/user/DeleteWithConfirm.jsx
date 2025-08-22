@@ -15,7 +15,7 @@ export default function DeleteWithConfirm({ id, name, onDeleted, onClose }) {
       if (data?.isDeleted) {
         toast.success(
           <span>
-            Data <strong>{name}</strong> berhasil dihapus.
+            Data <strong>{name}</strong> berhasil dihapus
           </span>
         );
         if (onDeleted) onDeleted(id);
